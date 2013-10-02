@@ -1,0 +1,13 @@
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.exe.config
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.exe
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.pdb
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.csprojResolveAssemblyReference.cache
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\MainWindow.baml
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\MainWindow.g.cs
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\App.g.cs
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard_MarkupCompile.cache
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.g.resources
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.Properties.Resources.resources
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.csproj.GenerateResource.Cache
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.exe
+C:\Users\Steven\Documents\GitHub\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.pdb
