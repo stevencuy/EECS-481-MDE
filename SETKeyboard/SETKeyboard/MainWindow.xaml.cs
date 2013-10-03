@@ -34,13 +34,26 @@ namespace SETKeyboard
             char c = letterKey.Content.ToString()[0];
             SETConsole.AppendText((shift) ? c.ToString() : ((char)(c + 32)).ToString());
             FocusCaret();
+
+            if (Shift.Background == Brushes.MediumSpringGreen)
+                Shift.Background = Brushes.LightGray;
+
             shift = false;
         }
 
         private void Shift_Click(object sender, RoutedEventArgs e)
         {
-            Button shiftKey = (Button)sender;
-            shift = true;
+            if (!shift)
+            {
+                Button shiftKey = (Button)sender;
+                Shift.Background = Brushes.MediumSpringGreen;
+                shift = true;
+            }
+            else
+            {
+                Shift.Background = Brushes.LightGray;
+                shift = false;
+            }
         }
 
         private void Backspace_Click(object sender, RoutedEventArgs e)
@@ -55,6 +68,8 @@ namespace SETKeyboard
             Button spaceKey = (Button)sender;
             SETConsole.AppendText(" ");
             FocusCaret();
+            if (Shift.Background == Brushes.MediumSpringGreen)
+                Shift.Background = Brushes.LightGray;
             shift = false;
         }
 

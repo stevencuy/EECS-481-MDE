@@ -37,7 +37,7 @@
                     <Button Content="N" HorizontalAlignment="Left" Margin="650,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
                     <Button Content="M" HorizontalAlignment="Left" Margin="750,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
 
-                    <Button Content="Shift" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Shift_Click" />
+                    <Button x:Name="Shift" Content="Shift" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Shift_Click" />
                     <Button Content="Back" HorizontalAlignment="Left" Margin="850,100,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Backspace_Click" />
                     <Button Content="Space" HorizontalAlignment="Left" Margin="250,150,0,0" VerticalAlignment="Top" Width="500" Height="50" Click="Space_Click"/>
                 </Grid>
