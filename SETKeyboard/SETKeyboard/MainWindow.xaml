@@ -4,7 +4,7 @@
         Title="SET Keyboard" Width="1030" Height="600">
 
     <StackPanel>
-        <RichTextBox x:Name="SETConsole" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Light" Height="240" BorderThickness="5" Background="#FFD8F9E9" Cursor="No" />
+        <RichTextBox x:Name="SETConsole" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Light" Height="240" BorderThickness="5" Background="#FFD8F9E9" Cursor="No" Block.LineHeight="6" VerticalScrollBarVisibility="Visible" />
         <TabControl DockPanel.Dock="Top" FontFamily="Segoe UI Light" FontSize="24">
             <TabItem Header="QWERTY" Width="120" Height="50">
                 <Grid >
@@ -47,5 +47,5 @@
             </TabItem>
         </TabControl>
     </StackPanel>
-    
+
 </Window>
