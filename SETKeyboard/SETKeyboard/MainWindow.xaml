@@ -8,38 +8,6 @@
         <TabControl DockPanel.Dock="Top" FontFamily="Segoe UI Light" FontSize="24">
             <TabItem Header="QWERTY" Width="120" Height="50">
                 <Grid x:Name="QWERTYGrid">
-                   <!--<Button Content="Q" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="W" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="E" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="R" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="T" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="Y" HorizontalAlignment="Left" Margin="500,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="U" HorizontalAlignment="Left" Margin="600,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="I" HorizontalAlignment="Left" Margin="700,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="O" HorizontalAlignment="Left" Margin="800,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="P" HorizontalAlignment="Left" Margin="900,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-
-                    <Button Content="A" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="S" HorizontalAlignment="Left" Margin="150,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="D" HorizontalAlignment="Left" Margin="250,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="F" HorizontalAlignment="Left" Margin="350,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="G" HorizontalAlignment="Left" Margin="450,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="H" HorizontalAlignment="Left" Margin="550,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="J" HorizontalAlignment="Left" Margin="650,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="K" HorizontalAlignment="Left" Margin="750,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="L" HorizontalAlignment="Left" Margin="850,50,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-
-                    <Button Content="Z" HorizontalAlignment="Left" Margin="150,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="X" HorizontalAlignment="Left" Margin="250,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="C" HorizontalAlignment="Left" Margin="350,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="V" HorizontalAlignment="Left" Margin="450,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="B" HorizontalAlignment="Left" Margin="550,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="N" HorizontalAlignment="Left" Margin="650,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-                    <Button Content="M" HorizontalAlignment="Left" Margin="750,100,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
-
-                    <Button x:Name="Shift" Content="Shift" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Shift_Click" />
-                    <Button Content="Back" HorizontalAlignment="Left" Margin="850,100,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Backspace_Click" />
-                    <Button Content="Space" HorizontalAlignment="Left" Margin="250,150,0,0" VerticalAlignment="Top" Width="500" Height="50" Click="Space_Click"/>-->
                 </Grid>
             </TabItem>
             <TabItem Header="T9" Width="120" Height="50" FontSize="24">
