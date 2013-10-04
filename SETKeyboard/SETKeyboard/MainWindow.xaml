@@ -7,8 +7,8 @@
         <RichTextBox x:Name="SETConsole" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Light" Height="240" BorderThickness="5" Background="#FFD8F9E9" Cursor="No" />
         <TabControl DockPanel.Dock="Top" FontFamily="Segoe UI Light" FontSize="24">
             <TabItem Header="QWERTY" Width="120" Height="50">
-                <Grid >
-                    <Button Content="Q" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
+                <Grid x:Name="QWERTYGrid">
+                   <!--<Button Content="Q" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
                     <Button Content="W" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
                     <Button Content="E" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
                     <Button Content="R" HorizontalAlignment="Left" Margin="300,0,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="KeyHit_Click" />
@@ -39,7 +39,7 @@
 
                     <Button x:Name="Shift" Content="Shift" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Shift_Click" />
                     <Button Content="Back" HorizontalAlignment="Left" Margin="850,100,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Backspace_Click" />
-                    <Button Content="Space" HorizontalAlignment="Left" Margin="250,150,0,0" VerticalAlignment="Top" Width="500" Height="50" Click="Space_Click"/>
+                    <Button Content="Space" HorizontalAlignment="Left" Margin="250,150,0,0" VerticalAlignment="Top" Width="500" Height="50" Click="Space_Click"/>-->
                 </Grid>
             </TabItem>
             <TabItem Header="T9" Width="120" Height="50" FontSize="24">
