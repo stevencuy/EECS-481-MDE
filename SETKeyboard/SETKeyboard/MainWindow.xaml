@@ -1,11 +1,12 @@
 ﻿<Window x:Class="SETKeyboard.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:KeyButton"
         Title="SET Keyboard" Width="1030" Height="600">
 
     <StackPanel>
         <RichTextBox x:Name="SETConsole" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Light" Height="240" BorderThickness="5" Background="#FFD8F9E9" Cursor="No" />
-        <TabControl DockPanel.Dock="Top" FontFamily="Segoe UI Light" FontSize="24">
+        <TabControl DockPanel.Dock="Top">
             <TabItem Header="QWERTY" Width="120" Height="50">
                 <Grid x:Name="QWERTYGrid">
                 </Grid>

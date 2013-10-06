@@ -15,31 +15,6 @@ using System.Windows.Shapes;
 
 namespace SETKeyboard
 {
-    //ButtonKey
-    public class KeyButton : Button
-    {
-        private string lower;
-        private string upper;
-
-        public KeyButton(string upper_, string lower_, int width_, int height_, int margin_l, int margin_t, int margin_r, int margin_b) : base()
-        {
-            lower = lower_;
-            upper = upper_;
-            Content = lower;
-            Margin = new Thickness(margin_l, margin_t, margin_r, margin_b);
-            VerticalAlignment = VerticalAlignment.Top;
-            HorizontalAlignment = HorizontalAlignment.Left;
-            Width = width_;
-            Height = height_;
-        }
-
-        public void toggle()
-        {
-            Content = (Content.ToString() == lower) ? upper : lower;
-        }
-    }
-
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -47,7 +22,7 @@ namespace SETKeyboard
     {
 
         private bool shift = false;
-        private List<KeyButton> keys = new List<KeyButton>();
+        private List<KeyButton.KeyButton> keys = new List<KeyButton.KeyButton>();
 
         public MainWindow()
         {
@@ -108,27 +83,27 @@ namespace SETKeyboard
                 {
                     string lower = keyStrings[index];
                     string upper = lower.ToUpper();
-                    KeyButton b;
+                    KeyButton.KeyButton b;
                     if (row != 2)
                     {
-                        b = new KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * col, row * 50, 0, 0);
+                        b = new KeyButton.KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * col, row * 50, 0, 0);
                         b.Click += new RoutedEventHandler(KeyHit_Click);
                     }
                     else
                     {
                         if (lower == "shift")
                         {
-                            b = new KeyButton(upper, lower, button_width + 50, button_height, 0, row * 50, 0, 0);
+                            b = new KeyButton.KeyButton(upper, lower, button_width + 50, button_height, 0, row * 50, 0, 0);
                             b.Click += new RoutedEventHandler(Shift_Click);
                         }
                         else if (lower == "back")
                         {
-                            b = new KeyButton(upper, lower, button_width + 50, button_height, margins_l[row] + margin_inc * (col - 1), row * 50, 0, 0);
+                            b = new KeyButton.KeyButton(upper, lower, button_width + 50, button_height, margins_l[row] + margin_inc * (col - 1), row * 50, 0, 0);
                             b.Click += new RoutedEventHandler(Backspace_Click);
                         }
                         else
                         {
-                            b = new KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * (col - 1), row * 50, 0, 0);
+                            b = new KeyButton.KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * (col - 1), row * 50, 0, 0);
                             b.Click += new RoutedEventHandler(KeyHit_Click);
                         }
                     }
@@ -143,7 +118,7 @@ namespace SETKeyboard
             }
 
             //add spacebar
-            KeyButton spacebar = new KeyButton(keyStrings[28].ToUpper(), keyStrings[28], 500, 50, 250, 150, 0, 0);
+            KeyButton.KeyButton spacebar = new KeyButton.KeyButton(keyStrings[28].ToUpper(), keyStrings[28], 500, 50, 250, 150, 0, 0);
             keys.Add(spacebar);
             QWERTYGrid.Children.Add(spacebar);
             spacebar.Click += new RoutedEventHandler(Space_Click);
@@ -157,7 +132,7 @@ namespace SETKeyboard
 
         private void KeyHit_Click(object sender, RoutedEventArgs e)
           {
-              KeyButton letterKey = (KeyButton)sender;
+              KeyButton.KeyButton letterKey = (KeyButton.KeyButton)sender;
               SETConsole.AppendText(letterKey.Content.ToString());
               FocusCaret();
               if (keys[19].Background == Brushes.MediumSpringGreen)
