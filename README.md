@@ -12,6 +12,13 @@ Hey Guys,
   
   https://docs.google.com/a/umich.edu/document/d/1s0Gt9UpDhGptvGQUZD4SYGh6fdrN99hWGB10K05-URY/edit
   
+  NEW! 
+  
+  The SRS/Requirements Document is below:
+  
+  https://docs.google.com/document/d/1UqMHXJ1Cr9GT0eIxhG6esqSMAWdPdQ-KmVwJQNxWu2Y/edit
+  
+  
   Pivotal Tracker is below:
   
   https://www.pivotaltracker.com/s/projects/922636
