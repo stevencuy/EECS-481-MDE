@@ -14,7 +14,11 @@ Hey Guys,
   
   NEW! 
   
-  The SRS/Requirements Document is below:
+  The 481 Requirements Document is below:
+  
+  https://docs.google.com/document/d/10pbeoDjgwd20NASLKMPeP-4x6vrpqv_hjtQhfIQ_DEE/edit?usp=sharing
+  
+  The TCHCLM SRSRequirements Document is below:
   
   https://docs.google.com/document/d/1UqMHXJ1Cr9GT0eIxhG6esqSMAWdPdQ-KmVwJQNxWu2Y/edit
   
