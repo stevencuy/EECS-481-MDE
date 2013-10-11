@@ -14,6 +14,10 @@ Hey Guys,
   
   NEW! 
   
+  UML Use Case/Sequence diagrams is below:
+  
+  https://docs.google.com/document/d/106D7GIdu3mqshktXRDC565qeQVWgNYHcejHTSOp9iuQ/edit?usp=sharing
+  
   The 481 Requirements Document is below:
   
   https://docs.google.com/document/d/10pbeoDjgwd20NASLKMPeP-4x6vrpqv_hjtQhfIQ_DEE/edit?usp=sharing
