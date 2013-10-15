@@ -6,7 +6,7 @@
 #include <queue>
 #include <stdio.h>
 
-#include "constants.h"
+#include "globals.h"
 
 bool rectInImage(cv::Rect rect, cv::Mat image) {
   return rect.x > 0 && rect.y > 0 && rect.x+rect.width < image.cols &&
