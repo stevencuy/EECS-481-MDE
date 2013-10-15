@@ -7,9 +7,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "constants.h"
-#include "findEyeCenter.h"
-//#include "findEyeCorner.h"
+#include "globals.h"
+#include "pupil.h"
 
 using namespace std;
 /** Constants **/
