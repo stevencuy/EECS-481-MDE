@@ -1,0 +1,14 @@
+	The SET keyboard application is directed towards people with disabilities that inhibit their ability to physically and verbally
+communicate. Users use the application's eye tracking capabilities to type characters via the QWERTY or T9 keyboard. The application
+as a whole, is organized by a tab controller. This enables keyboard types, output options, and stored sentences to live within
+separate tabs within the application providing the user with an intuitive user interface. More details regarding the semantics of
+eye tracking input can be found in the rquirments definition section of the project scope.
+	When a user launches the application, they are met with a GUI consisting of a console, a QWERTY keyboard, and a tab controller. The console
+contains buttons to allow for scrolling, in the event that there was a text overflow. Furthermore it has a button to clear its text. The QWERTY keyboard
+is one of two keyboards the user can interact with, both accessable through a tab selection bar. An output tab exists as well, providing the ability 
+to output what is on the console via text to file, text to speech, or text to clipboard. Other tabs can be created or deleted by the user. These tabs
+are reffered to as "custom tabs," and contain blocks of user-stored sentences that can be used at a later time. These stored sentences can be added or
+deleted at the users will.
+	Text input involves holding focuss on a specific key for a certain amount of time. The selected key character is then appended to the text in
+the console. Word completion then displays a list of predictions below the console, allowing the user to select a completed word. When a word is completed, 
+predictions for the following word will appear below the console. Again, the user is able to select a word to be appended to the text in the console. 
