@@ -27,10 +27,19 @@ namespace SETKeyboard
         public MainWindow()
         {
             InitializeComponent();
-            InitializeQWERTY();
+            Loaded += delegate
+            {
+                InitializeQWERTY(bPanel.ActualHeight, bPanel.ActualWidth);
+            };
         }
 
-        private void InitializeQWERTY()
+        private void sizeChanged(object sender, RoutedEventArgs e)
+        {
+            QWERTYGrid.Children.Clear();
+            InitializeQWERTY(bPanel.ActualHeight, bPanel.ActualWidth);
+        }
+
+        private void InitializeQWERTY(double height, double width)
         {
             string[] keyStrings = new string[29];
             //ROW 0
@@ -69,12 +78,12 @@ namespace SETKeyboard
 
             const int row_size = 3;
             int col_size = 10;
-            const int button_width = 100, button_height = 50;
-            const int margin_inc = 100;
+            int button_width = (int)(width / 10) - 1, button_height = (int)(height / 4) - 15;
+            int margin_inc = button_width;
             int[] margins_l = new int[3];
             margins_l[0] = 0;
-            margins_l[1] = 50;
-            margins_l[2] = 150;
+            margins_l[1] = button_width / 2;
+            margins_l[2] = (button_width / 2) * 3;
 
             int index = 0;
             for (int row = 0; row < row_size; ++row)
@@ -86,24 +95,24 @@ namespace SETKeyboard
                     KeyButton.KeyButton b;
                     if (row != 2)
                     {
-                        b = new KeyButton.KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * col, row * 50, 0, 0);
+                        b = new KeyButton.KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * col, row * button_height, 0, 0);
                         b.Click += new RoutedEventHandler(KeyHit_Click);
                     }
                     else
                     {
                         if (lower == "shift")
                         {
-                            b = new KeyButton.KeyButton(upper, lower, button_width + 50, button_height, 0, row * 50, 0, 0);
+                            b = new KeyButton.KeyButton(upper, lower, (button_width / 2) * 3, button_height, 0, row * button_height, 0, 0);
                             b.Click += new RoutedEventHandler(Shift_Click);
                         }
                         else if (lower == "back")
                         {
-                            b = new KeyButton.KeyButton(upper, lower, button_width + 50, button_height, margins_l[row] + margin_inc * (col - 1), row * 50, 0, 0);
+                            b = new KeyButton.KeyButton(upper, lower, (button_width / 2) * 3, button_height, margins_l[row] + margin_inc * (col - 1), row * button_height, 0, 0);
                             b.Click += new RoutedEventHandler(Backspace_Click);
                         }
                         else
                         {
-                            b = new KeyButton.KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * (col - 1), row * 50, 0, 0);
+                            b = new KeyButton.KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * (col - 1), row * button_height, 0, 0);
                             b.Click += new RoutedEventHandler(KeyHit_Click);
                         }
                     }
@@ -118,7 +127,7 @@ namespace SETKeyboard
             }
 
             //add spacebar
-            KeyButton.KeyButton spacebar = new KeyButton.KeyButton(keyStrings[28].ToUpper(), keyStrings[28], 500, 50, 250, 150, 0, 0);
+            KeyButton.KeyButton spacebar = new KeyButton.KeyButton(keyStrings[28].ToUpper(), keyStrings[28], 5 * button_width, button_height, (button_width / 2) * 5, button_height * 3, 0, 0);
             keys.Add(spacebar);
             QWERTYGrid.Children.Add(spacebar);
             spacebar.Click += new RoutedEventHandler(Space_Click);
