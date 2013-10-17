@@ -7,8 +7,9 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "globals.h"
-#include "pupil.h"
+#include "constants.h"
+#include "findEyeCenter.h"
+//#include "findEyeCorner.h"
 
 using namespace std;
 /** Constants **/
@@ -37,11 +38,12 @@ int main( int argc, const char** argv ) {
   // Load the cascades
   if( !face_cascade.load( face_cascade_name ) ){ printf("--(!)Error loading\n"); return -1; };
 
+  /*
   cv::namedWindow(main_window_name,CV_WINDOW_NORMAL);
   cv::moveWindow(main_window_name, 400, 100);
   cv::namedWindow(face_window_name,CV_WINDOW_NORMAL);
   cv::moveWindow(face_window_name, 10, 100);
-  
+  */
   /*cv::namedWindow("Right Eye",CV_WINDOW_NORMAL);
   cv::moveWindow("Right Eye", 10, 600);
   cv::namedWindow("Left Eye",CV_WINDOW_NORMAL);
@@ -73,7 +75,8 @@ int main( int argc, const char** argv ) {
         break;
       }
 
-      imshow(main_window_name,debugImage);
+      //original image
+	  imshow(main_window_name,debugImage);
 
       int c = cv::waitKey(10);
       if( (char)c == 'c' ) { break; }
@@ -110,7 +113,7 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
   // get corner regions
   cv::Rect leftRightCornerRegion(leftEyeRegion);
   leftRightCornerRegion.width -= leftPupil.x;
-  cout << leftRightCornerRegion.x << endl;
+  //cout << leftRightCornerRegion.x << endl;
   leftRightCornerRegion.x += leftPupil.x;
   leftRightCornerRegion.height /= 2;
   leftRightCornerRegion.y += leftRightCornerRegion.height / 2;
@@ -139,8 +142,12 @@ void findEyes(cv::Mat frame_gray, cv::Rect face) {
   // draw eye centers
   circle(debugFace, rightPupil, 3, 1234);
   circle(debugFace, leftPupil, 3, 1234);
+  cout << "left: " << leftPupil.x << " " << leftPupil.y << endl;
+  cout << "right: " << rightPupil.x << " " << rightPupil.y << endl;
 
+  //draw pupil_tracking
   imshow(face_window_name, faceROI);
+
 //  cv::Rect roi( cv::Point( 0, 0 ), faceROI.size());
 //  cv::Mat destinationROI = debugImage( roi );
 //  faceROI.copyTo( destinationROI );

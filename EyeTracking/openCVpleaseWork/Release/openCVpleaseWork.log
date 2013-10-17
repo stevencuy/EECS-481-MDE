@@ -1,0 +1,13 @@
+﻿Build started 10/15/2013 1:50:03 PM.
+     1>Project "C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\openCVpleaseWork\openCVpleaseWork.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\opencv\install\include\opencv /IC:\opencv\install\include /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt workplease.cpp
+         workplease.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\Release\openCVpleaseWork.exe" /NOLOGO /LIBPATH:C:\opencv\install\lib opencv_contrib246.lib opencv_core246.lib opencv_features2d246.lib opencv_flann246.lib opencv_gpu246.lib opencv_highgui246.lib opencv_imgproc246.lib opencv_legacy246.lib opencv_ml246.lib opencv_nonfree246.lib opencv_objdetect246.lib opencv_photo246.lib opencv_stitching246.lib opencv_ts246.lib opencv_videostab246.lib opencv_video246.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\Release\openCVpleaseWork.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\Release\openCVpleaseWork.lib" /MACHINE:X86 /SAFESEH Release\workplease.obj
+     1>LINK : fatal error LNK1181: cannot open input file 'opencv_contrib246.lib'
+     1>Done Building Project "C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\openCVpleaseWork\openCVpleaseWork.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:02.14
