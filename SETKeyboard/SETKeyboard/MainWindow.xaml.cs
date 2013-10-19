@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.Generic;
 
 namespace SETKeyboard
 {
@@ -27,6 +28,7 @@ namespace SETKeyboard
         public MainWindow()
         {
             InitializeComponent();
+            initializeT9();
             Loaded += delegate
             {
                 InitializeQWERTY(bPanel.ActualHeight, bPanel.ActualWidth);
@@ -195,6 +197,133 @@ namespace SETKeyboard
             caretPos = caretPos.DocumentEnd;
             SETConsole.CaretPosition = caretPos;
             SETConsole.Focus();
+        }
+
+
+        //T9 KeyBoard Actions
+        T9LetterButton lastButtonPressed;
+        String consoleText;
+        bool isLowerCase;
+        List<T9LetterButton> letterButtons;
+
+        private void initializeT9()
+        {
+            isLowerCase = true;
+            consoleText = "";
+
+            letterButtons = new List<T9LetterButton>();
+            abcButton.setLetters(new char[] { 'a', 'b', 'c' });
+            letterButtons.Add(abcButton);
+            defButton.setLetters(new char[] { 'd', 'e', 'f' });
+            letterButtons.Add(defButton);
+            ghiButton.setLetters(new char[] { 'g', 'h', 'i' });
+            letterButtons.Add(ghiButton);
+            jklButton.setLetters(new char[] { 'j', 'k', 'l' });
+            letterButtons.Add(jklButton);
+            mnoButton.setLetters(new char[] { 'm', 'n', 'o' });
+            letterButtons.Add(mnoButton);
+            pqrsButton.setLetters(new char[] { 'p', 'q', 'r', 's' });
+            letterButtons.Add(pqrsButton);
+            tuvButton.setLetters(new char[] { 't', 'u', 'v' });
+            letterButtons.Add(tuvButton);
+            wxyzButton.setLetters(new char[] { 'w', 'x', 'y', 'z' });
+            letterButtons.Add(wxyzButton);
+
+            lastButtonPressed = abcButton;
+        }
+
+        private void toUpperClick(object sender, RoutedEventArgs e)
+        {
+            toggleCase();
+        }
+
+        private void toggleCase()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                String contentText = letterButtons.ElementAt(i).Content.ToString();
+                if (isLowerCase)
+                {
+                    contentText = contentText.ToUpper();
+                }
+                else
+                {
+                    contentText = contentText.ToLower();
+                }
+                letterButtons.ElementAt(i).Content = contentText;
+            }
+            isLowerCase = !isLowerCase;
+        }
+
+        private void T9LetterClickEvent(object sender, RoutedEventArgs e)
+        {
+            T9LetterButton buttonPressed = (SETKeyboard.T9LetterButton)sender;
+            
+            char letter;
+            if (!sender.Equals(lastButtonPressed))
+            {
+                lastButtonPressed.endSelection();
+                lastButtonPressed = buttonPressed;
+                
+                letter = buttonPressed.getCurrent(isLowerCase);
+                consoleText += letter;
+            }
+            else
+            {
+                lastButtonPressed = buttonPressed;
+                letter = buttonPressed.getCurrent(isLowerCase);
+                if (consoleText == "")
+                {
+                    consoleText = letter.ToString();
+                }
+                else
+                {
+                    this.backSpaceAction();
+                    consoleText += letter;
+                }
+            }
+
+
+            this.updateConsole();
+        }
+
+        private void updateConsole()
+        {
+            //Consider using something besides a rich text field
+            SETConsole.Document.Blocks.Clear();
+            SETConsole.Document.Blocks.Add(new Paragraph(new Run(consoleText)));
+            FocusCaret();
+        }
+
+        private void backSpaceAction()
+        {
+            if ((consoleText.Length == 1) || (consoleText.Length == 0))
+            {
+                consoleText = "";
+            }
+            else
+            {
+                consoleText = consoleText.Substring(0, consoleText.Length - 1);
+            }
+        }
+
+        private void nextLetterEvent(object sender, RoutedEventArgs e)
+        {
+            lastButtonPressed.endSelection();
+            lastButtonPressed = new T9LetterButton();
+        }
+
+        private void backSpaceClick(object sender, RoutedEventArgs e)
+        {
+            this.backSpaceAction();
+            lastButtonPressed.endSelection();
+            this.updateConsole();
+        }
+
+        private void spaceClick(object sender, RoutedEventArgs e)
+        {
+            consoleText = consoleText + " ";
+            this.updateConsole();
         }
     }
 }
