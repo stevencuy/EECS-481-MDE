@@ -1,7 +1,7 @@
 After trying out multiple openCV installation guides, one of them finally worked.
 
 This guide, like the link suggests, only works for openCV version 2.4.6(latest version) 
-for VS 2010/2012 on windows 7/8 on a 32bit machine/ VS version. If you have any issues with regard to setting up
+for VS 2010/2012 on windows 7/8 on a 32bit VS version. If you have any issues with regard to setting up
 your environment for openCV or getting main.cpp to run with its dependencies, feel free to contact anyone from the 
 eye-tracking group.
 
@@ -10,3 +10,6 @@ http://www.slideshare.net/helloansuman/how-to-nstall-opencv-246-using-visual-stu
 
 Once you have set everything up and are ready to build the code, 
 copy ../opencv/data/haarcascades/haarcascade_frontalface_alt over to main.cpp's directory.
+
+Read this research paper if you're on eyetracking:
+http://www.inb.uni-luebeck.de/publikationen/pdfs/TiBa11b.pdf 
