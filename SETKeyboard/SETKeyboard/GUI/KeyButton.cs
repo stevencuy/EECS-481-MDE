@@ -13,9 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KeyButton
+namespace SETKeyboard.GUI
 {
-    //ButtonKey
     public class KeyButton : Button
     {
         private string lower;

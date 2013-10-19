@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Release\
 SETKeyboard
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\App.xaml
 11151548125
 
-91873592870
+132043013938
 12-1401562060
 MainWindow.xaml;
 
-False
+True
 
