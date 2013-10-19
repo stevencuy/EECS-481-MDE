@@ -108,7 +108,6 @@ namespace SETKeyboard.GUI
                 }
             }
 
-
             this.updateConsole();
         }
 

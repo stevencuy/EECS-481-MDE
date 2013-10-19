@@ -136,7 +136,6 @@ namespace SETKeyboard.GUI
         {
             if (!shift)
             {
-                //KeyButton shiftKey = (KeyButton)sender;
                 keys[19].Background = Brushes.MediumSpringGreen;
                 shift = true;
                 toggleKeyButtons();
@@ -152,14 +151,12 @@ namespace SETKeyboard.GUI
 
         private void Backspace_Click(object sender, RoutedEventArgs e)
         {
-            //Button backKey = (Button)sender;
             window.SETConsole.Undo();
             window.FocusCaret();
         }
 
         private void Space_Click(object sender, RoutedEventArgs e)
         {
-            //KeyButton spaceKey = (KeyButton)sender;
             window.SETConsole.AppendText(" ");
             window.FocusCaret();
             if (keys[19].Background == Brushes.MediumSpringGreen)

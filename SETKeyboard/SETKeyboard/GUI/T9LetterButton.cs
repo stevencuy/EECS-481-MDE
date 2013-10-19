@@ -63,7 +63,6 @@ namespace SETKeyboard.GUI
             {
                 return upperCase[tmp];
             }
-
         }
 
         //Ends the current selection for a letter. Sets index back to zero.
