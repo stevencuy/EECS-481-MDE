@@ -34,11 +34,8 @@ namespace SETKeyboard
 
         private void sizeChanged(object sender, RoutedEventArgs e)
         {
-            if (qwerty != null)
-            {
-                QWERTYGrid.Children.Clear();
-                qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
-            }
+            QWERTYGrid.Children.Clear();
+            qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
         }
           
         public void FocusCaret()
