@@ -5,7 +5,7 @@
         Title="SET Keyboard" Width="1030" Height="600" MinWidth="1030" MinHeight="600">
     
     <DockPanel>
-        <RichTextBox x:Name="SETConsole" FontSize="36" FontFamily="Calibri" 
+        <RichTextBox x:Name="SETConsole" FontSize="40" FontFamily="Calibri" 
                      DockPanel.Dock="Top" Height="160"
                      BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" />
         

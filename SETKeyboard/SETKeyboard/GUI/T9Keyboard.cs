@@ -55,14 +55,17 @@ namespace SETKeyboard.GUI
             window.SpaceButton.Click += new RoutedEventHandler(spaceClick);
             window.PeriodButton.Click += new RoutedEventHandler(periodClick);
 
-            lastButtonPressed = window.abcButton;
+            lastButtonPressed = new T9LetterButton();
         }
+
+        bool justShifted = false;
 
         private void toUpperClick(object sender, RoutedEventArgs e)
         {
             if (isLowerCase)
             {
                 toUpperCase();
+                justShifted = true;
             }
             else
             {
@@ -92,28 +95,33 @@ namespace SETKeyboard.GUI
             }
         }
 
+
+
         private void T9LetterClickEvent(object sender, RoutedEventArgs e)
         {
             consoleText = window.getConsoleText();
+
+            int consoleTextSize = consoleText.Length;
+
+
             T9LetterButton buttonPressed = (SETKeyboard.GUI.T9LetterButton)sender;
 
-            char letter;
-            if (!sender.Equals(lastButtonPressed))
+            if (!lastButtonPressed.Equals(buttonPressed))
             {
                 lastButtonPressed.endSelection();
-                lastButtonPressed = buttonPressed;
-                letter = buttonPressed.getCurrent(isLowerCase);
-                consoleText += letter;
-
-                if (isLowerCase == false)
+                if (justShifted == true)
+                {
+                    justShifted = false;
+                }
+                else if(!isLowerCase)
                 {
                     toLowerCase();
                 }
             }
-            else
-            {
-                lastButtonPressed = buttonPressed;
-                letter = buttonPressed.getCurrent(isLowerCase);
+
+            char letter = buttonPressed.getCurrent(isLowerCase);
+
+            if(lastButtonPressed.Equals(buttonPressed)){
                 if (consoleText == "")
                 {
                     consoleText = letter.ToString();
@@ -121,12 +129,21 @@ namespace SETKeyboard.GUI
                 else
                 {
                     this.backSpaceAction();
-                    consoleText += letter;
+                    consoleText += letter;                    
                 }
             }
+            else
+            {
+                consoleText += letter;
+            }
 
+           
+            lastButtonPressed = buttonPressed;
             window.setConsoleText(consoleText);
         }
+
+
+
 
         private void backSpaceAction()
         {
@@ -170,6 +187,7 @@ namespace SETKeyboard.GUI
             consoleText = window.getConsoleText();
             consoleText = consoleText + ". ";
             window.setConsoleText(consoleText);
+            justShifted = true;
             toUpperCase();
         }
 

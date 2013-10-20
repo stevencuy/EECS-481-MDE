@@ -21,14 +21,12 @@ namespace SETKeyboard.GUI
         private char[] upperCase;
 
         private int numLetters;
-        private int index;
-        private bool cycling;
+        public int index;
 
         //Generates set of upper and lower case characters based on input. Assumes letter input.
         public T9LetterButton()
         {
             this.index = 0;
-            this.cycling = false;
         }
 
         public void setLetters(char[] letterSet)
@@ -47,7 +45,6 @@ namespace SETKeyboard.GUI
         //Get current character in selection cycle.
         public char getCurrent(bool isLowerCase)
         {
-            this.cycling = true;
             int tmp = index;
             if (tmp == (numLetters-1))
             {
@@ -71,13 +68,7 @@ namespace SETKeyboard.GUI
         //Ends the current selection for a letter. Sets index back to zero.
         public void endSelection()
         {
-            this.cycling = false;
             index = 0;
-        }
-
-        public bool isCycling()
-        {
-            return this.cycling;
         }
     }
 }
