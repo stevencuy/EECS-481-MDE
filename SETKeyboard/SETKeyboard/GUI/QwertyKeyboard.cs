@@ -11,6 +11,7 @@ namespace SETKeyboard.GUI
     class QwertyKeyboard
     {
         private MainWindow window;
+        private String consoleText;
         private List<KeyButton> keys;
         private bool shift = false;
         public QwertyKeyboard(MainWindow window, double height, double width)
@@ -118,31 +119,29 @@ namespace SETKeyboard.GUI
 
         private void KeyHit_Click(object sender, RoutedEventArgs e)
         {
+            consoleText = window.getConsoleText();
             KeyButton letterKey = (KeyButton)sender;
-            window.SETConsole.AppendText(letterKey.Content.ToString());
-            window.FocusCaret();
-            if (keys[19].Background == Brushes.MediumSpringGreen)
-                keys[19].Background = Brushes.LightGray;
+
+            String letter = letterKey.Content.ToString();
+            consoleText += letter;
+            window.setConsoleText(consoleText);
+
             if (shift)
             {
                 shift = false;
                 toggleKeyButtons();
             }
-            window.FocusCaret();
-
         }
 
         private void Shift_Click(object sender, RoutedEventArgs e)
         {
             if (!shift)
             {
-                keys[19].Background = Brushes.MediumSpringGreen;
                 shift = true;
                 toggleKeyButtons();
             }
             else
             {
-                keys[19].Background = Brushes.LightGray;
                 shift = false;
                 toggleKeyButtons();
             }
@@ -151,16 +150,24 @@ namespace SETKeyboard.GUI
 
         private void Backspace_Click(object sender, RoutedEventArgs e)
         {
-            window.SETConsole.Undo();
-            window.FocusCaret();
+            consoleText = window.getConsoleText();
+            if ((consoleText.Length == 1) || (consoleText.Length == 0))
+            {
+                consoleText = "";
+            }
+            else
+            {
+                //Removes last character of console text string
+                consoleText = consoleText.Substring(0, consoleText.Length - 1);
+            }
+            window.setConsoleText(consoleText);
         }
 
         private void Space_Click(object sender, RoutedEventArgs e)
         {
-            window.SETConsole.AppendText(" ");
-            window.FocusCaret();
-            if (keys[19].Background == Brushes.MediumSpringGreen)
-                keys[19].Background = Brushes.LightGray;
+            consoleText = window.getConsoleText();
+            consoleText += " ";
+            window.setConsoleText(consoleText);
         }
     }
 }

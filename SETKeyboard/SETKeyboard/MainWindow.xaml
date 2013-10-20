@@ -5,22 +5,17 @@
         Title="SET Keyboard" Width="1030" Height="600" MinWidth="1030" MinHeight="600">
     
     <DockPanel>
-        <RichTextBox x:Name="SETConsole" FontSize="24" FontFamily="Segoe UI Light" 
+        <RichTextBox x:Name="SETConsole" FontSize="36" FontFamily="Calibri" 
                      DockPanel.Dock="Top" Height="160"
-                     BorderThickness="5" Background="#FFD8F9E9" Cursor="No" Block.LineHeight="6" />
-
+                     BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" />
+        
         <TabControl x:Name="TabPanel" DockPanel.Dock="Bottom" SizeChanged="sizeChanged">
             <TabItem Header="QWERTY" Width="120" Height="50">
-                <Grid x:Name="QWERTYGrid"/>
+                <Grid x:Name="QWERTYGrid" Background="#FFEDF5FF"/>
+     
             </TabItem>
             <TabItem Header="T9" Width="120" Height="50">
-                <Grid>
-                    <Grid.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFFFE4F8" Offset="1"/>
-                            <GradientStop Color="White"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
+                <Grid Background="#FFEDF5FF">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="70*"/>
                         <RowDefinition Height="105*"/>
@@ -44,10 +39,10 @@
                     <tnine:T9LetterButton x:Name="pqrsButton" Content="pqrs" Grid.Column="1" Margin="5,5,5,5" Grid.Row="3" FontSize="24"/>
                     <tnine:T9LetterButton x:Name="tuvButton" Content="tuv" Grid.Column="2" Margin="5,5,5,5" Grid.Row="3" FontSize="24"/>
                     <tnine:T9LetterButton x:Name="wxyzButton" Content="wxyz" Grid.Column="3" Margin="5,5,5,5" Grid.Row="3" FontSize="24"/>
-                    <tnine:T9LetterButton x:Name="nextLetterButton" Content="" Grid.Column="2" Grid.Row="2" Width="128" Height="86" Margin="10,10,10,10" Opacity="0"/>
-
-                    <Button x:Name="CapsButton" Content="aA" Margin="95,5,5,5" Grid.Row="1" Grid.RowSpan="2" FontSize="24"/>
-                    <Button Content="." Margin="95,5,5,5" Grid.Row="3" FontSize="24"/>
+                    <tnine:T9LetterButton x:Name="NextLetterButton" Content="" Grid.Column="2" Grid.Row="2" Width="128" Height="86" Margin="10,10,10,10" Opacity="0"/>
+          
+                    <Button x:Name="ShiftButton" Content="aA" Margin="95,5,5,5" Grid.Row="1" Grid.RowSpan="2" FontSize="24"/>
+                    <Button x:Name="PeriodButton" Content="." Margin="95,5,5,5" Grid.Row="3" FontSize="24"/>
                     <Button x:Name="BackButton" Content="Back" Grid.Column="4" Margin="5,5,95,5" Grid.Row="1" FontSize="24"/>
                     <Button x:Name="SpaceButton" Content="Space"  Grid.Column="4" Margin="5,5,95,5" Grid.Row="2" Grid.RowSpan="2" FontSize="24"/>
                 </Grid>

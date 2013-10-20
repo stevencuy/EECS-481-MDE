@@ -21,7 +21,7 @@ namespace SETKeyboard.GUI
         {
             this.window = window;
             isLowerCase = true;
-            consoleText = "";
+            consoleText = window.getConsoleText();
 
             letterButtons = new List<T9LetterButton>();
             window.abcButton.setLetters(new char[] { 'a', 'b', 'c' });
@@ -49,39 +49,52 @@ namespace SETKeyboard.GUI
             window.wxyzButton.Click += new RoutedEventHandler(T9LetterClickEvent);
             letterButtons.Add(window.wxyzButton);
 
-            window.nextLetterButton.Click += new RoutedEventHandler(nextLetterEvent);
-            window.CapsButton.Click += new RoutedEventHandler(toUpperClick);
+            window.NextLetterButton.Click += new RoutedEventHandler(nextLetterEvent);
+            window.ShiftButton.Click += new RoutedEventHandler(toUpperClick);
             window.BackButton.Click += new RoutedEventHandler(backSpaceClick);
             window.SpaceButton.Click += new RoutedEventHandler(spaceClick);
+            window.PeriodButton.Click += new RoutedEventHandler(periodClick);
 
             lastButtonPressed = window.abcButton;
         }
 
         private void toUpperClick(object sender, RoutedEventArgs e)
         {
-            toggleCase();
+            if (isLowerCase)
+            {
+                toUpperCase();
+            }
+            else
+            {
+                toLowerCase();
+            }
         }
 
-        private void toggleCase()
+        private void toUpperCase()
         {
             for (int i = 0; i < 8; i++)
             {
                 String contentText = letterButtons.ElementAt(i).Content.ToString();
-                if (isLowerCase)
-                {
-                    contentText = contentText.ToUpper();
-                }
-                else
-                {
-                    contentText = contentText.ToLower();
-                }
+                contentText = contentText.ToUpper();
                 letterButtons.ElementAt(i).Content = contentText;
+                isLowerCase = false;
             }
-            isLowerCase = !isLowerCase;
+        }
+
+        private void toLowerCase()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                String contentText = letterButtons.ElementAt(i).Content.ToString();
+                contentText = contentText.ToLower();
+                letterButtons.ElementAt(i).Content = contentText;
+                isLowerCase = true;
+            }
         }
 
         private void T9LetterClickEvent(object sender, RoutedEventArgs e)
         {
+            consoleText = window.getConsoleText();
             T9LetterButton buttonPressed = (SETKeyboard.GUI.T9LetterButton)sender;
 
             char letter;
@@ -89,9 +102,13 @@ namespace SETKeyboard.GUI
             {
                 lastButtonPressed.endSelection();
                 lastButtonPressed = buttonPressed;
-
                 letter = buttonPressed.getCurrent(isLowerCase);
                 consoleText += letter;
+
+                if (isLowerCase == false)
+                {
+                    toLowerCase();
+                }
             }
             else
             {
@@ -108,15 +125,7 @@ namespace SETKeyboard.GUI
                 }
             }
 
-            this.updateConsole();
-        }
-
-        private void updateConsole()
-        {
-            //Consider using something besides a rich text field
-            window.SETConsole.Document.Blocks.Clear();
-            window.SETConsole.Document.Blocks.Add(new Paragraph(new Run(consoleText)));
-            window.FocusCaret();
+            window.setConsoleText(consoleText);
         }
 
         private void backSpaceAction()
@@ -135,19 +144,35 @@ namespace SETKeyboard.GUI
         {
             lastButtonPressed.endSelection();
             lastButtonPressed = new T9LetterButton();
+            window.FocusCaret();
         }
 
         private void backSpaceClick(object sender, RoutedEventArgs e)
         {
-            this.backSpaceAction();
             lastButtonPressed.endSelection();
-            this.updateConsole();
+            lastButtonPressed = new T9LetterButton();
+            consoleText = window.getConsoleText();
+            this.backSpaceAction();
+            window.setConsoleText(consoleText);
         }
 
         private void spaceClick(object sender, RoutedEventArgs e)
         {
+            consoleText = window.getConsoleText();
             consoleText = consoleText + " ";
-            this.updateConsole();
+            window.setConsoleText(consoleText);
         }
+
+        private void periodClick(object sender, RoutedEventArgs e)
+        {
+            lastButtonPressed.endSelection();
+            lastButtonPressed = new T9LetterButton();
+            consoleText = window.getConsoleText();
+            consoleText = consoleText + ". ";
+            window.setConsoleText(consoleText);
+            toUpperCase();
+        }
+
+
     }
 }

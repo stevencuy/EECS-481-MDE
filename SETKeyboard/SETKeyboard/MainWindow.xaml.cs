@@ -20,14 +20,22 @@ namespace SETKeyboard
     {
         private QwertyKeyboard qwerty;
         private T9Keyboard T9;
+        private String consoleText;
         MainWindow window;
+
         public MainWindow()
         {
             InitializeComponent();
             window = this;
+
+            this.consoleText = "";
+
+            //T9 keyboard resizes from within MainWindow xaml file
+            T9 = new T9Keyboard(window);
+
+            //Qwerty keyboard resizes through this delegate
             Loaded += delegate
             {
-                T9 = new T9Keyboard(window);
                 qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
             };
         }
@@ -37,7 +45,21 @@ namespace SETKeyboard
             QWERTYGrid.Children.Clear();
             qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
         }
-          
+
+        public String getConsoleText()
+        {
+            return this.consoleText;
+        }
+
+        public void setConsoleText(String consoleText)
+        {
+            this.consoleText = consoleText;
+            window.SETConsole.Document.Blocks.Clear();
+            window.SETConsole.Document.Blocks.Add(new Paragraph(new Run(consoleText)));
+            window.FocusCaret();
+        }
+
+
         public void FocusCaret()
         {
             TextPointer caretPos = SETConsole.CaretPosition;

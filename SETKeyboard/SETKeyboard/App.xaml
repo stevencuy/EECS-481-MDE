@@ -7,6 +7,7 @@
     <Application.Resources>
         <Style TargetType="{x:Type local:KeyButton}">
             <Setter Property="FontSize" Value="20"/>
+            <!--
             <Setter Property="Background" Value="LightGray"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -24,11 +25,12 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter>
+            </Setter> -->
         </Style>
         
         <Style TargetType="{x:Type local:T9LetterButton}">
             <Setter Property="FontSize" Value="20"/>
+            <!--
             <Setter Property="Background" Value="LightGray"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -46,11 +48,12 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter>
+            </Setter>-->
         </Style>
         
         <Style TargetType="{x:Type Button}">
             <Setter Property="FontSize" Value="20"/>
+            <!--
             <Setter Property="Background" Value="LightGray"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -68,7 +71,7 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter>
+            </Setter> -->
         </Style>
 
         <Style TargetType="TabItem">
