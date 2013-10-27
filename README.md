@@ -12,8 +12,6 @@ Hey Guys,
   
   https://docs.google.com/a/umich.edu/document/d/1s0Gt9UpDhGptvGQUZD4SYGh6fdrN99hWGB10K05-URY/edit
   
-  NEW! 
-  
   UML Use Case/Sequence diagrams is below:
   
   https://docs.google.com/document/d/106D7GIdu3mqshktXRDC565qeQVWgNYHcejHTSOp9iuQ/edit?usp=sharing
@@ -26,6 +24,11 @@ Hey Guys,
   
   https://docs.google.com/document/d/1UqMHXJ1Cr9GT0eIxhG6esqSMAWdPdQ-KmVwJQNxWu2Y/edit
   
+  NEW!!!
+  
+  Beta Goals Doc:
+  
+  https://docs.google.com/document/d/1NmpoGqINp4jaoMS6LVbtERsAUJi7WSFhIJMEJ0lHkcs/edit?usp=sharing
   
   Pivotal Tracker is below:
   
