@@ -1,0 +1,18 @@
+System Description(10/10)
+
+Good coverage of the problem and why you are addressing it.
+Workload Partition(15/15)
+
+Your gantt chart does a good job of showing tasking information, including dependencies.  It might be helpful to include a similar chart that shows the tasks assigned to specific group members, but that is something you still have time to decide.
+Thorough summary of expected project progress at each release date.
+Workload Estimate(12/15)
+
+We were looking for a little more rationale for how you came up with your values.  For instance, a Prod(CD's) value of 0.697 is very low and would justify an explanation of how you got this value.
+Otherwise, good summary of values used and final workload estimations.
+Risk Management(10/10)
+
+Good coverage of risks for your project.  The issue with the cameras not working properly when multiple people are in the frame will be something you will continue to have to think about.
+Your risk involving pupil tracking not working is valid, but your detection strategy seems slightly extreme.  Pupil tracking may be difficult, but I would not recommend making a major hardware change during the middle of your project.
+Group Organization(10/10)
+
+Sounds like you have your group well organized and structured.

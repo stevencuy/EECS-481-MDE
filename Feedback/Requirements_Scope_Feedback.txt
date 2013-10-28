@@ -1,0 +1,7 @@
+loppy formatting.  Indent spaces are different for different paragraphs.
+
+- 3 What functionality is absolutely required for a successful product?  What could you remove if you ran out of time?  What could you add if you finished early?
+
+Excellent diagrams!
+
+
