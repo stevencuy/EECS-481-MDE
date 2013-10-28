@@ -30,9 +30,13 @@ Hey Guys,
   
   https://docs.google.com/document/d/1NmpoGqINp4jaoMS6LVbtERsAUJi7WSFhIJMEJ0lHkcs/edit?usp=sharing
   
-  Design Doc:
+  UI Design Doc:
   
   https://docs.google.com/document/d/13nZ0fNqtxmXKUW77qTAIF8FzADArisPN0BPtha_-dsM/edit?usp=sharing
+  
+  ET Design Doc:
+  
+  https://docs.google.com/document/d/1DjDYahKCjIDwg2Q1FS9BISQHQZSFlZz3qboYYdOswwM/edit?usp=sharing
   
   Pivotal Tracker is below:
   
