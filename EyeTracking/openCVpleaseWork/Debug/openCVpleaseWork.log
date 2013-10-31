@@ -1,34 +1,42 @@
-﻿Build started 10/16/2013 4:59:40 PM.
-     1>Project "C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\openCVpleaseWork\openCVpleaseWork.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\opencv\install\include\opencv /IC:\opencv\install\include /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt findEyeCenter.cpp main.cpp
+﻿Build started 10/30/2013 5:44:55 PM.
+     1>Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\openCVpleaseWork.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\opencv\install\include\opencv /IC:\opencv\install\include /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt findEyeCenter.cpp helpers.cpp main.cpp
          main.cpp
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\main.cpp(57): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\main.cpp(102): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\main.cpp(103): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\main.cpp(104): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\main.cpp(106): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\main.cpp(108): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\main.cpp(196): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\main.cpp(57): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\main.cpp(102): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\main.cpp(103): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\main.cpp(104): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\main.cpp(106): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\main.cpp(108): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\main.cpp(196): warning C4018: '<' : signed/unsigned mismatch
+         helpers.cpp
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
          findEyeCenter.cpp
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\findeyecenter.cpp(17): warning C4068: unknown pragma
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\findeyecenter.cpp(21): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\findeyecenter.cpp(22): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\findeyecenter.cpp(27): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\findeyecenter.cpp(47): warning C4068: unknown pragma
-     1>c:\users\dk\documents\visual studio 2012\projects\opencvpleasework\opencvpleasework\findeyecenter.cpp(165): warning C4068: unknown pragma
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\findeyecenter.cpp(17): warning C4068: unknown pragma
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\findeyecenter.cpp(21): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\findeyecenter.cpp(22): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\findeyecenter.cpp(27): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\findeyecenter.cpp(47): warning C4068: unknown pragma
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\findeyecenter.cpp(165): warning C4068: unknown pragma
          Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\Debug\openCVpleaseWork.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\opencv\install\lib opencv_calib3d246d.lib opencv_contrib246d.lib opencv_core246d.lib opencv_features2d246d.lib opencv_flann246d.lib opencv_gpu246d.lib opencv_highgui246d.lib opencv_imgproc246d.lib opencv_legacy246d.lib opencv_ml246d.lib opencv_nonfree246d.lib opencv_objdetect246d.lib opencv_photo246d.lib opencv_stitching246d.lib opencv_ts246d.lib opencv_videostab246d.lib opencv_video246d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\Debug\openCVpleaseWork.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\Debug\openCVpleaseWork.lib" /MACHINE:X86 Debug\findEyeCenter.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\openCVpleaseWork.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\opencv\install\lib opencv_calib3d246d.lib opencv_contrib246d.lib opencv_core246d.lib opencv_features2d246d.lib opencv_flann246d.lib opencv_gpu246d.lib opencv_highgui246d.lib opencv_imgproc246d.lib opencv_legacy246d.lib opencv_ml246d.lib opencv_nonfree246d.lib opencv_objdetect246d.lib opencv_photo246d.lib opencv_stitching246d.lib opencv_ts246d.lib opencv_videostab246d.lib opencv_video246d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\openCVpleaseWork.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\openCVpleaseWork.lib" /MACHINE:X86 Debug\findEyeCenter.obj
          Debug\helpers.obj
          Debug\main.obj
-         openCVpleaseWork.vcxproj -> C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\Debug\openCVpleaseWork.exe
-     1>Done Building Project "C:\Users\Dk\Documents\Visual Studio 2012\Projects\openCVpleaseWork\openCVpleaseWork\openCVpleaseWork.vcxproj" (Build target(s)).
+         openCVpleaseWork.vcxproj -> C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\openCVpleaseWork.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\openCVpleaseWork.unsuccessfulbuild".
+         Touching "Debug\openCVpleaseWork.lastbuildstate".
+     1>Done Building Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:06.74
+Time Elapsed 00:00:18.25
