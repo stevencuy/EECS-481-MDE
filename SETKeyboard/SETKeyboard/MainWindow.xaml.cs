@@ -59,7 +59,6 @@ namespace SETKeyboard
             window.FocusCaret();
         }
 
-
         public void FocusCaret()
         {
             TextPointer caretPos = SETConsole.CaretPosition;

@@ -61,7 +61,6 @@ C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\Gene
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard_MarkupCompile.cache
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard_MarkupCompile.lref
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.exe.config
-C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.csprojResolveAssemblyReference.cache
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.exe
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.pdb
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\App.baml

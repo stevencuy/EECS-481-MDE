@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace SETKeyboard.GUI
@@ -19,7 +20,7 @@ namespace SETKeyboard.GUI
             this.window = window;
             keys = new List<KeyButton>();
 
-            string[] keyStrings = new string[29];
+            string[] keyStrings = new string[31];
             //ROW 0
             keyStrings[0] = "q";
             keyStrings[1] = "w";
@@ -52,7 +53,9 @@ namespace SETKeyboard.GUI
             keyStrings[26] = "m";
             keyStrings[27] = "back";
             //SPACE ROW
-            keyStrings[28] = "space";
+            keyStrings[28] = ",";
+            keyStrings[29] = "space";
+            keyStrings[30] = ".";
 
             const int row_size = 3;
             int col_size = 10;
@@ -104,11 +107,34 @@ namespace SETKeyboard.GUI
                     --col_size;
             }
 
+            //add lock button
+            ToggleButton lockButton = new ToggleButton();
+            lockButton.Height = button_height;
+            lockButton.Width = (3 * button_width) / 2;
+            lockButton.Margin = new Thickness(0, button_height * 3, 0, 0);
+            lockButton.Content = "Lock";
+            lockButton.VerticalAlignment = VerticalAlignment.Top;
+            lockButton.HorizontalAlignment = HorizontalAlignment.Left;
+            window.QWERTYGrid.Children.Add(lockButton);
+            lockButton.Name = "lockButton";
+
+            //add comma
+            KeyButton comma = new KeyButton(keyStrings[28], keyStrings[28], button_width, button_height, (button_width / 2) * 3, button_height * 3, 0, 0);
+            keys.Add(comma);
+            window.QWERTYGrid.Children.Add(comma);
+            comma.Click += new RoutedEventHandler(KeyHit_Click);
+
             //add spacebar
-            KeyButton spacebar = new KeyButton(keyStrings[28].ToUpper(), keyStrings[28], 5 * button_width, button_height, (button_width / 2) * 5, button_height * 3, 0, 0);
+            KeyButton spacebar = new KeyButton(keyStrings[29].ToUpper(), keyStrings[29], 5 * button_width, button_height, (button_width / 2) * 5, button_height * 3, 0, 0);
             keys.Add(spacebar);
             window.QWERTYGrid.Children.Add(spacebar);
             spacebar.Click += new RoutedEventHandler(Space_Click);
+
+            //add period
+            KeyButton period = new KeyButton(keyStrings[30], keyStrings[30], button_width, button_height, (button_width / 2) * 15, button_height * 3, 0, 0);
+            keys.Add(period);
+            window.QWERTYGrid.Children.Add(period);
+            period.Click += new RoutedEventHandler(KeyHit_Click);
         }
 
         private void toggleKeyButtons()

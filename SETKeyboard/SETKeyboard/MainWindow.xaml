@@ -6,7 +6,7 @@
     
     <DockPanel>
         <RichTextBox x:Name="SETConsole" FontSize="40" FontFamily="Calibri" 
-                     DockPanel.Dock="Top" Height="160"
+                     DockPanel.Dock="Top" Height="175"
                      BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" />
         
         <TabControl x:Name="TabPanel" DockPanel.Dock="Bottom" SizeChanged="sizeChanged">
