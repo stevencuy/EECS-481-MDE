@@ -1,8 +1,4 @@
-#include <opencv2/objdetect/objdetect.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-
-using namespace std;
+#include "globals.h"
 
 class Head {
 
