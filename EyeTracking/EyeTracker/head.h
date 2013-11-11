@@ -1,3 +1,6 @@
+#ifndef __EyeTracker__head__
+#define __EyeTracker__headr__
+
 #include "globals.h"
 
 class Head {
@@ -15,3 +18,8 @@ class Head {
         cv::Rect faces;    
 
 };
+
+
+
+
+#endif /* defined(__EyeTracker__GazeEstimatoea__) */

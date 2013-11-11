@@ -1,3 +1,6 @@
+#ifndef __EyeTracker__GazeEstimator__
+#define __EyeTracker__GazeEstimator__
+
 #include "globals.h"
 
 Class Cursor{
@@ -14,3 +17,7 @@ Class Cursor{
         Coordinate cursorPosition;
         cv::Image cursorImage;
 };
+
+
+
+#endif /* defined(__EyeTracker__GazeEstimatoea__) */

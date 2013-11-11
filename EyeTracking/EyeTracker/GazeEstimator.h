@@ -1,3 +1,6 @@
+#ifndef __EyeTracker__GazeEstimator__
+#define __EyeTracker__GazeEstimator__
+
 #include "globals.h"
 
 class GazeEstimator{
@@ -10,3 +13,5 @@ class GazeEstimator{
 
 
 };
+
+#endif /* defined(__EyeTracker__GazeEstimatoea__) */
