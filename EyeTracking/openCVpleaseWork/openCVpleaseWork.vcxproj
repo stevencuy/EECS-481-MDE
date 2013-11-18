@@ -31,6 +31,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{084A4DE3-0616-42FE-B976-F9BFD6E77D79}</ProjectGuid>
     <RootNamespace>openCVpleaseWork</RootNamespace>
+    <ProjectName>EyeTracker</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

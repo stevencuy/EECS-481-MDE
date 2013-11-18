@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
 	Head * head = new Head();
 	GazeEstimator gaze = GazeEstimator::getInstance();
-	//Cursor cursor = Cursor::getInstance();
+	Cursor cursor = Cursor::getInstance();
 	CvCapture * capture;
 	cv::Mat frame;
 
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 			frame = cvQueryFrame(capture);
 			cv::flip(frame, frame, 1);
 			frame.copyTo(debugImage);
-
+			
 			if (!frame.empty())
 			{
 				head->detectAndDisplay(frame);
@@ -41,7 +41,9 @@ int main(int argc, char **argv)
 			cvWaitKey(20);
 
 			Coordinate coor = gaze.calculateGazePosition(head);
-			//cursor.setPosition(coor);
+			coor.xCoordinate = 500;
+			coor.yCoordinate = 500;
+			cursor.setPosition(coor);
 		}
 	}
 	else
