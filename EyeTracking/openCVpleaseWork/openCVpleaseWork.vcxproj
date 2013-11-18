@@ -11,14 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="findEyeCenter.cpp" />
-    <ClCompile Include="helpers.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="Cursor.h" />
+    <ClInclude Include="Eyes.h" />
+    <ClInclude Include="GazeEstimator.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="Head.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="constants.h" />
-    <ClInclude Include="findEyeCenter.h" />
-    <ClInclude Include="helpers.h" />
+    <ClCompile Include="Cursor.cpp" />
+    <ClCompile Include="Eyes.cpp" />
+    <ClCompile Include="EyeTracker.cpp" />
+    <ClCompile Include="GazeEstimator.cpp" />
+    <ClCompile Include="Head.cpp" />
+    <ClCompile Include="globals.cpp" />
+    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{084A4DE3-0616-42FE-B976-F9BFD6E77D79}</ProjectGuid>
