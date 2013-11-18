@@ -13,6 +13,7 @@ public:
 	int eye_region_height;
 	int eye_region_top;
 
+	cv::Rect leftEyeRegion, rightEyeRegion;
 	cv::Rect leftRightCornerRegion;
 	cv::Rect leftLeftCornerRegion;
 	cv::Rect rightLeftCornerRegion;
