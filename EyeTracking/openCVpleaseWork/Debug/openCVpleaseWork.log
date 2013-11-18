@@ -1,4 +1,4 @@
-﻿Build started 11/17/2013 8:42:35 PM.
+﻿Build started 11/17/2013 9:02:12 PM.
      1>Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" on node 2 (Clean target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\openCVpleaseWork.lastbuildstate".
@@ -6,4 +6,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.06
+Time Elapsed 00:00:00.09

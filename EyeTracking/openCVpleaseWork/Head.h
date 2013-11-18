@@ -11,7 +11,7 @@ class Head
 {
 public:
 	Head();
-	void detectAndDisplay(cv::Mat frame, cv::Mat * debugImage);
+	void detectAndDisplay(cv::Mat frame);
 
 private:
 	Eyes * eyes;

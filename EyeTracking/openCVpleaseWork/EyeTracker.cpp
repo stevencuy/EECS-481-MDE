@@ -34,10 +34,11 @@ int main(int argc, char **argv)
 
 			if (!frame.empty())
 			{
-				head->detectAndDisplay(frame, &debugImage);
+				head->detectAndDisplay(frame);
 			}
 
 			imshow(main_window_name, debugImage);
+			cvWaitKey(20);
 
 			Coordinate coor = gaze.calculateGazePosition(head);
 			//cursor.setPosition(coor);

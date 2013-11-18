@@ -7,7 +7,7 @@ class Eyes
 {
 public:
 	Eyes();
-	void findEyes(cv::Mat frame_gray, cv::Rect face, cv::Mat * debugImage);
+	void findEyes(cv::Mat frame_gray, cv::Rect face);
 
 private:
 	cv::Point findEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow);

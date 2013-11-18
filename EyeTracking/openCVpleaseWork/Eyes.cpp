@@ -2,6 +2,7 @@
 #include <queue>
 
 #include "constants.h"
+#include "globals.h"
 #include "Utility.h"
 #include "Eyes.h"
 
@@ -17,7 +18,7 @@ cv::Point Eyes::unscalePoint(cv::Point p, cv::Rect origSize)
 	return cv::Point(x,y);
 }
 
-void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face, cv::Mat * debugImage)
+void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 {
 	cv::Mat faceROI = frame_gray(face);
 	cv::Mat debugFace = faceROI;
@@ -73,13 +74,10 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face, cv::Mat * debugImage)
 	this->rightLeftCornerRegion = rightLeftCornerRegion;
 	this->rightRightCornerRegion = rightRightCornerRegion;
 
-	if (debugImage)
-	{
-		rectangle(debugFace,leftRightCornerRegion,200);
-		rectangle(debugFace,leftLeftCornerRegion,200);
-		rectangle(debugFace,rightLeftCornerRegion,200);
-		rectangle(debugFace,rightRightCornerRegion,200);
-	}
+	rectangle(debugFace,leftRightCornerRegion,200);
+	rectangle(debugFace,leftLeftCornerRegion,200);
+	rectangle(debugFace,rightLeftCornerRegion,200);
+	rectangle(debugFace,rightRightCornerRegion,200);
 
 	// change eye centers to face coordinates
 	rightPupil.x += rightEyeRegion.x;
@@ -87,11 +85,8 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face, cv::Mat * debugImage)
 	leftPupil.x += leftEyeRegion.x;
 	leftPupil.y += leftEyeRegion.y;
 
-	if (debugImage)
-	{
-		circle(debugFace, rightPupil, 3, 1234);
-		circle(debugFace, leftPupil, 3, 1234);
-	}
+	circle(debugFace, rightPupil, 3, 1234);
+	circle(debugFace, leftPupil, 3, 1234);
 
 	cout << "left: " << leftPupil.x << " " << leftPupil.y << endl;
 	cout << "right: " << rightPupil.x << " " << rightPupil.y << endl;
