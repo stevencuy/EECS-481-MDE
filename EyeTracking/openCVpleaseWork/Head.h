@@ -13,9 +13,11 @@ public:
 	Head();
 	void detectAndDisplay(cv::Mat frame);
 
-private:
 	Eyes * eyes;
-	cv::Rect faces;
+
+private:
+	std::vector<cv::Rect> faces;
+	//cv::Rect faces;
 };
 
 #endif /* defined(__EyeTracker__GazeEstimatoea__) */

@@ -41,9 +41,7 @@ int main(int argc, char **argv)
 			cvWaitKey(20);
 
 			Coordinate coor = gaze.calculateGazePosition(head);
-			coor.xCoordinate = 500;
-			coor.yCoordinate = 500;
-			cursor.setPosition(coor);
+			//cursor.setPosition(coor);
 		}
 	}
 	else

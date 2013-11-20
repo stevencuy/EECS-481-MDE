@@ -12,6 +12,7 @@ public:
 		return estimator;
 	}
 	Coordinate calculateGazePosition(Head * head);
+	void printEyeData(Head *);
 
 
 private:

@@ -1,9 +1,25 @@
-﻿Build started 11/18/2013 1:06:12 PM.
-     1>Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" on node 2 (Clean target(s)).
-     1>_PrepareForClean:
-         Deleting file "Debug\EyeTracker.lastbuildstate".
-     1>Done Building Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" (Clean target(s)).
+﻿Build started 11/20/2013 12:26:28 PM.
+     1>Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\EyeTracker.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\opencv\install\include\opencv /IC:\opencv\install\include /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt EyeTracker.cpp
+         EyeTracker.cpp
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyetracker.cpp(23): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\EyeTracker.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\opencv\install\lib opencv_calib3d246d.lib opencv_contrib246d.lib opencv_core246d.lib opencv_features2d246d.lib opencv_flann246d.lib opencv_gpu246d.lib opencv_highgui246d.lib opencv_imgproc246d.lib opencv_legacy246d.lib opencv_ml246d.lib opencv_nonfree246d.lib opencv_objdetect246d.lib opencv_photo246d.lib opencv_stitching246d.lib opencv_ts246d.lib opencv_videostab246d.lib opencv_video246d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\EyeTracker.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\EyeTracker.lib" /MACHINE:X86 Debug\Cursor.obj
+         Debug\Eyes.obj
+         Debug\EyeTracker.obj
+         Debug\GazeEstimator.obj
+         Debug\Head.obj
+         Debug\globals.obj
+         Debug\Utility.obj
+         openCVpleaseWork.vcxproj -> C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\EyeTracker.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\EyeTracker.unsuccessfulbuild".
+         Touching "Debug\EyeTracker.lastbuildstate".
+     1>Done Building Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.11
+Time Elapsed 00:00:04.65

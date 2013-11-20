@@ -10,7 +10,6 @@ Head::Head()
 
 void Head::detectAndDisplay(cv::Mat frame)
 {
-	std::vector<cv::Rect> faces;
 	std::vector<cv::Mat> rgbChannels(3);
 	cv::split(frame, rgbChannels);
 	cv::Mat frame_gray = rgbChannels[2];

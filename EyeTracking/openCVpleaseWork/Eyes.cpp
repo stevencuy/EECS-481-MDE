@@ -88,9 +88,6 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	circle(debugFace, rightPupil, 3, 1234);
 	circle(debugFace, leftPupil, 3, 1234);
 
-	cout << "left: " << leftPupil.x << " " << leftPupil.y << endl;
-	cout << "right: " << rightPupil.x << " " << rightPupil.y << endl;
-
 	imshow(face_window_name, faceROI);
 }
 
