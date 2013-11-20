@@ -48,7 +48,27 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+        <Style TargetType="{x:Type local:OutputButton}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:OutputButton}">
+                        <Border x:Name="bg" Margin="2" BorderThickness="1" BorderBrush="Black" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Content" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bg" Property="Background" Value="Gray"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bg" Property="Background" Value="MediumSpringGreen"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="{x:Type Button}">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="Background" Value="LightGray"/>

@@ -47,6 +47,10 @@
                     <Button x:Name="SpaceButton" Content="Space"  Grid.Column="4" Margin="5,5,95,5" Grid.Row="2" Grid.RowSpan="2" FontSize="24"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="OUTPUT" Width="120" Height="50">
+                <Grid x:Name="OUTPUTGrid" Background="#FFEDF5FF">
+                </Grid>
+            </TabItem>
         </TabControl>
     </DockPanel>
     

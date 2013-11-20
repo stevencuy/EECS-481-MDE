@@ -20,6 +20,7 @@ namespace SETKeyboard
     {
         private QwertyKeyboard qwerty;
         private T9Keyboard T9;
+        private Output output;
         private String consoleText;
         MainWindow window;
 
@@ -33,17 +34,20 @@ namespace SETKeyboard
             //T9 keyboard resizes from within MainWindow xaml file
             T9 = new T9Keyboard(window);
 
-            //Qwerty keyboard resizes through this delegate
+            //Qwerty keyboard and output interface resize through this delegate
             Loaded += delegate
             {
                 qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+                output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
             };
         }
 
         private void sizeChanged(object sender, RoutedEventArgs e)
         {
             QWERTYGrid.Children.Clear();
+            OUTPUTGrid.Children.Clear();
             qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+            output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
         }
 
         public String getConsoleText()
