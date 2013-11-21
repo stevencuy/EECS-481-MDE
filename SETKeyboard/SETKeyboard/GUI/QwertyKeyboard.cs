@@ -15,6 +15,7 @@ namespace SETKeyboard.GUI
         private String consoleText;
         private List<KeyButton> keys;
         private bool shift = false;
+        private bool locked = false;
         public QwertyKeyboard(MainWindow window, double height, double width)
         {
             this.window = window;
@@ -116,7 +117,7 @@ namespace SETKeyboard.GUI
             lockButton.VerticalAlignment = VerticalAlignment.Top;
             lockButton.HorizontalAlignment = HorizontalAlignment.Left;
             window.QWERTYGrid.Children.Add(lockButton);
-            lockButton.Name = "lockButton";
+            lockButton.Click += new RoutedEventHandler(lock_Buttons);
 
             //add comma
             KeyButton comma = new KeyButton(keyStrings[28], keyStrings[28], button_width, button_height, (button_width / 2) * 3, button_height * 3, 0, 0);
@@ -141,6 +142,24 @@ namespace SETKeyboard.GUI
         {
             for (int i = 0; i < keys.Count(); ++i)
                 keys[i].toggle();
+        }
+
+        private void lock_Buttons(object sender, RoutedEventArgs e)
+        {
+            if (!locked)
+            {
+                locked = true;
+
+                for (int i = 0; i < keys.Count(); ++i)
+                    keys[i].IsEnabled = false;
+            }
+            else
+            {
+                locked = false;
+
+                for (int i = 0; i < keys.Count(); ++i)
+                    keys[i].IsEnabled = true;
+            }
         }
 
         private void KeyHit_Click(object sender, RoutedEventArgs e)

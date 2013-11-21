@@ -94,3 +94,9 @@ C:\Users\Jason\Desktop\EECS-481-MDE-4683e7dbcdf537daeb8211432b8147bd9c1449ca\SET
 C:\Users\Jason\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.exe.config
 C:\Users\Jason\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.exe
 C:\Users\Jason\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.pdb
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.exe.manifest
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.application
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\Debug\libpxcclr.dll
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.csprojResolveAssemblyReference.cache
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.exe.manifest
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.application

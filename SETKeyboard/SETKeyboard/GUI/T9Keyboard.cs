@@ -49,16 +49,22 @@ namespace SETKeyboard.GUI
             window.wxyzButton.Click += new RoutedEventHandler(T9LetterClickEvent);
             letterButtons.Add(window.wxyzButton);
 
+            window.PeriodButton.setLetters(new char[] { '.', ',' });
+            window.PeriodButton.Click += new RoutedEventHandler(T9LetterClickEvent);
+            letterButtons.Add(window.PeriodButton);
+
             window.NextLetterButton.Click += new RoutedEventHandler(nextLetterEvent);
             window.ShiftButton.Click += new RoutedEventHandler(toUpperClick);
             window.BackButton.Click += new RoutedEventHandler(backSpaceClick);
             window.SpaceButton.Click += new RoutedEventHandler(spaceClick);
-            window.PeriodButton.Click += new RoutedEventHandler(periodClick);
+            window.LockButton.Click += new RoutedEventHandler(lockClick);
+          //window.PeriodButton.Click += new RoutedEventHandler(periodClick);
 
             lastButtonPressed = new T9LetterButton();
         }
 
         bool justShifted = false;
+        bool locked = false;
 
         private void toUpperClick(object sender, RoutedEventArgs e)
         {
@@ -94,8 +100,6 @@ namespace SETKeyboard.GUI
                 isLowerCase = true;
             }
         }
-
-
 
         private void T9LetterClickEvent(object sender, RoutedEventArgs e)
         {
@@ -142,9 +146,6 @@ namespace SETKeyboard.GUI
             window.setConsoleText(consoleText);
         }
 
-
-
-
         private void backSpaceAction()
         {
             if ((consoleText.Length == 1) || (consoleText.Length == 0))
@@ -180,6 +181,35 @@ namespace SETKeyboard.GUI
             window.setConsoleText(consoleText);
         }
 
+        private void lockClick(object sender, RoutedEventArgs e)
+        {
+            if (!locked)
+            {
+                locked = true;
+
+                for (int i = 0; i < 9; i++)
+                    letterButtons[i].IsEnabled = false;
+
+                window.NextLetterButton.IsEnabled = false;
+                window.ShiftButton.IsEnabled = false;
+                window.BackButton.IsEnabled = false;
+                window.SpaceButton.IsEnabled = false;
+            }
+            else
+            {
+                locked = false;
+
+                for (int i = 0; i < 9; i++)
+                    letterButtons[i].IsEnabled = true;
+
+                window.NextLetterButton.IsEnabled = true;
+                window.ShiftButton.IsEnabled = true;
+                window.BackButton.IsEnabled = true;
+                window.SpaceButton.IsEnabled = true;
+            }
+        }
+
+        //DELETE IF NOT USED
         private void periodClick(object sender, RoutedEventArgs e)
         {
             lastButtonPressed.endSelection();
@@ -190,7 +220,5 @@ namespace SETKeyboard.GUI
             justShifted = true;
             toUpperCase();
         }
-
-
     }
 }
