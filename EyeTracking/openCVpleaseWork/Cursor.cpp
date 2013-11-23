@@ -6,13 +6,13 @@ Cursor::Cursor() {
 
 }
 
-Cursor::Cursor(Coordinate pos)
+Cursor::Cursor(cv::Point pos)
 {
-	SetCursorPos(pos.xCoordinate, pos.yCoordinate);
+	SetCursorPos(pos.x, pos.y);
 }
 
-int Cursor::setPosition(Coordinate pos)
+int Cursor::setPosition(cv::Point pos)
 {
-	SetCursorPos(pos.xCoordinate, pos.yCoordinate);
+	SetCursorPos(pos.x, pos.y);
 	return 0;
 }

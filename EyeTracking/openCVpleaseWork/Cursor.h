@@ -11,12 +11,12 @@ public:
 		static Cursor instance;
 		return instance;
 	}
-	int setPosition(Coordinate coor);
+	int setPosition(cv::Point coor);
 
 private:
 	Cursor();
-	Cursor(Coordinate CursorPosition);
-	Coordinate cursorPosition;
+	Cursor(cv::Point CursorPosition);
+	cv::Point cursorPosition;
 };
 
 

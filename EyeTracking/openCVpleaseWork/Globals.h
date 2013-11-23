@@ -18,9 +18,4 @@ extern cv::RNG rng;
 extern cv::Mat debugImage;
 extern cv::Mat skinCrCbHist;
 
-struct Coordinate{
-    int xCoordinate;
-    int yCoordinate;
-};
-
 #endif /* defined(__EyeTracker__globals__) */
