@@ -16,6 +16,9 @@ int main(int argc, char **argv)
 	cv::Mat frame;
 	cv::Point screen_tl(0,0);
 	cv::Point screen_br(0,0);
+	Coordinate previous;
+	previous.xCoordinate = 0;
+	previous.yCoordinate = 0;
 
 	if (!face_cascade.load(face_cascade_name))
 	{
@@ -56,9 +59,11 @@ int main(int argc, char **argv)
 			imshow(main_window_name, debugImage);
 			cvWaitKey(20);
 			if (screen_tl.x != 0 && screen_br.x != 0) {
-				Coordinate coor = gaze.calculateGazePosition(head, screen_tl, screen_br);
-				//cursor.setPosition(coor);
+				Coordinate coor = gaze.calculateGazePosition(head, screen_tl, screen_br, previous);
+				previous = coor;
+				cursor.setPosition(coor);
 			}
+			Sleep(50);
 		}
 	}
 	else

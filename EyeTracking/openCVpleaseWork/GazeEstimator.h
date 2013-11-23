@@ -11,7 +11,7 @@ public:
 		static GazeEstimator estimator;
 		return estimator;
 	}
-	Coordinate calculateGazePosition(Head * head, cv::Point screen_tl, cv::Point screen_br);
+	Coordinate calculateGazePosition(Head * head, cv::Point screen_tl, cv::Point screen_br, Coordinate previous);
 	void printEyeData(Head *, cv::Point screen_tl, cv::Point screen_br);
 
 
