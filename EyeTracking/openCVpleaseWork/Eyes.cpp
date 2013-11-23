@@ -14,7 +14,7 @@ Eyes::Eyes()
 	rightPupil.y = -1;
 }
 
-cv::Point Eyes::unscalePoint(cv::Point p, cv::Rect origSize)
+cv::Point_<double> Eyes::unscalePoint(cv::Point_<double> p, cv::Rect origSize)
 {
 	float ratio = (((float)kFastEyeWidth)/origSize.width);
 	int x = (p.x / ratio);
@@ -80,7 +80,7 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	//imshow(face_window_name, faceROI);
 }
 
-cv::Point Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow)
+cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow)
 {
 	cv::Mat eyeROIUnscaled = face(eye);
 	cv::Mat eyeROI;
@@ -218,7 +218,7 @@ void Eyes::testPossibleCentersFormula(int x, int y, unsigned char weight,double 
 	}
 }
 
-bool Eyes::floodShouldPushPoint(const cv::Point &np, const cv::Mat &mat) {
+bool Eyes::floodShouldPushPoint(const cv::Point_<double> &np, const cv::Mat &mat) {
 	return inMat(np, mat.rows, mat.cols);
 }
 

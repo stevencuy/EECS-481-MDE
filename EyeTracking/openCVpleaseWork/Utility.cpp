@@ -11,7 +11,7 @@ bool rectInImage(cv::Rect rect, cv::Mat image)
 		rect.y+rect.height < image.rows;
 }
 
-bool inMat(cv::Point p,int rows,int cols)
+bool inMat(cv::Point_<double> p,int rows,int cols)
 {
 	return p.x >= 0 && p.x < cols && p.y >= 0 && p.y < rows;
 }

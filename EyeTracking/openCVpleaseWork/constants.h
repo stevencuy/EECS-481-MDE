@@ -5,18 +5,18 @@
 const bool kPlotVectorField = false;
 
 // Size constants
-const int kEyePercentTop = 35;
-const int kEyePercentSide = 13;
-const int kEyePercentHeight = 15;
-const int kEyePercentWidth = 30;
+const double kEyePercentTop = 35;
+const double kEyePercentSide = 13;
+const double kEyePercentHeight = 15;
+const double kEyePercentWidth = 30;
 
 // Preprocessing
 const bool kSmoothFaceImage = false;
 const float kSmoothFaceFactor = 0.005;
 
 // Algorithm Parameters
-const int kFastEyeWidth = 50;
-const int kWeightBlurSize = 5;
+const double kFastEyeWidth = 50;
+const double kWeightBlurSize = 5;
 const bool kEnableWeight = false;
 const float kWeightDivisor = 150.0;
 const double kGradientThreshold = 50.0;
