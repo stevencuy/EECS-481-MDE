@@ -14,9 +14,9 @@ int main(int argc, char **argv)
 	Cursor cursor = Cursor::getInstance();
 	CvCapture * capture;
 	cv::Mat frame;
-	cv::Point screen_tl(0,0);
-	cv::Point screen_br(0,0);
-	cv::Point previous(0,0);
+	cv::Point_<double> screen_tl((double)0.0,(double)0.0);
+	cv::Point_<double> screen_br((double)0.0,(double)0.0);
+	std::deque <cv::Point_<double>> previous_deque;
 
 	if (!face_cascade.load(face_cascade_name))
 	{
@@ -24,8 +24,8 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	ellipse(skinCrCbHist, cv::Point(113, 155.6), cv::Size(23.4, 15.2),
-          43.0, 0.0, 360.0, cv::Scalar(255, 255, 255), -1);
+	//ellipse(skinCrCbHist, cv::Point_<double>((double)113, (double)155.6), cv::Size(23.4, 15.2),
+    //      43.0, 0.0, 360.0, cv::Scalar(255, 255, 255), -1);
 
 	capture = cvCaptureFromCAM(1);
 	if (capture)
@@ -57,8 +57,7 @@ int main(int argc, char **argv)
 			imshow(main_window_name, debugImage);
 			cvWaitKey(20);
 			if (abs(screen_br.x-screen_tl.x) > 0 && abs(screen_br.y-screen_tl.y) > 0) {
-				cv::Point coor = gaze.calculateGazePosition(head, screen_tl, screen_br, previous);
-				previous = coor;
+				cv::Point_<double> coor = gaze.calculateGazePosition(head, screen_tl, screen_br, previous_deque);
 				cursor.setPosition(coor);
 			}
 			Sleep(50);
