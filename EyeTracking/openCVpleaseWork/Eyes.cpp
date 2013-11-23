@@ -45,50 +45,22 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	leftPupil = findEyeCenter(faceROI,leftEyeRegion,"Left Eye");
 	rightPupil = findEyeCenter(faceROI,rightEyeRegion,"Right Eye");
 
-	// get corner regions
-	cv::Rect leftRightCornerRegion(leftEyeRegion);
-	leftRightCornerRegion.width -= leftPupil.x;
-	//cout << leftRightCornerRegion.x << endl;
-	leftRightCornerRegion.x += leftPupil.x;
-	leftRightCornerRegion.height /= 2;
-	leftRightCornerRegion.y += leftRightCornerRegion.height / 2;
-
-	cv::Rect leftLeftCornerRegion(leftEyeRegion);
-	leftLeftCornerRegion.width = leftPupil.x;
-	leftLeftCornerRegion.height /= 2;
-	leftLeftCornerRegion.y += leftLeftCornerRegion.height / 2;
-
-	cv::Rect rightLeftCornerRegion(rightEyeRegion);
-	rightLeftCornerRegion.width = rightPupil.x;
-	rightLeftCornerRegion.height /= 2;
-	rightLeftCornerRegion.y += rightLeftCornerRegion.height / 2;
-
-	cv::Rect rightRightCornerRegion(rightEyeRegion);
-	rightRightCornerRegion.width -= rightPupil.x;
-	rightRightCornerRegion.x += rightPupil.x;
-	rightRightCornerRegion.height /= 2;
-	rightRightCornerRegion.y += rightRightCornerRegion.height / 2;
-
-	this->leftRightCornerRegion = leftRightCornerRegion;
-	this->leftLeftCornerRegion = leftLeftCornerRegion;
-	this->rightLeftCornerRegion = rightLeftCornerRegion;
-	this->rightRightCornerRegion = rightRightCornerRegion;
-
-	rectangle(debugFace,leftRightCornerRegion,200);
-	rectangle(debugFace,leftLeftCornerRegion,200);
-	rectangle(debugFace,rightLeftCornerRegion,200);
-	rectangle(debugFace,rightRightCornerRegion,200);
-
 	// change eye centers to face coordinates
-	rightPupil.x += rightEyeRegion.x;
-	rightPupil.y += rightEyeRegion.y;
-	leftPupil.x += leftEyeRegion.x;
-	leftPupil.y += leftEyeRegion.y;
+	rightPupil.x += rightEyeRegion.x + face.x;
+	rightPupil.y += rightEyeRegion.y + face.y;
+	leftPupil.x += leftEyeRegion.x + face.x;
+	leftPupil.y += leftEyeRegion.y + face.y;
+	cv::Point leftEye_br(leftEyeRegion.br().x + face.x, leftEyeRegion.br().y + face.y);
+	cv::Point leftEye_tl(leftEyeRegion.tl().x + face.x, leftEyeRegion.tl().y + face.y);
+	cv::Point rightEye_br(rightEyeRegion.br().x + face.x, rightEyeRegion.br().y + face.y);
+	cv::Point rightEye_tl(rightEyeRegion.tl().x + face.x, rightEyeRegion.tl().y + face.y);
 
-	circle(debugFace, rightPupil, 3, 1234);
-	circle(debugFace, leftPupil, 3, 1234);
+	rectangle(debugImage, leftEye_br, leftEye_tl, cvScalar(0, 255, 255), 1);
+	rectangle(debugImage, rightEye_br, rightEye_tl, cvScalar(0, 255, 255), 1);
+	circle(debugImage, rightPupil, 3, cvScalar(0, 255, 255), -1) ;
+	circle(debugImage, leftPupil, 3, cvScalar(0, 255, 255), -1) ;
 
-	imshow(face_window_name, faceROI);
+	//imshow(face_window_name, faceROI);
 }
 
 cv::Point Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow)
