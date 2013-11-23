@@ -19,7 +19,6 @@ public:
 	cv::Rect rightLeftCornerRegion;
 	cv::Rect rightRightCornerRegion;
 
-	cv::Point prevLeftPupil, prevRightPupil;
 	cv::Point leftPupil, rightPupil;
 
 private:

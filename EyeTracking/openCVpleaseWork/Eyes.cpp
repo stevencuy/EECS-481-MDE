@@ -8,6 +8,10 @@
 
 Eyes::Eyes()
 {
+	leftPupil.x = -1;
+	leftPupil.y = -1;
+	rightPupil.x = -1;
+	rightPupil.y = -1;
 }
 
 cv::Point Eyes::unscalePoint(cv::Point p, cv::Rect origSize)
@@ -45,15 +49,15 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	cv::Point lp = findEyeCenter(faceROI,leftEyeRegion,"Left Eye");
 	cv::Point rp = findEyeCenter(faceROI,rightEyeRegion,"Right Eye");
 
-	if (((lp.x - prevLeftPupil.x) - (rp.x - prevRightPupil.x) > 10) ||
-		((lp.y - prevLeftPupil.y) - (rp.y - prevRightPupil.y) > 10))
+	int lxdiff = lp.x - leftPupil.x;
+	int rxdiff = rp.x - rightPupil.x;
+	int lydiff = lp.y - leftPupil.y;
+	int rydiff = rp.y - rightPupil.y;
+
+	if ((abs(lxdiff - rxdiff) < 5) ||
+		(abs(lydiff - rydiff) < 5) ||
+		(leftPupil.x == -1 && rightPupil.x == -1))
 	{
-		return;
-	}
-	else
-	{
-		prevLeftPupil = leftPupil;
-		prevRightPupil = rightPupil;
 		leftPupil = lp;
 		rightPupil = rp;
 	}

@@ -1,33 +1,18 @@
-﻿Build started 11/23/2013 12:03:29 AM.
+﻿Build started 11/23/2013 12:37:52 AM.
      1>Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" on node 2 (Build target(s)).
-     1>InitializeBuildStatus:
-         Creating "Debug\EyeTracker.unsuccessfulbuild" because "AlwaysCreate" was specified.
-       ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\opencv\install\include\opencv /IC:\opencv\install\include /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Cursor.cpp Eyes.cpp EyeTracker.cpp GazeEstimator.cpp Head.cpp globals.cpp Utility.cpp
-         Utility.cpp
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-         globals.cpp
-         Head.cpp
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\head.cpp(19): warning C4018: '<' : signed/unsigned mismatch
-         GazeEstimator.cpp
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\gazeestimator.cpp(17): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\gazeestimator.cpp(18): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-         EyeTracker.cpp
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyetracker.cpp(29): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\opencv\install\include\opencv /IC:\opencv\install\include /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Eyes.cpp
          Eyes.cpp
      1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(15): warning C4305: 'initializing' : truncation from 'double' to 'const float'
      1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\constants.h(26): warning C4305: 'initializing' : truncation from 'double' to 'const float'
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(16): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(17): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(32): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(33): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(34): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(37): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(39): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(170): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         Cursor.cpp
-         Generating Code...
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(20): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(21): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(36): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(37): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(38): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(41): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(43): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\steven\documents\github\eecs-481-mde\eyetracking\opencvpleasework\eyes.cpp(174): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\EyeTracker.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\opencv\install\lib opencv_calib3d246d.lib opencv_contrib246d.lib opencv_core246d.lib opencv_features2d246d.lib opencv_flann246d.lib opencv_gpu246d.lib opencv_highgui246d.lib opencv_imgproc246d.lib opencv_legacy246d.lib opencv_ml246d.lib opencv_nonfree246d.lib opencv_objdetect246d.lib opencv_photo246d.lib opencv_stitching246d.lib opencv_ts246d.lib opencv_videostab246d.lib opencv_video246d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\EyeTracker.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\EyeTracker.lib" /MACHINE:X86 Debug\Cursor.obj
          Debug\Eyes.obj
@@ -37,11 +22,8 @@
          Debug\globals.obj
          Debug\Utility.obj
          openCVpleaseWork.vcxproj -> C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\Debug\EyeTracker.exe
-       FinalizeBuildStatus:
-         Deleting file "Debug\EyeTracker.unsuccessfulbuild".
-         Touching "Debug\EyeTracker.lastbuildstate".
      1>Done Building Project "C:\Users\Steven\Documents\GitHub\EECS-481-MDE\EyeTracking\openCVpleaseWork\openCVpleaseWork.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:34.08
+Time Elapsed 00:00:01.00

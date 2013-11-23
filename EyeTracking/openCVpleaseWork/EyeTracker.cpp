@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 
 			imshow(main_window_name, debugImage);
 			cvWaitKey(20);
-			if (screen_tl.x != 0 && screen_br.x != 0) {
+			if (abs(screen_br.x-screen_tl.x) > 0 && abs(screen_br.y-screen_tl.y) > 0) {
 				Coordinate coor = gaze.calculateGazePosition(head, screen_tl, screen_br, previous);
 				previous = coor;
 				cursor.setPosition(coor);
