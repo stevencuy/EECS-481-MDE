@@ -42,8 +42,21 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	this->rightEyeRegion = rightEyeRegion;
 
 	//-- Find Eye Centers
-	leftPupil = findEyeCenter(faceROI,leftEyeRegion,"Left Eye");
-	rightPupil = findEyeCenter(faceROI,rightEyeRegion,"Right Eye");
+	cv::Point lp = findEyeCenter(faceROI,leftEyeRegion,"Left Eye");
+	cv::Point rp = findEyeCenter(faceROI,rightEyeRegion,"Right Eye");
+
+	if (((lp.x - prevLeftPupil.x) - (rp.x - prevRightPupil.x) > 10) ||
+		((lp.y - prevLeftPupil.y) - (rp.y - prevRightPupil.y) > 10))
+	{
+		return;
+	}
+	else
+	{
+		prevLeftPupil = leftPupil;
+		prevRightPupil = rightPupil;
+		leftPupil = lp;
+		rightPupil = rp;
+	}
 
 	// change eye centers to face coordinates
 	rightPupil.x += rightEyeRegion.x + face.x;
