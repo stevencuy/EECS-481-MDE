@@ -100,7 +100,7 @@ namespace SETKeyboard.GUI
                     }
 
                     keys.Add(b);
-                    window.QWERTYGrid.Children.Add(b);
+                    window.qwerty_grid.Children.Add(b);
                     ++index;
                 }
                 //first row has 10 every other row has 9
@@ -116,25 +116,25 @@ namespace SETKeyboard.GUI
             lockButton.Content = "Lock";
             lockButton.VerticalAlignment = VerticalAlignment.Top;
             lockButton.HorizontalAlignment = HorizontalAlignment.Left;
-            window.QWERTYGrid.Children.Add(lockButton);
+            window.qwerty_grid.Children.Add(lockButton);
             lockButton.Click += new RoutedEventHandler(lock_Buttons);
 
             //add comma
             KeyButton comma = new KeyButton(keyStrings[28], keyStrings[28], button_width, button_height, (button_width / 2) * 3, button_height * 3, 0, 0);
             keys.Add(comma);
-            window.QWERTYGrid.Children.Add(comma);
+            window.qwerty_grid.Children.Add(comma);
             comma.Click += new RoutedEventHandler(KeyHit_Click);
 
             //add spacebar
             KeyButton spacebar = new KeyButton(keyStrings[29].ToUpper(), keyStrings[29], 5 * button_width, button_height, (button_width / 2) * 5, button_height * 3, 0, 0);
             keys.Add(spacebar);
-            window.QWERTYGrid.Children.Add(spacebar);
+            window.qwerty_grid.Children.Add(spacebar);
             spacebar.Click += new RoutedEventHandler(Space_Click);
 
             //add period
             KeyButton period = new KeyButton(keyStrings[30], keyStrings[30], button_width, button_height, (button_width / 2) * 15, button_height * 3, 0, 0);
             keys.Add(period);
-            window.QWERTYGrid.Children.Add(period);
+            window.qwerty_grid.Children.Add(period);
             period.Click += new RoutedEventHandler(KeyHit_Click);
         }
 
@@ -176,6 +176,7 @@ namespace SETKeyboard.GUI
                 shift = false;
                 toggleKeyButtons();
             }
+            
         }
 
         private void Shift_Click(object sender, RoutedEventArgs e)
@@ -206,6 +207,9 @@ namespace SETKeyboard.GUI
                 consoleText = consoleText.Substring(0, consoleText.Length - 1);
             }
             window.setConsoleText(consoleText);
+            //window.TabPanel.Items.Remove()
+            //window.TabPanel.Items.Remove(window.dictionary["new tab 2"]);
+            
         }
 
         private void Space_Click(object sender, RoutedEventArgs e)

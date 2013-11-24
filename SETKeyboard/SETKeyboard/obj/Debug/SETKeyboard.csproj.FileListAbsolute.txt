@@ -100,3 +100,6 @@ C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\Debug\libp
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.csprojResolveAssemblyReference.cache
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.exe.manifest
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.application
+C:\Users\Anthony\Desktop\umich\481\481wtf\SETKeyboard\SETKeyboard\bin\Debug\SETKeyboard.exe.config
+C:\Users\Anthony\Desktop\umich\481\481wtf\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.exe
+C:\Users\Anthony\Desktop\umich\481\481wtf\SETKeyboard\SETKeyboard\obj\Debug\SETKeyboard.pdb
