@@ -142,7 +142,8 @@ namespace SETKeyboard.GUI
             consoleText = window.getConsoleText();
             TabPhrase chosenPhrase = (TabPhrase)sender;
             String phrase = chosenPhrase.Content.ToString();
-            consoleText += " ";
+            if(consoleText.Length > 0)
+                consoleText += " ";
             consoleText += phrase;
             window.setConsoleText(consoleText);
         }
