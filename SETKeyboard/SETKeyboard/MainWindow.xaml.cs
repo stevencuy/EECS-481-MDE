@@ -49,13 +49,41 @@ namespace SETKeyboard
             };
 
             //read ctab files from disk
-
+            TRW = new TabReadWrite(window);
+            TRW.Read();
+            loadCustomTabs();
             generateTabController();
+ 
         }
+        ~MainWindow()
+        {
+            TRW.Write();
+        }
+        public void loadCustomTabs()
+        {
+            foreach (var pair in tabPhrases)
+            {
+                loadCustomTab(pair.Key);
+            }
+
+        }
+        public void loadCustomTab(String name)
+        {
+            ctabs.Add(name, new CustomTab(window, name, 500, 800));
+            TabItem tab = new TabItem();
+            tab.Header = name;
+            tab.Width = 30 + name.Length * 15;
+            tab.Height = 50;
+            tab.Content = ctab_grids[name];
+            ctab_items.Add(name, tab);
+            TabPanel.Items.Add(tab);
+        }
+
+
         public void createCustomTab(String name)
         {
             ctabs.Add(name, new CustomTab(window, name, 500, 800));
-            tabPhrases[consoleText] = new HashSet<String>();
+            tabPhrases[name] = new HashSet<String>();
             TabItem tab = new TabItem();
             tab.Header = name;
             tab.Width = 30 + name.Length * 15;
@@ -70,6 +98,7 @@ namespace SETKeyboard
             ctab_grids.Remove(name);
             tabPhrases.Remove(name);
             ctab_items.Remove(name);
+            ctabs.Remove(name);
             window.TabPanel.SelectedIndex = window.TabPanel.Items.IndexOf(ctab_controller_item);
 
         }
