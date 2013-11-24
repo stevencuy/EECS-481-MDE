@@ -51,8 +51,9 @@ namespace SETKeyboard
             //read ctab files from disk
             TRW = new TabReadWrite(window);
             TRW.Read();
-            loadCustomTabs();
             generateTabController();
+            loadCustomTabs();
+            
  
         }
         ~MainWindow()
@@ -108,8 +109,8 @@ namespace SETKeyboard
         {
             ctab_controller = new CustomTabController(window, 500, 800);
             ctab_controller_item = new TabItem();
-            ctab_controller_item.Header = "Custom Tab Controller";
-            ctab_controller_item.Width = "Custom Tab Controller".Length * 15;
+            ctab_controller_item.Header = "Tab Controller";
+            ctab_controller_item.Width = 15 + "Tab Controller".Length * 15;
             ctab_controller_item.Height = 50;
             var converter = new System.Windows.Media.BrushConverter();
             ctab_controller_grid.Background = (Brush)converter.ConvertFromString("#FFEDF5FF");
