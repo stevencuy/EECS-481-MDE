@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace SETKeyboard.GUI
 {
@@ -16,10 +18,13 @@ namespace SETKeyboard.GUI
         private List<KeyButton> keys;
         private bool shift = false;
         private bool locked = false;
+        private DispatcherTimer timer;
+        private int dwellTime;
         public QwertyKeyboard(MainWindow window, double height, double width)
         {
             this.window = window;
             keys = new List<KeyButton>();
+            dwellTime = 1;
 
             string[] keyStrings = new string[31];
             //ROW 0
@@ -78,24 +83,24 @@ namespace SETKeyboard.GUI
                     if (row != 2)
                     {
                         b = new KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * col, row * button_height, 0, 0);
-                        b.Click += new RoutedEventHandler(KeyHit_Click);
+                        b.MouseEnter += new MouseEventHandler(KeyHit_Click);
                     }
                     else
                     {
                         if (lower == "shift")
                         {
                             b = new KeyButton(upper, lower, (button_width / 2) * 3, button_height, 0, row * button_height, 0, 0);
-                            b.Click += new RoutedEventHandler(Shift_Click);
+                            b.MouseEnter += new MouseEventHandler(Shift_Click);
                         }
                         else if (lower == "back")
                         {
                             b = new KeyButton(upper, lower, (button_width / 2) * 3, button_height, margins_l[row] + margin_inc * (col - 1), row * button_height, 0, 0);
-                            b.Click += new RoutedEventHandler(Backspace_Click);
+                            b.MouseEnter += new MouseEventHandler(Backspace_Click);
                         }
                         else
                         {
                             b = new KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * (col - 1), row * button_height, 0, 0);
-                            b.Click += new RoutedEventHandler(KeyHit_Click);
+                            b.MouseEnter += new MouseEventHandler(KeyHit_Click);
                         }
                     }
 
@@ -117,25 +122,25 @@ namespace SETKeyboard.GUI
             lockButton.VerticalAlignment = VerticalAlignment.Top;
             lockButton.HorizontalAlignment = HorizontalAlignment.Left;
             window.qwerty_grid.Children.Add(lockButton);
-            lockButton.Click += new RoutedEventHandler(lock_Buttons);
+            lockButton.MouseEnter += new MouseEventHandler(lockButtons_Click);
 
             //add comma
             KeyButton comma = new KeyButton(keyStrings[28], keyStrings[28], button_width, button_height, (button_width / 2) * 3, button_height * 3, 0, 0);
             keys.Add(comma);
             window.qwerty_grid.Children.Add(comma);
-            comma.Click += new RoutedEventHandler(KeyHit_Click);
+            comma.MouseEnter += new MouseEventHandler(KeyHit_Click);
 
             //add spacebar
             KeyButton spacebar = new KeyButton(keyStrings[29].ToUpper(), keyStrings[29], 5 * button_width, button_height, (button_width / 2) * 5, button_height * 3, 0, 0);
             keys.Add(spacebar);
             window.qwerty_grid.Children.Add(spacebar);
-            spacebar.Click += new RoutedEventHandler(Space_Click);
+            spacebar.MouseEnter += new MouseEventHandler(Space_Click);
 
             //add period
             KeyButton period = new KeyButton(keyStrings[30], keyStrings[30], button_width, button_height, (button_width / 2) * 15, button_height * 3, 0, 0);
             keys.Add(period);
             window.qwerty_grid.Children.Add(period);
-            period.Click += new RoutedEventHandler(KeyHit_Click);
+            period.MouseEnter += new MouseEventHandler(KeyHit_Click);
         }
 
         private void toggleKeyButtons()
@@ -144,79 +149,188 @@ namespace SETKeyboard.GUI
                 keys[i].toggle();
         }
 
-        private void lock_Buttons(object sender, RoutedEventArgs e)
+        private void lockButtons_Click(object sender, RoutedEventArgs e)
         {
-            if (!locked)
-            {
-                locked = true;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            ToggleButton lockButton = (ToggleButton)sender;
 
-                for (int i = 0; i < keys.Count(); ++i)
-                    keys[i].IsEnabled = false;
-            }
-            else
-            {
-                locked = false;
+            if (lockButton.Background != Brushes.MediumSpringGreen)
+                lockButton.Background = Brushes.Gray;
 
-                for (int i = 0; i < keys.Count(); ++i)
-                    keys[i].IsEnabled = true;
-            }
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                if (!locked)
+                {
+                    locked = true;
+                    lockButton.Background = Brushes.MediumSpringGreen;
+
+                    for (int i = 0; i < keys.Count(); ++i)
+                    {
+                        keys[i].MouseEnter -= KeyHit_Click;
+                        keys[i].MouseEnter -= Shift_Click;
+                        keys[i].MouseEnter -= Backspace_Click;
+                        keys[i].MouseEnter -= Space_Click;
+                    }
+                }
+                else
+                {
+                    locked = false;
+                    lockButton.Background = Brushes.Gray;
+
+                    for (int i = 0; i < keys.Count(); ++i)
+                    {
+                        if (keys[i].getLower() == "shift")
+                            keys[i].MouseEnter += Shift_Click;
+                        else if (keys[i].getLower() == "back")
+                            keys[i].MouseEnter += Backspace_Click;
+                        else if (keys[i].getLower() == "space")
+                            keys[i].MouseEnter += Space_Click;
+                        else
+                            keys[i].MouseEnter += KeyHit_Click;
+                    }
+                }
+
+                lockButtons_Click(sender, e);
+            };
+
+            lockButton.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+
+                if (lockButton.Background == Brushes.Gray)
+                    lockButton.Background = Brushes.LightGray;
+            };
+
+            timer.Start();
         }
 
         private void KeyHit_Click(object sender, RoutedEventArgs e)
         {
-            consoleText = window.getConsoleText();
-            KeyButton letterKey = (KeyButton)sender;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            KeyButton keyButton = (KeyButton)sender;
 
-            String letter = letterKey.Content.ToString();
-            consoleText += letter;
-            window.setConsoleText(consoleText);
-
-            if (shift)
+            timer.Tick += (sender2, eventArgs) =>
             {
-                shift = false;
-                toggleKeyButtons();
-            }
-            
+                timer.Stop();
+
+                consoleText = window.getConsoleText();
+                String letter = keyButton.Content.ToString();
+                consoleText += letter;
+                window.setConsoleText(consoleText);
+
+                if (shift && letter != "," && letter != ".")
+                {
+                    shift = false;
+                    toggleKeyButtons();
+                }
+
+                KeyHit_Click(sender, e);
+            };
+
+            keyButton.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+            };
+
+            timer.Start();            
         }
 
         private void Shift_Click(object sender, RoutedEventArgs e)
         {
-            if (!shift)
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            KeyButton shiftButton = (KeyButton)sender;
+
+            timer.Tick += (sender2, eventArgs) =>
             {
-                shift = true;
-                toggleKeyButtons();
-            }
-            else
+                timer.Stop();
+
+                if (!shift)
+                {
+                    shift = true;
+                    toggleKeyButtons();
+                }
+                else
+                {
+                    shift = false;
+                    toggleKeyButtons();
+                }
+                window.FocusCaret();
+
+                Shift_Click(sender, e);
+            };
+
+            shiftButton.MouseLeave += (s, eA) =>
             {
-                shift = false;
-                toggleKeyButtons();
-            }
-            window.FocusCaret();
+                timer.Stop();
+            };
+
+            timer.Start();        
         }
 
         private void Backspace_Click(object sender, RoutedEventArgs e)
         {
-            consoleText = window.getConsoleText();
-            if ((consoleText.Length == 1) || (consoleText.Length == 0))
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            KeyButton backButton = (KeyButton)sender;
+
+            timer.Tick += (sender2, eventArgs) =>
             {
-                consoleText = "";
-            }
-            else
+                timer.Stop();
+
+                consoleText = window.getConsoleText();
+                if ((consoleText.Length == 1) || (consoleText.Length == 0))
+                {
+                    consoleText = "";
+                }
+                else
+                {
+                    //Removes last character of console text string
+                    consoleText = consoleText.Substring(0, consoleText.Length - 1);
+                }
+                window.setConsoleText(consoleText);
+                //window.TabPanel.Items.Remove()
+                //window.TabPanel.Items.Remove(window.dictionary["new tab 2"]);
+
+                Backspace_Click(sender, e);
+            };
+
+            backButton.MouseLeave += (s, eA) =>
             {
-                //Removes last character of console text string
-                consoleText = consoleText.Substring(0, consoleText.Length - 1);
-            }
-            window.setConsoleText(consoleText);
-            //window.TabPanel.Items.Remove()
-            //window.TabPanel.Items.Remove(window.dictionary["new tab 2"]);
+                timer.Stop();
+            };
+
+            timer.Start();        
             
         }
 
         private void Space_Click(object sender, RoutedEventArgs e)
         {
-            consoleText = window.getConsoleText();
-            consoleText += " ";
-            window.setConsoleText(consoleText);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            KeyButton spaceButton = (KeyButton)sender;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                consoleText = window.getConsoleText();
+                consoleText += " ";
+                window.setConsoleText(consoleText);
+
+                Space_Click(sender, e);
+            };
+
+            spaceButton.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+            };
+
+            timer.Start();        
         }
     }
 }

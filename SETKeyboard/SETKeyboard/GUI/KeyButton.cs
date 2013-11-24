@@ -37,5 +37,10 @@ namespace SETKeyboard.GUI
         {
             Content = (Content.ToString() == lower) ? upper : lower;
         }
+
+        public string getLower()
+        {
+            return lower;
+        }
     }
 }

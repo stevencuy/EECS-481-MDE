@@ -116,13 +116,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GUI\QwertyKeyboard.cs" />
     <Compile Include="GUI\TabReadWrite.cs" />
     <Compile Include="GUI\CustomTab.cs" />
     <Compile Include="GUI\TabPhrase.cs" />
     <Compile Include="GUI\Output.cs" />
     <Compile Include="GUI\OutputButton.cs" />
     <Compile Include="GUI\CustomTabController.cs" />
-    <Compile Include="GUI\QwertyKeyboard.cs" />
     <Compile Include="GUI\T9Keyboard.cs" />
     <Compile Include="GUI\T9LetterButton.cs" />
     <Compile Include="GUI\KeyButton.cs" />

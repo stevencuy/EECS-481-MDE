@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SETKeyboard.exe" size="41472">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SETKeyboard.exe" size="45056">
       <assemblyIdentity name="SETKeyboard" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fZ4F17WeoP5UbeDHanrSWY4LXFUfQ3qDTZqLmShZoYA=</dsig:DigestValue>
+        <dsig:DigestValue>4BrE6z3sPF2fGqfpyXEjGRsNnyRQIHB9IqViXuh41aU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
