@@ -150,7 +150,11 @@ namespace SETKeyboard.GUI
         {
             TabPhrase deletePhrase = (TabPhrase)sender;
             String phrase = deletePhrase.Content.ToString();
-            window.tabPhrases[name].Remove(phrase);
+            if (MessageBox.Show("Are you sure that you want to remove the tab phrase \"" + phrase + "\"?",
+  "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                window.tabPhrases[name].Remove(phrase);
+            }
             renderTab(2);
         }
         private void Backspace_Click(object sender, RoutedEventArgs e)

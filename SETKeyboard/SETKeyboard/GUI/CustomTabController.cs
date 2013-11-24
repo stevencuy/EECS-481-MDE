@@ -118,9 +118,14 @@ namespace SETKeyboard.GUI
         {
             TabPhrase deletePhrase = (TabPhrase)sender;
             String phrase = deletePhrase.Content.ToString();
-            if (phrase.Length != 0 && window.tabPhrases.ContainsKey(phrase))
+            if (MessageBox.Show("Are you sure that you want to remove the custom tab <" + phrase + ">?",
+  "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                window.removeCustomTab(phrase);
+                // Close the window
+                if (phrase.Length != 0 && window.tabPhrases.ContainsKey(phrase))
+                {
+                    window.removeCustomTab(phrase);
+                }
             }
             renderAll(2);
         }

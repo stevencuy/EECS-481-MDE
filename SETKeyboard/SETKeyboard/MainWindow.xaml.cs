@@ -37,6 +37,7 @@ namespace SETKeyboard
             InitializeComponent();
             this.consoleText = "";
             window = this;
+            
 
             //T9 keyboard resizes from within MainWindow xaml file
             T9 = new T9Keyboard(window);
@@ -52,8 +53,7 @@ namespace SETKeyboard
             TRW = new TabReadWrite(window);
             TRW.Read();
             generateTabController();
-            loadCustomTabs();
-            
+            loadCustomTabs();          
  
         }
         ~MainWindow()

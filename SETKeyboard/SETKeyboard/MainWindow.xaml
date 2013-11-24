@@ -10,8 +10,8 @@
                      BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" />
         
         
-            <TabControl x:Name="TabPanel" DockPanel.Dock="Bottom" SizeChanged="sizeChanged">
-
+            <TabControl x:Name="TabPanel" DockPanel.Dock="Bottom" SizeChanged="sizeChanged" >
+            
             <TabItem Header="QWERTY" Width="120" Height="50">
                 <Grid  x:Name="qwerty_grid" Background="#FFEDF5FF"/>
             </TabItem>
