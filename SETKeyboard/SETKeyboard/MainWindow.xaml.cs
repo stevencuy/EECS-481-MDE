@@ -162,7 +162,22 @@ namespace SETKeyboard
                 buttons[i] = suggestionButton;
             }
             suggestionBar.ItemsSource = buttons;
+       
+            /*
+             * Takes care of the event of an autocompletion followed by a period. A completion will add a space
+             * after the selected suggested word in the console. Clicking the period will remove this extra space. 
+             */ 
+            if (consoleText.Length > 1)
+            {
+                if(consoleText[consoleText.Length-2].Equals(' ') &&
+                    (consoleText[consoleText.Length-1].Equals('.')))
+                {
+                    consoleText = consoleText.Substring(0, consoleText.Length - 2);
+                    consoleText += ". ";
+                }
+            }
 
+            //Puts text onto the console
             this.consoleText = consoleText;
             window.SETConsole.Document.Blocks.Clear();
             window.SETConsole.Document.Blocks.Add(new Paragraph(new Run(consoleText)));
@@ -181,15 +196,27 @@ namespace SETKeyboard
                 }
             }
 
-            consoleText = consoleText.Substring(0, replaceIndex);
-
             System.Windows.Controls.Button button = (System.Windows.Controls.Button)sender;
             string replacement = button.Content.ToString();
+
+            int replacementOffset = 0;
+            if (replaceIndex != 0)
+            {
+                replacementOffset = 1;
+            }
+
+            if (!consoleText[consoleText.Length - 1].Equals(' '))
+            {
+                replacement = consoleText[replaceIndex + replacementOffset] + replacement.Substring(1, replacement.Length - 1);
+            }
+            
+            consoleText = consoleText.Substring(0, replaceIndex);
 
             if (replaceIndex != 0)
             {
                 consoleText += " ";
             }
+
             consoleText += replacement + " ";
 
             setConsoleText(consoleText);
