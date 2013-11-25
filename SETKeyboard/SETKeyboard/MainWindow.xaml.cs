@@ -167,15 +167,9 @@ namespace SETKeyboard
              * Takes care of the event of an autocompletion followed by a period. A completion will add a space
              * after the selected suggested word in the console. Clicking the period will remove this extra space. 
              */ 
-            if (consoleText.Length > 1)
-            {
-                if(consoleText[consoleText.Length-2].Equals(' ') &&
-                    (consoleText[consoleText.Length-1].Equals('.')))
-                {
-                    consoleText = consoleText.Substring(0, consoleText.Length - 2);
-                    consoleText += ". ";
-                }
-            }
+            consoleText = consoleText.Replace(" .", ". ");
+            consoleText = consoleText.Replace("  ", " ");
+
 
             //Puts text onto the console
             this.consoleText = consoleText;
@@ -199,6 +193,10 @@ namespace SETKeyboard
             System.Windows.Controls.Button button = (System.Windows.Controls.Button)sender;
             string replacement = button.Content.ToString();
 
+
+            /*
+             * Preserves the case of a word being replaced by a selected suggestion
+             */ 
             int replacementOffset = 0;
             if (replaceIndex != 0)
             {
@@ -230,5 +228,7 @@ namespace SETKeyboard
             SETConsole.CaretPosition = caretPos;
             SETConsole.Focus();
         }
+
+
     }
 }
