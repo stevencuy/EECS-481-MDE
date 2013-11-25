@@ -3,15 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:tnine="clr-namespace:SETKeyboard.GUI"
         Title="SET Keyboard" Width="1030" Height="600" MinWidth="1030" MinHeight="600">
-    
+
     <DockPanel>
         <RichTextBox x:Name="SETConsole" FontSize="40" FontFamily="Calibri" 
                      DockPanel.Dock="Top" MaxHeight="150"
-                     BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" />
-        
-        
-            <TabControl x:Name="TabPanel" DockPanel.Dock="Bottom" SizeChanged="sizeChanged" >
-            
+                     BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" Height="60" />
+
+
+        <TabControl x:Name="TabPanel" SizeChanged="sizeChanged" RenderTransformOrigin="0.5,0.5" Height="442" DockPanel.Dock="Bottom" >
+            <TabControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.506"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="1.991"/>
+                </TransformGroup>
+            </TabControl.RenderTransform>
+
             <TabItem Header="QWERTY" Width="120" Height="50">
                 <Grid  x:Name="qwerty_grid" Background="#FFEDF5FF"/>
             </TabItem>
@@ -31,7 +39,7 @@
                         <ColumnDefinition Width="147*"/>
                         <ColumnDefinition Width="285*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <tnine:T9LetterButton x:Name="abcButton" Content="abc" Grid.Column="1" Margin="5,5,5,5" Grid.Row="1" FontSize="24"/>
                     <tnine:T9LetterButton x:Name="defButton" Content="def" Grid.Column="2" Margin="5,5,5,5" Grid.Row="1" FontSize="24"/>
                     <tnine:T9LetterButton x:Name="ghiButton" Content="ghi" Grid.Column="3" Margin="5,5,5,5" Grid.Row="1" FontSize="24"/>
@@ -54,7 +62,8 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        
+        <ToolBar x:Name="suggestionBar" Margin="0,0,0,5" Height="60" DockPanel.Dock="Top" VerticalAlignment="Top"/>
+
     </DockPanel>
-    
+
 </Window>

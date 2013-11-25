@@ -42,6 +42,11 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="System.Data.SQLite" version="1.0.89.0" publicKeyToken="DB937BC2D44FF139" language="neutral" processorArchitecture="x86" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="libpxcclr.dll" size="667280">
       <assemblyIdentity name="libpxcclr" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
@@ -54,14 +59,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SETKeyboard.exe" size="45056">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SETKeyboard.exe" size="50176">
       <assemblyIdentity name="SETKeyboard" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Q3PCIkj5s3kBDIQQf2wd7a3P/DUGTV+3y/mMLK8XZY4=</dsig:DigestValue>
+        <dsig:DigestValue>1adyqbv3+ljgSqJu87xvCoDIIGLsbM90efwvp4saMzE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

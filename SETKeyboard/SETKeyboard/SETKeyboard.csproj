@@ -90,6 +90,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.89.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -116,6 +117,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GUI\Query.cs" />
+    <Compile Include="GUI\PredictionHandler.cs" />
+    <Compile Include="GUI\DatabaseInteractor.cs" />
     <Compile Include="GUI\QwertyKeyboard.cs" />
     <Compile Include="GUI\TabReadWrite.cs" />
     <Compile Include="GUI\CustomTab.cs" />
@@ -150,6 +154,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="database_en.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

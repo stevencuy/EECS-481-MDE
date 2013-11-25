@@ -31,9 +31,16 @@ namespace SETKeyboard
         public Dictionary<String, HashSet<String>> tabPhrases = new Dictionary<String, HashSet<String>>();
         public Dictionary<String, Grid> ctab_grids = new Dictionary<String, Grid>();
         public Dictionary<String, TabItem> ctab_items = new Dictionary<String, TabItem>();
+
+        private PredictionHandler predictionHandler;
+        private Query query;
+
         public MainWindow()
         {
-           
+
+            this.predictionHandler = new PredictionHandler();
+            this.query = new Query();
+
             InitializeComponent();
             this.consoleText = "";
             window = this;
@@ -138,13 +145,55 @@ namespace SETKeyboard
             g.Background = (Brush)converter.ConvertFromString("#FFEDF5FF");
             ctab_grids.Add(tab_name, g);
         }
-
+        
         public void setConsoleText(String consoleText)
         {
+            query.setQuery(consoleText);
+            string[] bro = predictionHandler.getPredictions(query);
+
+            System.Windows.Controls.Button[] buttons = new System.Windows.Controls.Button[bro.Length];
+
+            for (int i = 0; i < bro.Length; i++)
+            {
+                System.Windows.Controls.Button suggestionButton = new System.Windows.Controls.Button();
+                suggestionButton.FontSize = 30;
+                suggestionButton.Content = bro[i];
+                suggestionButton.Click += new RoutedEventHandler(suggestionBar_Click);
+                buttons[i] = suggestionButton;
+            }
+            suggestionBar.ItemsSource = buttons;
+
             this.consoleText = consoleText;
             window.SETConsole.Document.Blocks.Clear();
             window.SETConsole.Document.Blocks.Add(new Paragraph(new Run(consoleText)));
             window.FocusCaret();
+        }
+
+        private void suggestionBar_Click(object sender, EventArgs e)
+        {
+            int replaceIndex = 0;
+            for (int i = this.consoleText.Length - 1; i >= 0; i--)
+            {
+                if (consoleText[i].Equals(' ') || (i == 0))
+                {
+                    replaceIndex = i;
+                    break;
+                }
+            }
+
+            consoleText = consoleText.Substring(0, replaceIndex);
+
+            System.Windows.Controls.Button button = (System.Windows.Controls.Button)sender;
+            string replacement = button.Content.ToString();
+
+            if (replaceIndex != 0)
+            {
+                consoleText += " ";
+            }
+            consoleText += replacement + " ";
+
+            setConsoleText(consoleText);
+
         }
 
         public void FocusCaret()
