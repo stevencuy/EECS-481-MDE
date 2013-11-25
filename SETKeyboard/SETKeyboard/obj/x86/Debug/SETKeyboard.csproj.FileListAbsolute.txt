@@ -62,3 +62,5 @@ C:\Users\Mark\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debu
 C:\Users\Mark\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debug\SETKeyboard.exe.manifest
 C:\Users\Mark\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debug\SETKeyboard.application
 C:\Users\Mark\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\x86\Debug\database_en.db
+C:\Users\Mark\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\x86\Debug\System.Data.SQLite.dll
+C:\Users\Mark\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\x86\Debug\System.Data.SQLite.pdb
