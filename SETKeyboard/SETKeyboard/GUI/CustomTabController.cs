@@ -31,7 +31,7 @@ namespace SETKeyboard.GUI
         public void renderAll(int type)
         {
             renderTabController(type);
-            renderAdmin();
+            renderAdmin(type);
 
         }
         
@@ -73,14 +73,21 @@ namespace SETKeyboard.GUI
             else
                 tb.Click += new RoutedEventHandler(RemoveTab);
         }
-        private void renderAdmin()
+        private void renderAdmin(int type)
         {
             TabPhrase create, remove, normal;
             int button_height = (int)(height / 4) - 10;
             int button_width = (width - 20) / 3;
+            var converter = new System.Windows.Media.BrushConverter();
             create = new TabPhrase("(+) Tab", button_width, button_height, 0, 0, 0, 0);
             remove = new TabPhrase("(-) Tab", button_width, button_height, button_width + 10, 0, 0, 0);
             normal = new TabPhrase("Use Tabs", button_width, button_height, 2 * (button_width + 10), 0, 0, 0);
+            if (type == 1)
+                create.Background = (Brush)converter.ConvertFromString("#00FA9A");
+            else if (type == 0)
+                normal.Background = (Brush)converter.ConvertFromString("#00FA9A");
+            else
+                remove.Background = (Brush)converter.ConvertFromString("#00FA9A");
             create.Click += new RoutedEventHandler(UseInsertClick);
             normal.Click += new RoutedEventHandler(UseNormalClick);
             remove.Click += new RoutedEventHandler(UseRemoveClick);

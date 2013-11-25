@@ -36,7 +36,7 @@ namespace SETKeyboard.GUI
         private void renderTab(int type)
         {
             renderPhrases(type);
-            renderControl();
+            renderControl(type);
         }
 
         private void renderPhrases(int type)
@@ -90,14 +90,21 @@ namespace SETKeyboard.GUI
                 tb.Click += new RoutedEventHandler(RemoveClick);
         }
 
-        private void renderControl()
+        private void renderControl(int type)
         {
             TabPhrase create, remove, normal, clear, backspace;
             int button_height = (int)(height/4)-10;
             int button_width = (width - 30) / 4;
+            var converter = new System.Windows.Media.BrushConverter();
             create = new TabPhrase("(+) Phrase", button_width, button_height, 0, 0, 0, 0);
             remove = new TabPhrase("(-) Phrases", button_width, button_height, button_width + 10, 0, 0, 0);
             normal = new TabPhrase("Use Phrases", button_width, button_height, 2*(button_width+10), 0, 0, 0);
+            if(type == 1)
+                create.Background = (Brush)converter.ConvertFromString("#00FA9A");
+            else if(type == 0)
+                normal.Background = (Brush)converter.ConvertFromString("#00FA9A");
+            else
+                remove.Background = (Brush)converter.ConvertFromString("#00FA9A");
             clear = new TabPhrase("Clear Console", button_width, button_height, 3 * (button_width + 10), 0, 0, 0);
             backspace = new TabPhrase("Backspace", button_width, button_height, 4 * (button_width + 10), 0, 0, 0);
             create.Click += new RoutedEventHandler(UseInsertClick);
