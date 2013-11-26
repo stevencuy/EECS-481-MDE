@@ -3,31 +3,31 @@
 
 //Constants required for pupil tracking
 
-// Debugging
+//Debugging
 const bool kPlotVectorField = false;
 
-// Size constants
+//Size constants
 const double kEyePercentTop = 35;
 const double kEyePercentSide = 13;
 const double kEyePercentHeight = 15;
 const double kEyePercentWidth = 30;
 
-// Preprocessing
+//Preprocessing
 const bool kSmoothFaceImage = false;
 const float kSmoothFaceFactor = 0.005;
 
-// Algorithm Parameters
+//Algorithm Parameters
 const double kFastEyeWidth = 50;
 const double kWeightBlurSize = 5;
 const bool kEnableWeight = false;
 const float kWeightDivisor = 150.0;
 const double kGradientThreshold = 50.0;
 
-// Postprocessing
+//Postprocessing
 const bool kEnablePostProcess = true;
 const float kPostProcessThreshold = 0.97;
 
-// Eye Corner
+//Eye Corner
 const bool kEnableEyeCorner = false;
 
 #endif
