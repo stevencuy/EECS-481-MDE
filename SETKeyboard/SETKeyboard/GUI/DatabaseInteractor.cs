@@ -41,7 +41,6 @@ namespace SETKeyboard.GUI
 
         public string[] getCompletionFor(string partialWord)
         {
-
             int partialWordLength = partialWord.Length;
             string sql = "select * from _1_gram " +
                          "where substr(word,1," + partialWordLength + ") = '" + partialWord + "' " +
@@ -86,8 +85,6 @@ namespace SETKeyboard.GUI
                 int index = 0;
                 while (index < dt.Rows.Count)
                 {
-
-
                     if (index == NUM_RESULTS)
                     {
                         break;
@@ -99,8 +96,6 @@ namespace SETKeyboard.GUI
                         index++;
                     }
                 }
-
-
             }
             catch
             {
@@ -109,6 +104,5 @@ namespace SETKeyboard.GUI
             connection.Close();
             return results;
         }
-
     }
 }

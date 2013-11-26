@@ -13,20 +13,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SETKeyboard
 {
     public partial class MainWindow : Window
     {
+        public MainWindow window;
         private QwertyKeyboard qwerty;
-        public TabReadWrite TRW;
         private T9Keyboard T9;
         private Output output;
+        private CustomTabController ctab_controller;
+
+        public TabReadWrite TRW;
         private String consoleText;
         public Grid ctab_controller_grid = new Grid();
-        public MainWindow window;
-        private CustomTabController ctab_controller;
         private TabItem ctab_controller_item;
+
         public Dictionary<String, CustomTab> ctabs = new Dictionary<String, CustomTab>();
         public Dictionary<String, HashSet<String>> tabPhrases = new Dictionary<String, HashSet<String>>();
         public Dictionary<String, Grid> ctab_grids = new Dictionary<String, Grid>();
@@ -35,8 +38,16 @@ namespace SETKeyboard
         private PredictionHandler predictionHandler;
         private Query query;
 
+        private int dwellTime;
+        private SolidColorBrush hoverColor;
+        private SolidColorBrush selectColor;
+        private DispatcherTimer timer;
+
         public MainWindow()
         {
+            dwellTime = 1;
+            hoverColor = Brushes.Gray;
+            selectColor = Brushes.MediumSpringGreen;
 
             this.predictionHandler = new PredictionHandler();
             this.query = new Query();
@@ -45,7 +56,6 @@ namespace SETKeyboard
             this.consoleText = "";
             window = this;
             
-
             //T9 keyboard resizes from within MainWindow xaml file
             T9 = new T9Keyboard(window);
   
@@ -61,20 +71,124 @@ namespace SETKeyboard
             TRW.Read();
             generateTabController();
             loadCustomTabs();          
- 
         }
+
         ~MainWindow()
         {
             TRW.Write();
         }
+
+        private void sizeChanged(object sender, RoutedEventArgs e)
+        {
+            qwerty_grid.Children.Clear();
+            OUTPUTGrid.Children.Clear();
+            qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+            output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+        }
+
+        private void QWERTY_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabItem QwertyButton = (TabItem)sender;
+
+            QwertyButton.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                window.TabPanel.SelectedIndex = 0;
+            };
+
+            QwertyButton.MouseLeave += (s, eA) =>
+            {
+                QwertyButton.Background = Brushes.LightGray;
+                timer.Stop();
+            };
+
+            timer.Start();      
+        }
+
+        private void T9_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabItem T9Button = (TabItem)sender;
+
+            T9Button.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                window.TabPanel.SelectedIndex = 1;
+            };
+
+            T9Button.MouseLeave += (s, eA) =>
+            {
+                T9Button.Background = Brushes.LightGray;
+                timer.Stop();
+            };
+
+            timer.Start();
+        }
+
+        private void Output_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabItem OutputButton = (TabItem)sender;
+
+            OutputButton.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                window.TabPanel.SelectedIndex = 2;
+            };
+
+            OutputButton.MouseLeave += (s, eA) =>
+            {
+                OutputButton.Background = Brushes.LightGray;
+                timer.Stop();
+            };
+
+            timer.Start();
+        }
+        private void CTAB_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabItem CTABButton = (TabItem)sender;
+
+            CTABButton.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                window.TabPanel.SelectedIndex = 3;
+            };
+
+            CTABButton.MouseLeave += (s, eA) =>
+            {
+                CTABButton.Background = Brushes.LightGray;
+                timer.Stop();
+            };
+
+            timer.Start();
+        }
+
         public void loadCustomTabs()
         {
             foreach (var pair in tabPhrases)
             {
                 loadCustomTab(pair.Key);
             }
-
         }
+
         public void loadCustomTab(String name)
         {
             ctabs.Add(name, new CustomTab(window, name, 500, 800));
@@ -86,7 +200,6 @@ namespace SETKeyboard
             ctab_items.Add(name, tab);
             TabPanel.Items.Add(tab);
         }
-
 
         public void createCustomTab(String name)
         {
@@ -100,6 +213,7 @@ namespace SETKeyboard
             ctab_items.Add(name, tab);
             TabPanel.Items.Add(tab);
         }
+
         public void removeCustomTab(String name)
         {
             TabPanel.Items.Remove(ctab_items[name]);
@@ -108,34 +222,21 @@ namespace SETKeyboard
             ctab_items.Remove(name);
             ctabs.Remove(name);
             window.TabPanel.SelectedIndex = window.TabPanel.Items.IndexOf(ctab_controller_item);
-
         }
-
 
         private void generateTabController()
         {
             ctab_controller = new CustomTabController(window, 500, 800);
             ctab_controller_item = new TabItem();
+            ctab_controller_item.MouseEnter += CTAB_Click;
             ctab_controller_item.Header = "Tab Controller";
             ctab_controller_item.Width = 15 + "Tab Controller".Length * 15;
             ctab_controller_item.Height = 50;
             var converter = new System.Windows.Media.BrushConverter();
+
             ctab_controller_grid.Background = (Brush)converter.ConvertFromString("#FFEDF5FF");
             ctab_controller_item.Content = ctab_controller_grid;
             TabPanel.Items.Add(ctab_controller_item);
-        }
-
-        private void sizeChanged(object sender, RoutedEventArgs e)
-        {
-            qwerty_grid.Children.Clear();
-            OUTPUTGrid.Children.Clear();
-            qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
-            output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
-        }
-
-        public String getConsoleText()
-        {
-            return this.consoleText;
         }
 
         public void assignGrid(String tab_name)
@@ -145,7 +246,7 @@ namespace SETKeyboard
             g.Background = (Brush)converter.ConvertFromString("#FFEDF5FF");
             ctab_grids.Add(tab_name, g);
         }
-        
+
         public void setConsoleText(String consoleText)
         {
             query.setQuery(consoleText);
@@ -158,7 +259,7 @@ namespace SETKeyboard
                 System.Windows.Controls.Button suggestionButton = new System.Windows.Controls.Button();
                 suggestionButton.FontSize = 30;
                 suggestionButton.Content = bro[i];
-                suggestionButton.Click += new RoutedEventHandler(suggestionBar_Click);
+                suggestionButton.MouseEnter += new MouseEventHandler(suggestionBar_Click);
                 buttons[i] = suggestionButton;
             }
             suggestionBar.ItemsSource = buttons;
@@ -170,7 +271,6 @@ namespace SETKeyboard
             consoleText = consoleText.Replace(" .", ". ");
             consoleText = consoleText.Replace("  ", " ");
 
-
             //Puts text onto the console
             this.consoleText = consoleText;
             window.SETConsole.Document.Blocks.Clear();
@@ -180,45 +280,80 @@ namespace SETKeyboard
 
         private void suggestionBar_Click(object sender, EventArgs e)
         {
-            int replaceIndex = 0;
-            for (int i = this.consoleText.Length - 1; i >= 0; i--)
-            {
-                if (consoleText[i].Equals(' ') || (i == 0))
-                {
-                    replaceIndex = i;
-                    break;
-                }
-            }
-
-            System.Windows.Controls.Button button = (System.Windows.Controls.Button)sender;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            Button button = (Button)sender;
             string replacement = button.Content.ToString();
 
+            button.Background = hoverColor;
 
-            /*
-             * Preserves the case of a word being replaced by a selected suggestion
-             */ 
-            int replacementOffset = 0;
-            if (replaceIndex != 0)
+            timer.Tick += (sender2, eventArgs) =>
             {
-                replacementOffset = 1;
-            }
+                timer.Stop();
 
-            if (!consoleText[consoleText.Length - 1].Equals(' '))
+                int replaceIndex = 0;
+                for (int i = this.consoleText.Length - 1; i >= 0; i--)
+                {
+                    if (consoleText[i].Equals(' ') || (i == 0))
+                    {
+                        replaceIndex = i;
+                        break;
+                    }
+                }
+                /*
+                 * Preserves the case of a word being replaced by a selected suggestion
+                 */
+                int replacementOffset = 0;
+                if (replaceIndex != 0)
+                {
+                    replacementOffset = 1;
+                }
+
+                if (!consoleText[consoleText.Length - 1].Equals(' '))
+                {
+                    replacement = consoleText[replaceIndex + replacementOffset] + replacement.Substring(1, replacement.Length - 1);
+                }
+
+                consoleText = consoleText.Substring(0, replaceIndex);
+
+                if (replaceIndex != 0)
+                {
+                    consoleText += " ";
+                }
+
+                consoleText += replacement + " ";
+                setConsoleText(consoleText);
+
+                suggestionBar_Click(sender, e);
+            };
+
+            button.MouseLeave += (s, eA) =>
             {
-                replacement = consoleText[replaceIndex + replacementOffset] + replacement.Substring(1, replacement.Length - 1);
-            }
-            
-            consoleText = consoleText.Substring(0, replaceIndex);
+                button.Background = Brushes.White;
+                timer.Stop();
+            };
 
-            if (replaceIndex != 0)
-            {
-                consoleText += " ";
-            }
+            timer.Start();        
+        }
 
-            consoleText += replacement + " ";
+        public int getDwellTime()
+        {
+            return dwellTime;
+        }
 
-            setConsoleText(consoleText);
+        public SolidColorBrush getHoverColor()
+        {
+            return hoverColor;
+        }
 
+        public SolidColorBrush getSelectColor()
+        {
+            return selectColor;
+        }
+
+        public String getConsoleText()
+        {
+            return this.consoleText;
         }
 
         public void FocusCaret()
@@ -227,6 +362,11 @@ namespace SETKeyboard
             caretPos = caretPos.DocumentEnd;
             SETConsole.CaretPosition = caretPos;
             SETConsole.Focus();
+        }
+
+        private void TabItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+
         }
 
 

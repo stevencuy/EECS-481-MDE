@@ -32,8 +32,6 @@ namespace SETKeyboard.GUI
                 {
                     return wordCompletion(query);
                 }
-
-
             }
         }
 
@@ -82,7 +80,6 @@ namespace SETKeyboard.GUI
                 string[] empty = { };
                 return empty;
             }
-
         }
 
         private string[] wordPrediction(Query query)
@@ -111,8 +108,6 @@ namespace SETKeyboard.GUI
                 string[] empt = { };
                 return empt;
             }
-
-
         }
     }
 }

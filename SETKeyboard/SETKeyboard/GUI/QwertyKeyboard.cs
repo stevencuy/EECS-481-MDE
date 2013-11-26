@@ -18,15 +18,23 @@ namespace SETKeyboard.GUI
         private List<KeyButton> keys;
         private bool shift = false;
         private bool locked = false;
+
         private DispatcherTimer timer;
+        private DispatcherTimer confirmTimer;
         private int dwellTime;
+        private SolidColorBrush selectColor;
+        private SolidColorBrush hoverColor;
+
         public QwertyKeyboard(MainWindow window, double height, double width)
         {
             this.window = window;
-            keys = new List<KeyButton>();
-            dwellTime = 1;
+            dwellTime = window.getDwellTime();
+            selectColor = window.getSelectColor();
+            hoverColor = window.getHoverColor();
 
-            string[] keyStrings = new string[31];
+            keys = new List<KeyButton>();
+
+            string[] keyStrings = new string[32];
             //ROW 0
             keyStrings[0] = "q";
             keyStrings[1] = "w";
@@ -62,6 +70,7 @@ namespace SETKeyboard.GUI
             keyStrings[28] = ",";
             keyStrings[29] = "space";
             keyStrings[30] = ".";
+            keyStrings[31] = "clear";
 
             const int row_size = 3;
             int col_size = 10;
@@ -114,13 +123,7 @@ namespace SETKeyboard.GUI
             }
 
             //add lock button
-            ToggleButton lockButton = new ToggleButton();
-            lockButton.Height = button_height;
-            lockButton.Width = (3 * button_width) / 2;
-            lockButton.Margin = new Thickness(0, button_height * 3, 0, 0);
-            lockButton.Content = "Lock";
-            lockButton.VerticalAlignment = VerticalAlignment.Top;
-            lockButton.HorizontalAlignment = HorizontalAlignment.Left;
+            KeyButton lockButton = new KeyButton("LOCK", "lock", (3 * button_width) / 2, button_height, 0, button_height * 3, 0, 0);
             window.qwerty_grid.Children.Add(lockButton);
             lockButton.MouseEnter += new MouseEventHandler(lockButtons_Click);
 
@@ -141,6 +144,29 @@ namespace SETKeyboard.GUI
             keys.Add(period);
             window.qwerty_grid.Children.Add(period);
             period.MouseEnter += new MouseEventHandler(KeyHit_Click);
+
+            //add clear button
+            KeyButton clear = new KeyButton(keyStrings[31].ToUpper(), keyStrings[31], (button_width / 2) * 3, button_height, (button_width / 2) * 17, button_height * 3, 0, 0);
+            keys.Add(clear);
+            window.qwerty_grid.Children.Add(clear);
+            clear.MouseEnter += new MouseEventHandler(Clear_Click);
+
+            keys.Add(lockButton);
+        }
+
+        private void highlight(ButtonBase button)
+        {
+            confirmTimer = new DispatcherTimer();
+            button.Background = selectColor;
+            confirmTimer.Interval = TimeSpan.FromMilliseconds(350);
+            confirmTimer.Start();
+            confirmTimer.Tick += (se, eAr) =>
+            {
+                confirmTimer.Stop();
+
+                if (button.Background == selectColor)
+                    button.Background = hoverColor;
+            };
         }
 
         private void toggleKeyButtons()
@@ -153,10 +179,10 @@ namespace SETKeyboard.GUI
         {
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
-            ToggleButton lockButton = (ToggleButton)sender;
+            KeyButton lockButton = (KeyButton)sender;
 
-            if (lockButton.Background != Brushes.MediumSpringGreen)
-                lockButton.Background = Brushes.Gray;
+            if (lockButton.Background != selectColor)
+                lockButton.Background = hoverColor;
 
             timer.Tick += (sender2, eventArgs) =>
             {
@@ -165,22 +191,23 @@ namespace SETKeyboard.GUI
                 if (!locked)
                 {
                     locked = true;
-                    lockButton.Background = Brushes.MediumSpringGreen;
+                    lockButton.Background = selectColor;
 
-                    for (int i = 0; i < keys.Count(); ++i)
+                    for (int i = 0; i < keys.Count() - 1; ++i)
                     {
                         keys[i].MouseEnter -= KeyHit_Click;
                         keys[i].MouseEnter -= Shift_Click;
                         keys[i].MouseEnter -= Backspace_Click;
                         keys[i].MouseEnter -= Space_Click;
+                        keys[i].MouseEnter -= Clear_Click;
                     }
                 }
                 else
                 {
                     locked = false;
-                    lockButton.Background = Brushes.Gray;
+                    lockButton.Background = hoverColor;
 
-                    for (int i = 0; i < keys.Count(); ++i)
+                    for (int i = 0; i < keys.Count() - 1; ++i)
                     {
                         if (keys[i].getLower() == "shift")
                             keys[i].MouseEnter += Shift_Click;
@@ -188,6 +215,8 @@ namespace SETKeyboard.GUI
                             keys[i].MouseEnter += Backspace_Click;
                         else if (keys[i].getLower() == "space")
                             keys[i].MouseEnter += Space_Click;
+                        else if (keys[i].getLower() == "clear")
+                            keys[i].MouseEnter += Clear_Click;
                         else
                             keys[i].MouseEnter += KeyHit_Click;
                     }
@@ -200,7 +229,7 @@ namespace SETKeyboard.GUI
             {
                 timer.Stop();
 
-                if (lockButton.Background == Brushes.Gray)
+                if (lockButton.Background == hoverColor)
                     lockButton.Background = Brushes.LightGray;
             };
 
@@ -213,16 +242,34 @@ namespace SETKeyboard.GUI
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             KeyButton keyButton = (KeyButton)sender;
 
+            if (keyButton.Background != selectColor)
+                keyButton.Background = hoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
 
+                highlight(keyButton);
+
                 consoleText = window.getConsoleText();
                 String letter = keyButton.Content.ToString();
+
+                if (letter == ",")
+                    letter += " ";
+                else if (letter == ".")
+                {
+                    letter += " ";
+                    if (!shift)
+                    {
+                        shift = true;
+                        toggleKeyButtons();
+                    }
+                }
+
                 consoleText += letter;
                 window.setConsoleText(consoleText);
 
-                if (shift && letter != "," && letter != ".")
+                if (shift && letter != ", " && letter != ". ")
                 {
                     shift = false;
                     toggleKeyButtons();
@@ -233,6 +280,7 @@ namespace SETKeyboard.GUI
 
             keyButton.MouseLeave += (s, eA) =>
             {
+                keyButton.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
@@ -245,9 +293,14 @@ namespace SETKeyboard.GUI
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             KeyButton shiftButton = (KeyButton)sender;
 
+            if (shiftButton.Background != selectColor)
+                shiftButton.Background = hoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
+
+                highlight(shiftButton);
 
                 if (!shift)
                 {
@@ -266,6 +319,7 @@ namespace SETKeyboard.GUI
 
             shiftButton.MouseLeave += (s, eA) =>
             {
+                shiftButton.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
@@ -278,9 +332,14 @@ namespace SETKeyboard.GUI
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             KeyButton backButton = (KeyButton)sender;
 
+            if (backButton.Background != selectColor)
+                backButton.Background = hoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
+
+                highlight(backButton);
 
                 consoleText = window.getConsoleText();
                 if ((consoleText.Length == 1) || (consoleText.Length == 0))
@@ -301,6 +360,7 @@ namespace SETKeyboard.GUI
 
             backButton.MouseLeave += (s, eA) =>
             {
+                backButton.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
@@ -314,9 +374,14 @@ namespace SETKeyboard.GUI
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             KeyButton spaceButton = (KeyButton)sender;
 
+            if (spaceButton.Background != selectColor)
+                spaceButton.Background = hoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
+
+                highlight(spaceButton);
 
                 consoleText = window.getConsoleText();
                 consoleText += " ";
@@ -327,10 +392,40 @@ namespace SETKeyboard.GUI
 
             spaceButton.MouseLeave += (s, eA) =>
             {
+                spaceButton.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
             timer.Start();        
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            KeyButton clearButton = (KeyButton)sender;
+
+            if (clearButton.Background != selectColor)
+                clearButton.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                highlight(clearButton);
+
+                window.setConsoleText("");
+
+                Clear_Click(sender, e);
+            };
+
+            clearButton.MouseLeave += (s, eA) =>
+            {
+                clearButton.Background = Brushes.LightGray;
+                timer.Stop();
+            };
+
+            timer.Start();
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SETKeyboard.GUI
 {
@@ -21,18 +22,30 @@ namespace SETKeyboard.GUI
         private String name;
         public int width;
         public int height;
+
+        private DispatcherTimer timer;
+        private DispatcherTimer confirmTimer;
+        private int dwellTime;
+        private SolidColorBrush selectColor;
+        private SolidColorBrush hoverColor;
        
         private Dictionary<String, TabPhrase> phrases;
         public CustomTab(MainWindow window, String name_, double height, double width)
         {
             this.window = window;
+            dwellTime = window.getDwellTime();
+            selectColor = window.getSelectColor();
+            hoverColor = window.getHoverColor();
+
             consoleText = window.getConsoleText();
             name = name_;
             this.width = (int)width;
             this.height = (int)height;
             phrases = new Dictionary<String, TabPhrase>();
+
             renderTab(0);
         }
+
         private void renderTab(int type)
         {
             renderPhrases(type);
@@ -53,10 +66,12 @@ namespace SETKeyboard.GUI
                 phraseStrings = new List<String>();
                 window.tabPhrases.Add(name, new HashSet<String>());
             }
+
             if (!window.ctab_grids.ContainsKey(name))
             {
                 window.assignGrid(name);
             }
+
             window.ctab_grids[name].Children.Clear();
 
             const int strlen_to_width_conversion = 12;
@@ -65,16 +80,19 @@ namespace SETKeyboard.GUI
             int button_height_margin = (int)(height / 4);
             int width_so_far = 0;
             int row = 0;
+
             for (int i = 0; i < phraseStrings.Count(); ++i)
             {
                 TabPhrase tb;
                 int button_width = 50 + phraseStrings[i].Length * strlen_to_width_conversion;
                 int margin_left = (i > 0) ? width_so_far + 50 + phraseStrings[i - 1].Length * strlen_to_width_conversion + 10 : 0;
+
                 if (i > 0 && width_so_far + margin_left > total_width - 10)
                 {
                     ++row;
                     margin_left = 0;
                 }
+
                 width_so_far = margin_left;
                 tb = new TabPhrase(phraseStrings[i], button_width, button_height, margin_left, button_height_margin + row * button_height_margin, 0, 0);
                 assignEventHandler(type, tb);
@@ -82,12 +100,13 @@ namespace SETKeyboard.GUI
                 window.ctab_grids[name].Children.Add(tb);
             }
         }
+
         private void assignEventHandler(int type, TabPhrase tb)
         {
             if (type < 2)
-                tb.Click += new RoutedEventHandler(UseClick);
+                tb.MouseEnter += new MouseEventHandler(UseClick);
             else
-                tb.Click += new RoutedEventHandler(RemoveClick);
+                tb.MouseEnter += new MouseEventHandler(RemoveClick);
         }
 
         private void renderControl(int type)
@@ -96,92 +115,289 @@ namespace SETKeyboard.GUI
             int button_height = (int)(height/4)-10;
             int button_width = (width - 30) / 4;
             var converter = new System.Windows.Media.BrushConverter();
+
             create = new TabPhrase("(+) Phrase", button_width, button_height, 0, 0, 0, 0);
             remove = new TabPhrase("(-) Phrases", button_width, button_height, button_width + 10, 0, 0, 0);
-            normal = new TabPhrase("Use Phrases", button_width, button_height, 2*(button_width+10), 0, 0, 0);
-            if(type == 1)
-                create.Background = (Brush)converter.ConvertFromString("#00FA9A");
-            else if(type == 0)
-                normal.Background = (Brush)converter.ConvertFromString("#00FA9A");
-            else
-                remove.Background = (Brush)converter.ConvertFromString("#00FA9A");
+            normal = new TabPhrase("Use Phrases", button_width, button_height, 2 * (button_width + 10), 0, 0, 0);
             clear = new TabPhrase("Clear Console", button_width, button_height, 3 * (button_width + 10), 0, 0, 0);
             backspace = new TabPhrase("Backspace", button_width, button_height, 4 * (button_width + 10), 0, 0, 0);
-            create.Click += new RoutedEventHandler(UseInsertClick);
-            normal.Click += new RoutedEventHandler(UseNormalClick);
-            remove.Click += new RoutedEventHandler(UseRemoveClick);
-            clear.Click += new RoutedEventHandler(ClearConsoleClick);
-            backspace.Click += new RoutedEventHandler(Backspace_Click);
+
+            if (type == 1)
+                create.Background = selectColor;
+            else if (type == 0)
+                normal.Background = selectColor;
+            else
+                remove.Background = selectColor;
+
+            create.MouseEnter += new MouseEventHandler(UseInsertClick);
+            normal.MouseEnter += new MouseEventHandler(UseNormalClick);
+            remove.MouseEnter += new MouseEventHandler(UseRemoveClick);
+            clear.MouseEnter += new MouseEventHandler(ClearConsoleClick);
+            backspace.MouseEnter += new MouseEventHandler(Backspace_Click);
+
             window.ctab_grids[name].Children.Add(create);
             window.ctab_grids[name].Children.Add(normal);
             window.ctab_grids[name].Children.Add(remove);
             window.ctab_grids[name].Children.Add(clear);
             window.ctab_grids[name].Children.Add(backspace);
-            
         }
+
+        private void highlight(ButtonBase button)
+        {
+            confirmTimer = new DispatcherTimer();
+            button.Background = selectColor;
+            confirmTimer.Interval = TimeSpan.FromMilliseconds(350);
+            confirmTimer.Start();
+            confirmTimer.Tick += (se, eAr) =>
+            {
+                confirmTimer.Stop();
+
+                if (button.Background == selectColor)
+                    button.Background = hoverColor;
+            };
+        }
+
         private void UseNormalClick(object sender, RoutedEventArgs e)
         {
-        
-            renderTab(0);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabPhrase button = (TabPhrase)sender;
+
+            if (button.Background != selectColor)
+                button.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                highlight(button);
+
+                renderTab(0);
+
+                UseNormalClick(sender, e);
+            };
+
+            button.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+
+                if (button.Background != selectColor)
+                    button.Background = Brushes.LightGray;
+            };
+
+            timer.Start();  
         }
 
         private void ClearConsoleClick(object sender, RoutedEventArgs e)
         {
-            window.setConsoleText("");
-            renderTab(0);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabPhrase button = (TabPhrase)sender;
+
+            if (button.Background != selectColor)
+                button.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                highlight(button);
+
+                window.setConsoleText("");
+
+                ClearConsoleClick(sender, e);
+            };
+
+            button.MouseLeave += (s, eA) =>
+            {
+                button.Background = Brushes.LightGray;
+                timer.Stop();
+            };
+
+            timer.Start();
         }
         
         private void UseInsertClick(object sender, RoutedEventArgs e)
         {
-            
-            consoleText = window.getConsoleText();
-            if (consoleText.Length!=0 && !window.tabPhrases[name].Contains(consoleText))
-                window.tabPhrases[name].Add(consoleText);
-            renderTab(1);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabPhrase button = (TabPhrase)sender;
+
+            if (button.Background != selectColor)
+                button.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                highlight(button);
+
+                consoleText = window.getConsoleText();
+                if (consoleText.Length != 0 && !window.tabPhrases[name].Contains(consoleText))
+                    window.tabPhrases[name].Add(consoleText);
+                renderTab(1);
+
+                UseInsertClick(sender, e);
+            };
+
+            button.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+
+                if (button.Background != selectColor)
+                    button.Background = Brushes.LightGray;
+            };
+
+            timer.Start();  
         }
+
         private void UseRemoveClick(object sender, RoutedEventArgs e)
         {
-  
-            renderTab(2);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabPhrase button = (TabPhrase)sender;
+
+            if (button.Background != selectColor)
+                button.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                highlight(button);
+
+                renderTab(2);
+
+                UseRemoveClick(sender, e);
+            };
+
+            button.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+
+                if (button.Background != selectColor)
+                    button.Background = Brushes.LightGray;
+            };
+
+            timer.Start();  
         }
+
         private void UseClick(object sender, RoutedEventArgs e)
         {
-            consoleText = window.getConsoleText();
-            TabPhrase chosenPhrase = (TabPhrase)sender;
-            String phrase = chosenPhrase.Content.ToString();
-            if(consoleText.Length > 0)
-                consoleText += " ";
-            consoleText += phrase;
-            window.setConsoleText(consoleText);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabPhrase button = (TabPhrase)sender;
+
+            if (button.Background != selectColor)
+                button.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                highlight(button);
+
+                consoleText = window.getConsoleText();
+                TabPhrase chosenPhrase = (TabPhrase)sender;
+                String phrase = chosenPhrase.Content.ToString();
+                if (consoleText.Length > 0)
+                    consoleText += " ";
+                consoleText += phrase;
+                window.setConsoleText(consoleText);
+
+                UseClick(sender, e);
+            };
+
+            button.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+                button.Background = Brushes.LightGray;
+            };
+
+            timer.Start();  
         }
+
         private void RemoveClick(object sender, RoutedEventArgs e)
         {
-            TabPhrase deletePhrase = (TabPhrase)sender;
-            String phrase = deletePhrase.Content.ToString();
-            if (MessageBox.Show("Are you sure that you want to remove the tab phrase \"" + phrase + "\"?",
-  "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabPhrase button = (TabPhrase)sender;
+
+            if (button.Background != selectColor)
+                button.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
             {
+                timer.Stop();
+
+                highlight(button);
+
+                TabPhrase deletePhrase = (TabPhrase)sender;
+                String phrase = deletePhrase.Content.ToString();
+
+                /*
+                if (MessageBox.Show("Are you sure that you want to remove the tab phrase \"" + phrase + "\"?",  "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    window.tabPhrases[name].Remove(phrase);
+                }
+                */
+
                 window.tabPhrases[name].Remove(phrase);
-            }
-            renderTab(2);
+                renderTab(2);
+
+                RemoveClick(sender, e);
+            };
+
+            button.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+
+                if (button.Background != selectColor)
+                    button.Background = Brushes.LightGray;
+            };
+
+            timer.Start();  
         }
+
         private void Backspace_Click(object sender, RoutedEventArgs e)
         {
-            consoleText = window.getConsoleText();
-            if ((consoleText.Length == 1) || (consoleText.Length == 0))
-            {
-                consoleText = "";
-            }
-            else
-            {
-                //Removes last character of console text string
-                consoleText = consoleText.Substring(0, consoleText.Length - 1);
-            }
-            window.setConsoleText(consoleText);
-            //window.TabPanel.Items.Remove()
-            //window.TabPanel.Items.Remove(window.dictionary["new tab 2"]);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabPhrase button = (TabPhrase)sender;
 
+            if (button.Background != selectColor)
+                button.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                highlight(button);
+
+                consoleText = window.getConsoleText();
+                if ((consoleText.Length == 1) || (consoleText.Length == 0))
+                {
+                    consoleText = "";
+                }
+                else
+                {
+                    //Removes last character of console text string
+                    consoleText = consoleText.Substring(0, consoleText.Length - 1);
+                }
+                window.setConsoleText(consoleText);
+                //window.TabPanel.Items.Remove()
+                //window.TabPanel.Items.Remove(window.dictionary["new tab 2"]);
+
+                Backspace_Click(sender, e);
+            };
+
+            button.MouseLeave += (s, eA) =>
+            {
+                button.Background = Brushes.LightGray;
+                timer.Stop();
+            };
+
+            timer.Start();  
         }
-
     }
 }

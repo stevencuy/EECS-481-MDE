@@ -66,3 +66,5 @@ C:\Users\Mark\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\x86\Debu
 C:\Users\Mark\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\x86\Debug\System.Data.SQLite.pdb
 C:\Users\Anthony\Desktop\umich\481\481wtf\SETKeyboard\SETKeyboard\bin\x86\Debug\database_en.db
 C:\Users\Anthony\Desktop\umich\481\481wtf\SETKeyboard\SETKeyboard\bin\x86\Debug\System.Data.SQLite.pdb
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\x86\Debug\database_en.db
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\bin\x86\Debug\System.Data.SQLite.pdb

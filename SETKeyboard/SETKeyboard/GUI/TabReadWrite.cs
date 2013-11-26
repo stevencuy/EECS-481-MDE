@@ -26,9 +26,8 @@ namespace SETKeyboard.GUI
         {
             this.window = window;
             tabs_directory = Directory.GetCurrentDirectory() + "\\ctab_files";
-            
-   
         }
+
         public void Read()
         {
             file_names = new List<String>();
