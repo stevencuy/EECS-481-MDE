@@ -9,6 +9,10 @@
 
 int main(int argc, char **argv)
 {
+	//Hide Console
+	HWND console = GetConsoleWindow();
+	ShowWindow(console, 0);
+
 	Head * head = new Head();
 	GazeEstimator gaze = GazeEstimator::getInstance();
 	Cursor cursor = Cursor::getInstance();
