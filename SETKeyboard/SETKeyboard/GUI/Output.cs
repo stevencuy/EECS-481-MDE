@@ -33,7 +33,7 @@ namespace SETKeyboard.GUI
         {
             this.window = window;
             speech = new SpeechSynthesizer();
-            dwellTime = 1;
+            dwellTime = window.getDwellTime();
             string[] outputStrings = new string[3];
             outputStrings[0] = "Speak";
             outputStrings[1] = "Print Console to Text File";
