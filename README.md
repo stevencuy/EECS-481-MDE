@@ -22,6 +22,7 @@ Build Instructions:
 (Using Visual Studio 2013)
 
 Install Intel Perceptual Computing SDK (Used for text to speech output)
+
  1 Navigate to: http://software.intel.com/en-us/vcsource/tools/perceptual-computing-sdk
  2 Select "Download" on the right of the page
  3 Install with default settings (Takes a couple of minutes)
