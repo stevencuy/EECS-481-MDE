@@ -17,7 +17,7 @@
     <ClInclude Include="GazeEstimator.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="Head.h" />
-    <ClInclude Include="Utility.h" />
+    <ClInclude Include="EyeUtility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cursor.cpp" />
@@ -26,7 +26,7 @@
     <ClCompile Include="GazeEstimator.cpp" />
     <ClCompile Include="Head.cpp" />
     <ClCompile Include="globals.cpp" />
-    <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="EyeUtility.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{084A4DE3-0616-42FE-B976-F9BFD6E77D79}</ProjectGuid>

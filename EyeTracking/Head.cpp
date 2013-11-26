@@ -1,7 +1,7 @@
 #include "Head.h"
 #include "Eyes.h"
 #include "globals.h"
-#include "Utility.h"
+#include "EyeUtility.h"
 
 Head::Head()
 {

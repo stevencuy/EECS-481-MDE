@@ -7,7 +7,7 @@
 const bool kPlotVectorField = false;
 
 //Size constants
-const double kEyePercentTop = 35;
+const double kEyePercentTop = 32;
 const double kEyePercentSide = 13;
 const double kEyePercentHeight = 15;
 const double kEyePercentWidth = 30;
