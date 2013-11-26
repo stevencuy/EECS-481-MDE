@@ -18,7 +18,21 @@ Folder descriptions:
 
 SETKeyboard:
 -------------
-Build Instructions:
+**Build Instructions:**
+(Using Visual Studio 2013)
+
+**Install Intel Perceptual Computing SDK (Used for text to speech output):**
+
+ 1. Navigate to: http://software.intel.com/en-us/vcsource/tools/perceptual-computing-sdk
+ 2. Select "Download" on the right of the page
+ 3. Install with default settings (Takes a couple of minutes)
+ 4. Restart computer
+
+**Build Source:**
+ 1. Clone master branch to pc
+ 2. Navigate to EECS-481-MDE/SETKeyboard/
+ 3. Open SETKeyboard.sln
+ 4. Select run "Start" button (green play button)
 
 Eyetracking:
 -------------
