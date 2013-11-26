@@ -32,6 +32,7 @@ SETKeyboard:
  1. Clone master branch to pc
  2. Navigate to EECS-481-MDE/SETKeyboard/
  3. Open SETKeyboard.sln
+ 4. Select run "Start" button (green play button)
 
 Eyetracking:
 -------------
