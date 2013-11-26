@@ -1,61 +1,66 @@
 ﻿<Window x:Class="SETKeyboard.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:KeyButton"
-        xmlns:tnine="clr-namespace:SETKeyboard"
+        xmlns:tnine="clr-namespace:SETKeyboard.GUI"
         Title="SET Keyboard" Width="1030" Height="600" MinWidth="1030" MinHeight="600">
-    
+
     <DockPanel>
-        <RichTextBox x:Name="SETConsole" FontSize="24" FontFamily="Segoe UI Light" 
-                     DockPanel.Dock="Top" Height="Auto"
-                     BorderThickness="5" Background="#FFD8F9E9" Cursor="No" Block.LineHeight="6" />
+        <RichTextBox x:Name="SETConsole" FontSize="40" FontFamily="Calibri" 
+                     DockPanel.Dock="Top" MaxHeight="150"
+                     BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" Height="60" />
+        
+        <DockPanel DockPanel.Dock="Bottom">
+            <ToolBar x:Name="suggestionBar" Margin="0,0,0,5" Height="65" DockPanel.Dock="Top" VerticalAlignment="Top"/>
 
-        <TabControl x:Name="bPanel" DockPanel.Dock="Bottom" SizeChanged="sizeChanged">
-            <TabItem Header="QWERTY" Width="120" Height="50">
-                <Grid x:Name="QWERTYGrid">
-                </Grid>
-            </TabItem>
-            <TabItem Header="T9" Width="120" Height="50">
-                <Grid>
-                    <Grid.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFFFE4F8" Offset="1"/>
-                            <GradientStop Color="White"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="70*"/>
-                        <RowDefinition Height="105*"/>
-                        <RowDefinition Height="105*"/>
-                        <RowDefinition Height="105*"/>
-                        <RowDefinition Height="70*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="285*"/>
-                        <ColumnDefinition Width="147*"/>
-                        <ColumnDefinition Width="147*"/>
-                        <ColumnDefinition Width="147*"/>
-                        <ColumnDefinition Width="285*"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <tnine:T9LetterButton x:Name="abcButton" Content="abc" Grid.Column="1" Margin="5,5,5,5" Grid.Row="1" FontSize="24" Click="T9LetterClickEvent"/>
-                    <tnine:T9LetterButton x:Name="defButton" Content="def" Grid.Column="2" Margin="5,5,5,5" Grid.Row="1" FontSize="24" Click="T9LetterClickEvent"/>
-                    <tnine:T9LetterButton x:Name="ghiButton" Content="ghi" Grid.Column="3" Margin="5,5,5,5" Grid.Row="1" FontSize="24" Click="T9LetterClickEvent"/>
-                    <tnine:T9LetterButton x:Name="jklButton" Content="jkl" Grid.Column="1" Margin="5,5,5,5" Grid.Row="2" FontSize="24" Click="T9LetterClickEvent"/>
-                    <tnine:T9LetterButton x:Name="mnoButton" Content="mno" Grid.Column="3" Margin="5,5,5,5" Grid.Row="2" FontSize="24" Click="T9LetterClickEvent"/>
-                    <tnine:T9LetterButton x:Name="pqrsButton" Content="pqrs" Grid.Column="1" Margin="5,5,5,5" Grid.Row="3" FontSize="24" Click="T9LetterClickEvent"/>
-                    <tnine:T9LetterButton x:Name="tuvButton" Content="tuv" Grid.Column="2" Margin="5,5,5,5" Grid.Row="3" FontSize="24" Click="T9LetterClickEvent"/>
-                    <tnine:T9LetterButton x:Name="wxyzButton" Content="wxyz" Grid.Column="3" Margin="5,5,5,5" Grid.Row="3" FontSize="24" Click="T9LetterClickEvent"/>
-                    <tnine:T9LetterButton x:Name="nextLetterButton" Content="" Grid.Column="2" Grid.Row="2" Width="128" Height="86" Margin="10,10,10,10" Opacity="0" Click="nextLetterEvent"/>
+            <TabControl x:Name="TabPanel" SizeChanged="sizeChanged" DockPanel.Dock="Bottom">
 
-                    <Button Content="aA" Margin="95,5,5,5" Grid.Row="1" Grid.RowSpan="2" FontSize="24" Click="toUpperClick"/>
-                    <Button Content="." Margin="95,5,5,5" Grid.Row="3" FontSize="24"/>
-                    <Button Content="Back" Grid.Column="4" Margin="5,5,95,5" Grid.Row="1" Click="backSpaceClick" FontSize="24"/>
-                    <Button Content="Space"  Grid.Column="4" Margin="5,5,95,5" Grid.Row="2" Grid.RowSpan="2" Click="spaceClick" FontSize="24"/>
-                </Grid>
-            </TabItem>
-        </TabControl>
+                <TabItem Header="QWERTY" Width="120" Height="50" MouseEnter="QWERTY_Click">
+                    <Grid x:Name="qwerty_grid" Background="#FFEDF5FF"/>
+                </TabItem>
+
+                <TabItem Header="T9" Width="120" Height="50" MouseEnter="T9_Click">
+                    <Grid Background="#FFEDF5FF">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70*"/>
+                            <RowDefinition Height="105*"/>
+                            <RowDefinition Height="105*"/>
+                            <RowDefinition Height="105*"/>
+                            <RowDefinition Height="70*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="285*"/>
+                            <ColumnDefinition Width="147*"/>
+                            <ColumnDefinition Width="147*"/>
+                            <ColumnDefinition Width="147*"/>
+                            <ColumnDefinition Width="285*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <tnine:T9LetterButton x:Name="abcButton" Content="abc" Grid.Column="1" Margin="5,5,5,5" Grid.Row="1" FontSize="24"/>
+                        <tnine:T9LetterButton x:Name="defButton" Content="def" Grid.Column="2" Margin="5,5,5,5" Grid.Row="1" FontSize="24"/>
+                        <tnine:T9LetterButton x:Name="ghiButton" Content="ghi" Grid.Column="3" Margin="5,5,5,5" Grid.Row="1" FontSize="24"/>
+                        <tnine:T9LetterButton x:Name="jklButton" Content="jkl" Grid.Column="1" Margin="5,5,5,5" Grid.Row="2" FontSize="24"/>
+                        <tnine:T9LetterButton x:Name="mnoButton" Content="mno" Grid.Column="3" Margin="5,5,5,5" Grid.Row="2" FontSize="24"/>
+                        <tnine:T9LetterButton x:Name="pqrsButton" Content="pqrs" Grid.Column="1" Margin="5,5,5,5" Grid.Row="3" FontSize="24"/>
+                        <tnine:T9LetterButton x:Name="tuvButton" Content="tuv" Grid.Column="2" Margin="5,5,5,5" Grid.Row="3" FontSize="24"/>
+                        <tnine:T9LetterButton x:Name="wxyzButton" Content="wxyz" Grid.Column="3" Margin="5,5,5,5" Grid.Row="3" FontSize="24"/>
+                        <tnine:T9LetterButton x:Name="NextLetterButton" Content="" Grid.Column="2" Grid.Row="2" Width="128" Height="86" Margin="10,10,10,10" Opacity="0"/>
+                        <Button x:Name="ShiftButton" Content="shift" Margin="138,5,5,5" Grid.Row="1" FontSize="24"/>
+                        <Button x:Name="PeriodButton" Content="." Margin="138,5,5,5" Grid.Row="2" FontSize="24"/>
+                        <Button x:Name="CommaButton" Content="," Margin="138,5,5,5" Grid.Row="3" FontSize="24"/>
+                        <ToggleButton x:Name="LockButtonLeft" Content="lock" Margin="10,3,0,5" Grid.Row="1" Grid.Column="0" FontSize="24" Grid.RowSpan="3" HorizontalAlignment="Left" Width="123"/>
+                        <ToggleButton x:Name="LockButtonRight" Content="lock" Margin="0,5,10,6" Grid.Column="4"  Grid.Row="1" FontSize="24" Grid.RowSpan="3" HorizontalAlignment="Right" Width="124"/>
+                        <Button x:Name="BackButton" Content="back" Grid.Column="4" Margin="5,5,139,5" Grid.Row="1" FontSize="24"/>
+                        <Button x:Name="SpaceButton" Content="space"  Grid.Column="4" Margin="5,5,139,5" Grid.Row="2" Grid.RowSpan="2" FontSize="24"/>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="OUTPUT" Width="120" Height="50" MouseEnter="Output_Click">
+                    <Grid x:Name="OUTPUTGrid" Background="#FFEDF5FF">
+                    </Grid>
+                </TabItem>
+                
+            </TabControl>
+        </DockPanel>
         
     </DockPanel>
-    
 </Window>
