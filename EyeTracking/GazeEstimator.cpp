@@ -56,7 +56,7 @@ cv::Point_<double> GazeEstimator::update_previous_deque(cv::Point_<double> curre
 	}
 	//Calculate
 	cv::Point_<double> est_avg((double) x / previous_deque.size(),(double) y / previous_deque.size());
-	printf("Estimate: [ %g , %g ]\n", est_avg.x, est_avg.y);
+	//printf("Estimate: [ %g , %g ]\n", est_avg.x, est_avg.y);
 	return est_avg;
 }
 
@@ -64,14 +64,14 @@ cv::Point_<double> GazeEstimator::update_previous_deque(cv::Point_<double> curre
 void GazeEstimator::getResolution(int& horizontal, int& vertical)
 {
    RECT screen;
-   // Get a screen and window
+   //Get a screen and window
    const HWND window = GetDesktopWindow();
    GetWindowRect(window, &screen);
    horizontal = screen.right;
    vertical = screen.bottom;
 }
 
-// Debug statements
+//Debug statements
 void GazeEstimator::printEyeData(Head * head, cv::Point_<double> screen_tl, cv::Point_<double> screen_br)
 {
 	cout << "left: " << head->eyes->leftPupil.x << " " << head->eyes->leftPupil.y << endl;
