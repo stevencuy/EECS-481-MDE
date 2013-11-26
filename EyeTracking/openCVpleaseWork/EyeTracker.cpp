@@ -17,6 +17,7 @@ int main(int argc, char **argv)
 	cv::Point_<double> screen_tl((double)-1,(double)-1);
 	cv::Point_<double> screen_br((double)-1,(double)-1);
 	std::deque <cv::Point_<double>> previous_deque;
+	
 	//Moving Average
 	cv::Point_<double> previous_average(0,0);
 
@@ -25,9 +26,6 @@ int main(int argc, char **argv)
 		printf("--(!)Error loading\n");
 		return -1;
 	}
-
-	//ellipse(skinCrCbHist, cv::Point_<double>((double)113, (double)155.6), cv::Size(23.4, 15.2),
-    //      43.0, 0.0, 360.0, cv::Scalar(255, 255, 255), -1);
 
 	capture = cvCaptureFromCAM(1);
 	if (capture)
