@@ -45,7 +45,7 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	this->leftEyeRegion = leftEyeRegion;
 	this->rightEyeRegion = rightEyeRegion;
 
-	//-- Find Eye Centers
+	//Find Eye Centers
 	cv::Point lp = findEyeCenter(faceROI,leftEyeRegion,"Left Eye");
 	cv::Point rp = findEyeCenter(faceROI,rightEyeRegion,"Right Eye");
 
@@ -76,8 +76,6 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	rectangle(debugImage, rightEye_br, rightEye_tl, cvScalar(0, 255, 255), 1);
 	circle(debugImage, rightPupil, 3, cvScalar(0, 255, 255), -1) ;
 	circle(debugImage, leftPupil, 3, cvScalar(0, 255, 255), -1) ;
-
-	//imshow(face_window_name, faceROI);
 }
 
 cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow)
@@ -85,18 +83,15 @@ cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string d
 	cv::Mat eyeROIUnscaled = face(eye);
 	cv::Mat eyeROI;
 	scaleToFastSize(eyeROIUnscaled, eyeROI);
-	// draw eye region
+	//draw eye region
 	rectangle(face,eye,1234);
-	//-- Find the gradient
+	//Find gradient
 	cv::Mat gradientX = computeMatXGradient(eyeROI);
 	cv::Mat gradientY = computeMatXGradient(eyeROI.t()).t();
-	//-- Normalize and threshold the gradient
-	// compute all the magnitudes
+	//Compute all the magnitudes
 	cv::Mat mags = matrixMagnitude(gradientX, gradientY);
 	//compute the threshold
 	double gradientThresh = computeDynamicThreshold(mags, kGradientThreshold);
-	//double gradientThresh = kGradientThreshold;
-	//double gradientThresh = 0;
 	//normalize
 	for (int y = 0; y < eyeROI.rows; ++y) {
 		double *Xr = gradientX.ptr<double>(y), *Yr = gradientY.ptr<double>(y);
@@ -114,9 +109,7 @@ cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string d
 		}
 	}
 
-
-	//imshow(debugWindow,gradientX);
-	//-- Create a blurred and inverted image for weighting
+	//create a blurred and inverted image for weighting
 	cv::Mat weight;
 	GaussianBlur( eyeROI, weight, cv::Size( kWeightBlurSize, kWeightBlurSize ), 0, 0 );
 	for (int y = 0; y < weight.rows; ++y) {
@@ -125,12 +118,9 @@ cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string d
 			row[x] = (255 - row[x]);
 		}
 	}
-	//imshow(debugWindow,weight);
-	//-- Run the algorithm!
+	//Pupil Tracking algorithm
 	cv::Mat outSum = cv::Mat::zeros(eyeROI.rows,eyeROI.cols,CV_64F);
 	// for each possible center
-
-	//printf("Eye Size: %ix%i\n",outSum.cols,outSum.rows);
 	for (int y = 0; y < weight.rows; ++y) {
 		const unsigned char *Wr = weight.ptr<unsigned char>(y);
 		const double *Xr = gradientX.ptr<double>(y), *Yr = gradientY.ptr<double>(y);
@@ -146,25 +136,19 @@ cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string d
 	double numGradients = (weight.rows*weight.cols);
 	cv::Mat out;
 	outSum.convertTo(out, CV_32F,1.0/numGradients);
-	//imshow(debugWindow,out);
-	//-- Find the maximum point
+	//Find the maximum point
 	cv::Point maxP;
 	double maxVal;
 	cv::minMaxLoc(out, NULL,&maxVal,NULL,&maxP);
-	//-- Flood fill the edges
+	//Smoothing
 	if(kEnablePostProcess) {
 		cv::Mat floodClone;
-		//double floodThresh = computeDynamicThreshold(out, 1.5);
 		double floodThresh = maxVal * kPostProcessThreshold;
 		cv::threshold(out, floodClone, floodThresh, 0.0f, cv::THRESH_TOZERO);
 		if(kPlotVectorField) {
-			//plotVecField(gradientX, gradientY, floodClone);
 			imwrite("eyeFrame.png",eyeROIUnscaled);
 		}
 		cv::Mat mask = floodKillEdges(floodClone);
-		//imshow(debugWindow + " Mask",mask);
-		//imshow(debugWindow,out);
-		// redo max
 		cv::minMaxLoc(out, NULL,&maxVal,NULL,&maxP,mask);
 	}
 	return unscalePoint(maxP,eye);
@@ -187,7 +171,6 @@ cv::Mat Eyes::computeMatXGradient(const cv::Mat &mat) {
 		}
 		Or[mat.cols-1] = Mr[mat.cols-1] - Mr[mat.cols-2];
 	}
-
 	return out;
 }
 
@@ -222,7 +205,6 @@ bool Eyes::floodShouldPushPoint(const cv::Point_<double> &np, const cv::Mat &mat
 	return inMat(np, mat.rows, mat.cols);
 }
 
-// returns a mask
 cv::Mat Eyes::floodKillEdges(cv::Mat &mat) {
 	rectangle(mat,cv::Rect(0,0,mat.cols,mat.rows),255);
 
@@ -244,7 +226,7 @@ cv::Mat Eyes::floodKillEdges(cv::Mat &mat) {
 		if (floodShouldPushPoint(np, mat)) toDo.push(np);
 		np.x = p.x; np.y = p.y - 1; // up
 		if (floodShouldPushPoint(np, mat)) toDo.push(np);
-		// kill it
+		// kill edges
 		mat.at<float>(p) = 0.0f;
 		mask.at<uchar>(p) = 0;
 	}
