@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+//Constants required for pupil tracking
+
 // Debugging
 const bool kPlotVectorField = false;
 
