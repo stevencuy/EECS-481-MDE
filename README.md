@@ -9,9 +9,9 @@ Folder descriptions:
 
 2) EyeTracking - All the Pupil Tracking and Gaze Estimation classes are located here.
 
-3) Doumentation_gui - Documentation related to GUI
+3) Doumentation_gui - Documentation resources related to GUI
 
-4) Documentation_eyetracking - Documentation related to eyetracking
+4) Documentation_eyetracking - Documentation resources related to eyetracking
 
-5) Documentation
+5) Documentation - Submitted documents
 
