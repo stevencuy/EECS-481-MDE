@@ -3,7 +3,7 @@
 
 #include "constants.h"
 #include "globals.h"
-#include "Utility.h"
+#include "EyeUtility.h"
 #include "Eyes.h"
 
 Eyes::Eyes()
