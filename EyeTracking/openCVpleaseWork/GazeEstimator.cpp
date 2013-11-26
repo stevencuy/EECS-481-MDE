@@ -23,7 +23,6 @@ cv::Point_<double> GazeEstimator::calculateGazePosition(Head * head, cv::Point_<
 	if( previous_average.x == 0 && previous_average.y == 0) {
 		return coor;
 	}
-//	printEyeData(head, screen_tl, screen_br);
 	return update_previous_deque(coor, previous_average, previous_deque);
 }
 
@@ -72,8 +71,9 @@ void GazeEstimator::getResolution(int& horizontal, int& vertical)
    vertical = screen.bottom;
 }
 
+// Debug statements
 void GazeEstimator::printEyeData(Head * head, cv::Point_<double> screen_tl, cv::Point_<double> screen_br)
 {
-	//cout << "left: " << head->eyes->leftPupil.x << " " << head->eyes->leftPupil.y << endl;
-	//cout << "right: " << head->eyes->rightPupil.x << " " << head->eyes->rightPupil.y << endl;
+	cout << "left: " << head->eyes->leftPupil.x << " " << head->eyes->leftPupil.y << endl;
+	cout << "right: " << head->eyes->rightPupil.x << " " << head->eyes->rightPupil.y << endl;
 }
