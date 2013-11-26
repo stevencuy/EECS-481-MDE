@@ -1,8 +1,6 @@
 #include "Globals.h"
 
-
-/** Global variables */
-//-- Note, either copy these two files from opencv/data/haarscascades to your current folder, or change these locations
+//Global variables
 cv::String face_cascade_name = "haarcascade_frontalface_alt.xml";
 cv::CascadeClassifier face_cascade;
 std::string main_window_name = "Capture - Face detection";
