@@ -8,8 +8,7 @@
 using namespace std;
 
 
-/** Global variables */
-//-- Note, either copy these two files from opencv/data/haarscascades to your current folder, or change these locations
+// Global variables
 extern cv::String face_cascade_name;
 extern cv::CascadeClassifier face_cascade;
 extern std::string main_window_name;
