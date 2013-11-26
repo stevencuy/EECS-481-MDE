@@ -33,21 +33,21 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	}
 
 	//-- Find eye regions and draw them
-	eye_region_width = face.width * (kEyePercentWidth/100.0);
-	eye_region_height = face.width * (kEyePercentHeight/100.0);
-	eye_region_top = face.height * (kEyePercentTop/100.0);
+	eyeRegionWidth = face.width * (kEyePercentWidth/100.0);
+	eyeRegionHeight = face.width * (kEyePercentHeight/100.0);
+	eyeRegionTop = face.height * (kEyePercentTop/100.0);
 
 	cv::Rect leftEyeRegion(face.width*(kEyePercentSide/100.0),
-		eye_region_top,eye_region_width,eye_region_height);
-	cv::Rect rightEyeRegion(face.width - eye_region_width - face.width*(kEyePercentSide/100.0),
-		eye_region_top,eye_region_width,eye_region_height);
+		eyeRegionTop,eyeRegionWidth,eyeRegionHeight);
+	cv::Rect rightEyeRegion(face.width - eyeRegionWidth - face.width*(kEyePercentSide/100.0),
+		eyeRegionTop,eyeRegionWidth,eyeRegionHeight);
 
 	this->leftEyeRegion = leftEyeRegion;
 	this->rightEyeRegion = rightEyeRegion;
 
 	//Find Eye Centers
-	cv::Point lp = findEyeCenter(faceROI,leftEyeRegion,"Left Eye");
-	cv::Point rp = findEyeCenter(faceROI,rightEyeRegion,"Right Eye");
+	cv::Point lp = getEyeCenter(faceROI,leftEyeRegion,"Left Eye");
+	cv::Point rp = getEyeCenter(faceROI,rightEyeRegion,"Right Eye");
 
 	int lxdiff = lp.x - leftPupil.x;
 	int rxdiff = rp.x - rightPupil.x;
@@ -78,7 +78,7 @@ void Eyes::findEyes(cv::Mat frame_gray, cv::Rect face)
 	circle(debugImage, leftPupil, 3, cvScalar(0, 255, 255), -1) ;
 }
 
-cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow)
+cv::Point_<double> Eyes::getEyeCenter(cv::Mat face, cv::Rect eye, std::string debugWindow)
 {
 	cv::Mat eyeROIUnscaled = face(eye);
 	cv::Mat eyeROI;
@@ -86,8 +86,8 @@ cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string d
 	//draw eye region
 	rectangle(face,eye,1234);
 	//Find gradient
-	cv::Mat gradientX = computeMatXGradient(eyeROI);
-	cv::Mat gradientY = computeMatXGradient(eyeROI.t()).t();
+	cv::Mat gradientX = computeMatGradient(eyeROI);
+	cv::Mat gradientY = computeMatGradient(eyeROI.t()).t();
 	//Compute all the magnitudes
 	cv::Mat mags = matrixMagnitude(gradientX, gradientY);
 	//compute the threshold
@@ -129,7 +129,7 @@ cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string d
 			if (gX == 0.0 && gY == 0.0) {
 				continue;
 			}
-			testPossibleCentersFormula(x, y, Wr[x], gX, gY, outSum);
+			centersEquation(x, y, Wr[x], gX, gY, outSum);
 		}
 	}
 	// scale all the values down, basically averaging them
@@ -148,7 +148,7 @@ cv::Point_<double> Eyes::findEyeCenter(cv::Mat face, cv::Rect eye, std::string d
 		if(kPlotVectorField) {
 			imwrite("eyeFrame.png",eyeROIUnscaled);
 		}
-		cv::Mat mask = floodKillEdges(floodClone);
+		cv::Mat mask = smoothEdges(floodClone);
 		cv::minMaxLoc(out, NULL,&maxVal,NULL,&maxP,mask);
 	}
 	return unscalePoint(maxP,eye);
@@ -158,7 +158,7 @@ void Eyes::scaleToFastSize(const cv::Mat &src,cv::Mat &dst) {
 	cv::resize(src, dst, cv::Size(kFastEyeWidth,(((float)kFastEyeWidth)/src.cols) * src.rows));
 }
 
-cv::Mat Eyes::computeMatXGradient(const cv::Mat &mat) {
+cv::Mat Eyes::computeMatGradient(const cv::Mat &mat) {
 	cv::Mat out(mat.rows,mat.cols,CV_64F);
 
 	for (int y = 0; y < mat.rows; ++y) {
@@ -174,7 +174,7 @@ cv::Mat Eyes::computeMatXGradient(const cv::Mat &mat) {
 	return out;
 }
 
-void Eyes::testPossibleCentersFormula(int x, int y, unsigned char weight,double gx, double gy, cv::Mat &out) {
+void Eyes::centersEquation(int x, int y, unsigned char weight,double gx, double gy, cv::Mat &out) {
 	// for all possible centers
 	for (int cy = 0; cy < out.rows; ++cy) {
 		double *Or = out.ptr<double>(cy);
@@ -201,11 +201,11 @@ void Eyes::testPossibleCentersFormula(int x, int y, unsigned char weight,double 
 	}
 }
 
-bool Eyes::floodShouldPushPoint(const cv::Point_<double> &np, const cv::Mat &mat) {
+bool Eyes::postProcessCheck(const cv::Point_<double> &np, const cv::Mat &mat) {
 	return inMat(np, mat.rows, mat.cols);
 }
 
-cv::Mat Eyes::floodKillEdges(cv::Mat &mat) {
+cv::Mat Eyes::smoothEdges(cv::Mat &mat) {
 	rectangle(mat,cv::Rect(0,0,mat.cols,mat.rows),255);
 
 	cv::Mat mask(mat.rows, mat.cols, CV_8U, 255);
@@ -219,13 +219,13 @@ cv::Mat Eyes::floodKillEdges(cv::Mat &mat) {
 		}
 		// add in every direction
 		cv::Point np(p.x + 1, p.y); // right
-		if (floodShouldPushPoint(np, mat)) toDo.push(np);
+		if (postProcessCheck(np, mat)) toDo.push(np);
 		np.x = p.x - 1; np.y = p.y; // left
-		if (floodShouldPushPoint(np, mat)) toDo.push(np);
+		if (postProcessCheck(np, mat)) toDo.push(np);
 		np.x = p.x; np.y = p.y + 1; // down
-		if (floodShouldPushPoint(np, mat)) toDo.push(np);
+		if (postProcessCheck(np, mat)) toDo.push(np);
 		np.x = p.x; np.y = p.y - 1; // up
-		if (floodShouldPushPoint(np, mat)) toDo.push(np);
+		if (postProcessCheck(np, mat)) toDo.push(np);
 		// kill edges
 		mat.at<float>(p) = 0.0f;
 		mask.at<uchar>(p) = 0;
