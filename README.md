@@ -3,11 +3,13 @@ EECS-481-MDE
 
 Github Repo: https://github.com/stevencuy/EECS-481-MDE
 
-Github is currently public until the beta score is recieved. Then it will return to private until final release. 
+ * Github is currently public until the beta score is recieved. Then it will return to private until final release. 
 
 To 481 instructors: Our Beta submission consists of files located in folders 1 and 2.
 
-Folder descriptions:
+Please connect an Interactive Gesture Camera to the computer and have it as the only active webcam. 
+
+**Folder descriptions:**
 
 1) SETKeyboard - All the GUI code for the on-screen keyboard is located here.
 
