@@ -19,7 +19,7 @@ Folder descriptions:
 SETKeyboard:
 -------------
 **Build Instructions:**
-(Using Visual Studio 2013)
+(Using Visual Studio 2012)
 
 **Install Intel Perceptual Computing SDK (Used for text to speech output):**
 
