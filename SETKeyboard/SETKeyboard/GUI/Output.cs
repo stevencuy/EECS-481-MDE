@@ -121,7 +121,7 @@ namespace SETKeyboard.GUI
                 string index = "";
                 int i = 0;
 
-                while (File.Exists(@destination_folder + date + index + ".txt"))
+                while (File.Exists(@destination_folder + "\\" + date + index + ".txt"))
                 {
                     i++;
                     index = "-" + i;
