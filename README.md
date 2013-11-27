@@ -38,6 +38,15 @@ Eyetracking:
 -------------
 Build Instructions:
 
+1. Unzip opencv to root "C:/"
+
+2. Computer -> Properties -> Advanced System settings -> Advanced -> Environment Variables -> System Variables -> Path
+Add "C:\opencv\install\bin" to Path
+
+3. Open EyeTracking in Visual Studio Express 2012
+
+4. Select Debug and Build
+
 Calibration Instructions:
 
 
