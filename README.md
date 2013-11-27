@@ -57,12 +57,12 @@ Eyetracking:
 
 **Using**
  * The head must be very still when using the eyetracker
- * After starting the application, without moving the head, look at the top left corner of the screen, focus, and press UP    ARROW KEY
- * Then look at the bottom right corner of the screen with your head in the same position and press down arrow key.
+ * After starting the application, without moving the head, look at the top left corner of the screen, focus, and press      **UP ARROW KEY**
+ * Then look at the bottom right corner of the screen with your head in the same position and press **DOWN ARROW KEY**
  * At this point the cursor will take control
  * Look around and focus on characters without moving your head dramatically
  * One can recalibrate both corners if the cursor gets thrown off
- * Press escape at any time to kill the program and cursor control.
+ * Press **ESC** at any time to kill the program and cursor control.
  * Use the application in proper lighting position and be close enough to the screen.
 
 
