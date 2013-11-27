@@ -33,6 +33,10 @@ SETKeyboard:
  2. Navigate to EECS-481-MDE/SETKeyboard/
  3. Open SETKeyboard.sln
  4. Select run "Start" button (green play button)
+ 
+**Using**
+**Dwell Time**
+Every button within the application is fired by moving the cursor within the area of the 
 
 Eyetracking:
 -------------
