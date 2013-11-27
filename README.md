@@ -1,6 +1,10 @@
 EECS-481-MDE
 ============
 
+Github Repo: https://github.com/stevencuy/EECS-481-MDE
+
+Github is currently public until the beta score is recieved. Then it will return to private until final release. 
+
 To 481 instructors: Our Beta submission consists of files located in folders 1 and 2.
 
 Folder descriptions:
@@ -66,6 +70,8 @@ Eyetracking:
  * Press **ESC** at any time to kill the program and cursor control.
  * Use the application in proper lighting position and be close enough to the screen.
 
+ 	If any issues please contact Steven Uy at stevenuy@umich.edu
 
 
 
+Team Set: Anthony Chiang, Deng Ke Teo, Bryant Ku, Steven Louie, Mark Mevorah, Jason Terranova, Steven Uy
