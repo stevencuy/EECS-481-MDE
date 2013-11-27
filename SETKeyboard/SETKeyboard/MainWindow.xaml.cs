@@ -45,7 +45,7 @@ namespace SETKeyboard
 
         public MainWindow()
         {
-            dwellTime = 3;
+            dwellTime = 2;
             hoverColor = Brushes.Gray;
             selectColor = Brushes.MediumSpringGreen;
 
