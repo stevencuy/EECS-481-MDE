@@ -73,7 +73,6 @@ namespace SETKeyboard.GUI
             }
         }
 
-
         public void writeFile(String name)
         {
             String file_name = tabs_directory + "\\" + name + ".ctab";

@@ -19,9 +19,8 @@ namespace SETKeyboard.GUI
 {
     class Output
     {
-        //private string destination_folder = "C:\\Users\\Jason\\Desktop\\SET\\"; // this only works if directory exists
-        private string destination_folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         private MainWindow window;
+        private string destination_folder;
         private List<OutputButton> outputKeys = new List<OutputButton>();
         private SpeechSynthesizer speech;
         private BackgroundWorker TTS_bworker = new BackgroundWorker();
@@ -35,6 +34,7 @@ namespace SETKeyboard.GUI
         public Output(MainWindow window, double height, double width)
         {
             this.window = window;
+            destination_folder = Directory.GetCurrentDirectory() + "\\saved_files";
             dwellTime = window.getDwellTime();
             selectColor = window.getSelectColor();
             hoverColor = window.getHoverColor();
@@ -69,9 +69,7 @@ namespace SETKeyboard.GUI
             TTS_BWorker_Init();
             TTF_BWorker_Init();
             TTC_BWorker_Init();
-
         }
-
 
         private void Speak_Hover(object sender, RoutedEventArgs e)
         {
@@ -113,8 +111,7 @@ namespace SETKeyboard.GUI
                 outputKeys[1].IsEnabled = false;
                 if (!Directory.Exists(destination_folder))
                 {
-                    outputKeys[1].Content = "Error: Directory does not exist";
-                    outputKeys[1].Background = Brushes.Crimson;
+                    Directory.CreateDirectory(destination_folder);
                 }
                 else
                 {
@@ -124,14 +121,19 @@ namespace SETKeyboard.GUI
                     string date = DateTime.Now.ToString("yyyy-MM-dd-HH-mm") + "-output";
                     string index = "";
                     int i = 0;
+
                     while (File.Exists(@destination_folder + date + index + ".txt"))
                     {
                         i++;
                         index = "-" + i;
                     }
 
-                    System.IO.File.WriteAllText(@destination_folder + date + index + ".txt", tr.Text);
-                    //System.IO.File.WriteAllText(@destination_folder + "test.txt", tr.Text);
+                    String file_name = destination_folder + "\\" + date + index + ".txt";
+                    using (StreamWriter writer = new StreamWriter(file_name))
+                    {
+                        writer.WriteLine(tr.Text);
+                    }
+
                     outputKeys[1].Content = "File successfully written!";
                     outputKeys[1].Background = selectColor;
                     TTF_bworker.RunWorkerAsync();

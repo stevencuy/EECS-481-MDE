@@ -222,6 +222,7 @@ namespace SETKeyboard
             tab.Width = 30 + name.Length * 15;
             tab.Height = 100;
             tab.Content = ctab_grids[name];
+            tab.MouseEnter += Tab_Click;
             ctab_items.Add(name, tab);
             TabPanel.Items.Add(tab);
         }
