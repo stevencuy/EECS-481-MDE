@@ -74,5 +74,5 @@ Eyetracking:
 
 
 
-
- **Team Set: Anthony Chiang, Deng Ke Teo, Bryant Ku, Steven Louie, Mark Mevorah, Jason Terranova, Steven Uy**
+----------------
+**Team Set: Anthony Chiang, Deng Ke Teo, Bryant Ku, Steven Louie, Mark Mevorah, Jason Terranova, Steven Uy**
