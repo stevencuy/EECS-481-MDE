@@ -47,7 +47,6 @@ namespace SETKeyboard.GUI
             setSecond(b[1]);
             setFirst(b[0]);
 
-
             Console.WriteLine("Query On:" + getFirst() + " " + getSecond() + " " + getThird());
         }
 

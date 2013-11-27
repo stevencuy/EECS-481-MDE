@@ -74,7 +74,7 @@ namespace SETKeyboard.GUI
 
             const int row_size = 3;
             int col_size = 10;
-            int button_width = (int)(width / 10) - 1, button_height = (int)(height / 4) - 15;
+            int button_width = (int)(width / 10) - 1, button_height = (int)(height / 4) - 28;
             int margin_inc = button_width;
             int[] margins_l = new int[3];
             margins_l[0] = 0;

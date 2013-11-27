@@ -61,7 +61,7 @@ namespace SETKeyboard.GUI
 
             const int strlen_to_width_conversion = 12;
             int total_width = (int)(width);
-            int button_height = (int)(height / 4) - 10;
+            int button_height = (int)(height / 4) - 25;
             int button_height_margin = (int)(height / 4);
             int width_so_far = 0;
             int row = 0;

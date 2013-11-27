@@ -27,39 +27,41 @@ namespace SETKeyboard.GUI
         private BackgroundWorker TTS_bworker = new BackgroundWorker();
         private BackgroundWorker TTF_bworker = new BackgroundWorker();
         private BackgroundWorker TTC_bworker = new BackgroundWorker();
+
         private DispatcherTimer timer;
         private int dwellTime;
+        private SolidColorBrush selectColor;
+        private SolidColorBrush hoverColor;
         public Output(MainWindow window, double height, double width)
         {
             this.window = window;
-            speech = new SpeechSynthesizer();
             dwellTime = window.getDwellTime();
+            selectColor = window.getSelectColor();
+            hoverColor = window.getHoverColor();
+
+            speech = new SpeechSynthesizer();
             string[] outputStrings = new string[3];
             outputStrings[0] = "Speak";
             outputStrings[1] = "Print Console to Text File";
             outputStrings[2] = "Copy Console to Clipboard";
 
             int button_width = (int)(width / 3) * 2;
-            int margin = (int)height / 22;
-            int button_height = (int)(height / 4) - margin;
-            /*
-            int margin = 5;
-            int button_width = (int)((width - margin * 4) / 3);
-            int button_height = (int)((width - margin * 2));
-            */
-            OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, 0, margin * 2, 0, 0);
+            int margin = (int)height / 20;
+            int button_height = (int)(height / 4) - 25; 
+
+            OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, 0, margin, 0, 0);
             //OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, margin, margin, 0, 0);
             outputKeys.Add(speak);
             window.OUTPUTGrid.Children.Add(speak);
             speak.MouseEnter += new MouseEventHandler(Speak_Hover);
 
-            OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, 0, button_height + margin * 3, 0, 0);
+            OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, 0, button_height + margin * 2, 0, 0);
             //OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, button_width + margin * 2, margin, 0, 0);
             outputKeys.Add(ttf);
             window.OUTPUTGrid.Children.Add(ttf);
             ttf.MouseEnter += new MouseEventHandler(TTF_Hover);
 
-            OutputButton ttc = new OutputButton(outputStrings[2], button_width, button_height, 0, button_height * 2 + margin * 4, 0, 0);
+            OutputButton ttc = new OutputButton(outputStrings[2], button_width, button_height, 0, button_height * 2 + margin * 3, 0, 0);
             outputKeys.Add(ttc);
             window.OUTPUTGrid.Children.Add(ttc);
             ttc.MouseEnter += new MouseEventHandler(TTC_Hover);
@@ -81,7 +83,7 @@ namespace SETKeyboard.GUI
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
-                outputKeys[0].Background = Brushes.MediumSpringGreen;
+                outputKeys[0].Background = selectColor;
                 outputKeys[0].Content = "Speaking...";
                 outputKeys[0].IsEnabled = false;
                 TextRange tr = new TextRange(window.SETConsole.Document.ContentStart, window.SETConsole.Document.ContentEnd);
@@ -118,7 +120,7 @@ namespace SETKeyboard.GUI
                 {
                     TextRange tr = new TextRange(window.SETConsole.Document.ContentStart, window.SETConsole.Document.ContentEnd);
                     outputKeys[1].Content = "Working...";
-                    outputKeys[1].Background = Brushes.MediumSpringGreen;
+                    outputKeys[1].Background = selectColor;
                     string date = DateTime.Now.ToString("yyyy-MM-dd-HH-mm") + "-output";
                     string index = "";
                     int i = 0;
@@ -131,7 +133,7 @@ namespace SETKeyboard.GUI
                     System.IO.File.WriteAllText(@destination_folder + date + index + ".txt", tr.Text);
                     //System.IO.File.WriteAllText(@destination_folder + "test.txt", tr.Text);
                     outputKeys[1].Content = "File successfully written!";
-                    outputKeys[1].Background = Brushes.MediumSpringGreen;
+                    outputKeys[1].Background = selectColor;
                     TTF_bworker.RunWorkerAsync();
                 }
 
@@ -162,7 +164,7 @@ namespace SETKeyboard.GUI
                 TextRange tr = new TextRange(window.SETConsole.Document.ContentStart, window.SETConsole.Document.ContentEnd);
                 string content = ((string)tr.Text).Substring(0, ((string)tr.Text).Length - 2) + '\0';
                 Clipboard.SetText(content);
-                outputKeys[2].Background = Brushes.MediumSpringGreen;
+                outputKeys[2].Background = selectColor;
                 outputKeys[2].Content = "Copied!";
                 window.FocusCaret();
                 TTC_bworker.RunWorkerAsync();

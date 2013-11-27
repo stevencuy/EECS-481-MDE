@@ -45,7 +45,7 @@ namespace SETKeyboard
 
         public MainWindow()
         {
-            dwellTime = 2;
+            dwellTime = 3;
             hoverColor = Brushes.Gray;
             selectColor = Brushes.MediumSpringGreen;
 
@@ -157,6 +157,7 @@ namespace SETKeyboard
 
             timer.Start();
         }
+
         private void CTAB_Click(object sender, RoutedEventArgs e)
         {
             timer = new DispatcherTimer();
@@ -181,6 +182,30 @@ namespace SETKeyboard
             timer.Start();
         }
 
+        private void Tab_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabItem TabButton = (TabItem)sender;
+
+            TabButton.Background = hoverColor;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                window.TabPanel.SelectedIndex = window.TabPanel.Items.IndexOf(TabButton);
+            };
+
+            TabButton.MouseLeave += (s, eA) =>
+            {
+                TabButton.Background = Brushes.LightGray;
+                timer.Stop();
+            };
+
+            timer.Start();
+        }
+
         public void loadCustomTabs()
         {
             foreach (var pair in tabPhrases)
@@ -195,7 +220,7 @@ namespace SETKeyboard
             TabItem tab = new TabItem();
             tab.Header = name;
             tab.Width = 30 + name.Length * 15;
-            tab.Height = 50;
+            tab.Height = 100;
             tab.Content = ctab_grids[name];
             ctab_items.Add(name, tab);
             TabPanel.Items.Add(tab);
@@ -208,8 +233,9 @@ namespace SETKeyboard
             TabItem tab = new TabItem();
             tab.Header = name;
             tab.Width = 30 + name.Length * 15;
-            tab.Height = 50;
+            tab.Height = 100;
             tab.Content = ctab_grids[name];
+            tab.MouseEnter += Tab_Click;
             ctab_items.Add(name, tab);
             TabPanel.Items.Add(tab);
         }
@@ -231,7 +257,7 @@ namespace SETKeyboard
             ctab_controller_item.MouseEnter += CTAB_Click;
             ctab_controller_item.Header = "Tab Controller";
             ctab_controller_item.Width = 15 + "Tab Controller".Length * 15;
-            ctab_controller_item.Height = 50;
+            ctab_controller_item.Height = 100;
             var converter = new System.Windows.Media.BrushConverter();
 
             ctab_controller_grid.Background = (Brush)converter.ConvertFromString("#FFEDF5FF");
@@ -257,8 +283,15 @@ namespace SETKeyboard
             for (int i = 0; i < bro.Length; i++)
             {
                 System.Windows.Controls.Button suggestionButton = new System.Windows.Controls.Button();
-                suggestionButton.FontSize = 30;
-                suggestionButton.Content = bro[i];
+                suggestionButton.FontSize = 65;
+
+                if (bro[i] == "t")
+                    suggestionButton.Content = " 't ";
+                else if (bro[i] == "s")
+                    suggestionButton.Content = " 's ";
+                else
+                    suggestionButton.Content = " " + bro[i] + " ";
+
                 suggestionButton.MouseEnter += new MouseEventHandler(suggestionBar_Click);
                 buttons[i] = suggestionButton;
             }
@@ -284,6 +317,7 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             Button button = (Button)sender;
             string replacement = button.Content.ToString();
+            replacement = replacement.Substring(1, replacement.Length - 2);
 
             button.Background = hoverColor;
 
@@ -321,7 +355,13 @@ namespace SETKeyboard
                     consoleText += " ";
                 }
 
-                consoleText += replacement + " ";
+                if (replacement == "'t" && consoleText.Length > 1)
+                    consoleText = consoleText.Substring(0, consoleText.Length - 1) + "'t ";
+                else if (replacement == "'s" && consoleText.Length > 1)
+                    consoleText = consoleText.Substring(0, consoleText.Length - 1) + "'s ";
+                else
+                    consoleText += replacement + " ";
+
                 setConsoleText(consoleText);
 
                 suggestionBar_Click(sender, e);
@@ -363,12 +403,5 @@ namespace SETKeyboard
             SETConsole.CaretPosition = caretPos;
             SETConsole.Focus();
         }
-
-        private void TabItem_MouseEnter(object sender, MouseEventArgs e)
-        {
-
-        }
-
-
     }
 }

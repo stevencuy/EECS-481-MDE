@@ -10,15 +10,15 @@
                      BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" Height="60" />
         
         <DockPanel DockPanel.Dock="Bottom">
-            <ToolBar x:Name="suggestionBar" Margin="0,0,0,5" Height="65" DockPanel.Dock="Top" VerticalAlignment="Top"/>
+            <ToolBar x:Name="suggestionBar" Margin="0,0,0,5" Height="100" DockPanel.Dock="Top" VerticalAlignment="Top"/>
 
             <TabControl x:Name="TabPanel" SizeChanged="sizeChanged" DockPanel.Dock="Bottom">
 
-                <TabItem Header="QWERTY" Width="120" Height="50" MouseEnter="QWERTY_Click">
+                <TabItem Header="QWERTY" Width="120" Height="100" MouseEnter="QWERTY_Click">
                     <Grid x:Name="qwerty_grid" Background="#FFEDF5FF"/>
                 </TabItem>
 
-                <TabItem Header="T9" Width="120" Height="50" MouseEnter="T9_Click">
+                <TabItem Header="T9" Width="120" Height="100" MouseEnter="T9_Click">
                     <Grid Background="#FFEDF5FF">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="70*"/>
@@ -54,7 +54,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="OUTPUT" Width="120" Height="50" MouseEnter="Output_Click">
+                <TabItem Header="OUTPUT" Width="120" Height="100" MouseEnter="Output_Click">
                     <Grid x:Name="OUTPUTGrid" Background="#FFEDF5FF">
                     </Grid>
                 </TabItem>
