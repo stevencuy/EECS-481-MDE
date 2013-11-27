@@ -42,17 +42,29 @@ SETKeyboard:
 
 Eyetracking:
 -------------
-Build Instructions:
+**Build Instructions:**
+(Using Visual Studio 2012 or Express)
 
-1. Unzip opencv to root "C:/"
+**Install opencv:**
+1. Download opencv.zip from ...
+2. Unzip opencv to root "C:/"
+3. Computer -> Properties -> Advanced System settings -> Advanced -> Environment Variables -> System Variables -> Path
+   Add "C:\opencv\install\bin" to Path
+**Build Source:**
+1. Clone master branch to pc
+2. Navigate to EECS-481-MDE/EyeTracking/
+3. Select run "Start" button (green play button) for debug not release.
 
-2. Computer -> Properties -> Advanced System settings -> Advanced -> Environment Variables -> System Variables -> Path
-Add "C:\opencv\install\bin" to Path
+**Using**
+ * The head must be very still when using the eyetracker
+ * After starting the application, without moving the head, look at the top left corner of the screen, focus, and press UP    ARROW KEY
+ * Then look at the bottom right corner of the screen with your head in the same position and press down arrow key.
+ * At this point the cursor will take control
+ * Look around and focus on characters without moving your head dramatically
+ * One can recalibrate both corners if the cursor gets thrown off
+ * Press escape at any time to kill the program and cursor control.
+ * Use the application in proper lighting position and be close enough to the screen.
 
-3. Open EyeTracking in Visual Studio Express 2012
 
-4. Select Debug and Build
-
-Calibration Instructions:
 
 
