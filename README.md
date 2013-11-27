@@ -49,7 +49,7 @@ Eyetracking:
  1. Download opencv.zip from https://drive.google.com/file/d/0BzjT9l5eslJuQlJXd2pVQlh5SE0/edit?usp=sharing
  2. Unzip opencv to root "C:/"
  3. Computer -> Properties -> Advanced System settings -> Advanced -> Environment Variables -> System Variables -> Path
-   Add "C:\opencv\install\bin" to Path
+    Add "C:\opencv\install\bin" to Path
 **Build Source:**
  1. Clone master branch to pc
  2. Navigate to EECS-481-MDE/EyeTracking/
