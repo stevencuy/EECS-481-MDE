@@ -35,7 +35,6 @@ SETKeyboard:
  4. Select run "Start" button (green play button)
  
 **Using**
-**Dwell Time**
  * Every button within the application can be fired after being hovered over for a constant amount of time called the "dwell time."
  * Suggested word completions/predictions are displayed in the bar in between the console and the tab bar
  * For the T9 keyboard, characters attributed to the selected button are cycled through by holding the cursor over the button
