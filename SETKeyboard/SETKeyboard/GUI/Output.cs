@@ -113,34 +113,30 @@ namespace SETKeyboard.GUI
                 {
                     Directory.CreateDirectory(destination_folder);
                 }
-                else
+
+                TextRange tr = new TextRange(window.SETConsole.Document.ContentStart, window.SETConsole.Document.ContentEnd);
+                outputKeys[1].Content = "Working...";
+                outputKeys[1].Background = selectColor;
+                string date = DateTime.Now.ToString("yyyy-MM-dd-HH-mm") + "-output";
+                string index = "";
+                int i = 0;
+
+                while (File.Exists(@destination_folder + date + index + ".txt"))
                 {
-                    TextRange tr = new TextRange(window.SETConsole.Document.ContentStart, window.SETConsole.Document.ContentEnd);
-                    outputKeys[1].Content = "Working...";
-                    outputKeys[1].Background = selectColor;
-                    string date = DateTime.Now.ToString("yyyy-MM-dd-HH-mm") + "-output";
-                    string index = "";
-                    int i = 0;
-
-                    while (File.Exists(@destination_folder + date + index + ".txt"))
-                    {
-                        i++;
-                        index = "-" + i;
-                    }
-
-                    String file_name = destination_folder + "\\" + date + index + ".txt";
-                    using (StreamWriter writer = new StreamWriter(file_name))
-                    {
-                        writer.WriteLine(tr.Text);
-                    }
-
-                    outputKeys[1].Content = "File successfully written!";
-                    outputKeys[1].Background = selectColor;
-                    TTF_bworker.RunWorkerAsync();
+                    i++;
+                    index = "-" + i;
                 }
 
-                TTF_Hover(sender, e);
+                String file_name = destination_folder + "\\" + date + index + ".txt";
+                using (StreamWriter writer = new StreamWriter(file_name))
+                {
+                    writer.WriteLine(tr.Text);
+                }
 
+                outputKeys[1].Content = "File successfully written!";
+                outputKeys[1].Background = selectColor;
+                TTF_bworker.RunWorkerAsync();
+                TTF_Hover(sender, e);
             };
 
             outputKey.MouseLeave += (s, e2) =>
