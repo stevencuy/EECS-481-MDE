@@ -29,6 +29,7 @@ namespace SETKeyboard.GUI
 
         private DispatcherTimer timer;
         private int dwellTime;
+        private SolidColorBrush backColor;
         private SolidColorBrush selectColor;
         private SolidColorBrush hoverColor;
         public Output(MainWindow window, double height, double width)
@@ -36,6 +37,7 @@ namespace SETKeyboard.GUI
             this.window = window;
             destination_folder = Directory.GetCurrentDirectory() + "\\saved_files";
             dwellTime = window.getDwellTime();
+            backColor = window.getBackColor();
             selectColor = window.getSelectColor();
             hoverColor = window.getHoverColor();
 
@@ -49,19 +51,19 @@ namespace SETKeyboard.GUI
             int margin = (int)height / 20;
             int button_height = (int)(height / 4) - 25; 
 
-            OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, 0, margin, 0, 0);
+            OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, 0, margin, 0, 0, backColor);
             //OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, margin, margin, 0, 0);
             outputKeys.Add(speak);
             window.OUTPUTGrid.Children.Add(speak);
             speak.MouseEnter += new MouseEventHandler(Speak_Hover);
 
-            OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, 0, button_height + margin * 2, 0, 0);
+            OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, 0, button_height + margin * 2, 0, 0, backColor);
             //OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, button_width + margin * 2, margin, 0, 0);
             outputKeys.Add(ttf);
             window.OUTPUTGrid.Children.Add(ttf);
             ttf.MouseEnter += new MouseEventHandler(TTF_Hover);
 
-            OutputButton ttc = new OutputButton(outputStrings[2], button_width, button_height, 0, button_height * 2 + margin * 3, 0, 0);
+            OutputButton ttc = new OutputButton(outputStrings[2], button_width, button_height, 0, button_height * 2 + margin * 3, 0, 0, backColor);
             outputKeys.Add(ttc);
             window.OUTPUTGrid.Children.Add(ttc);
             ttc.MouseEnter += new MouseEventHandler(TTC_Hover);
@@ -78,6 +80,9 @@ namespace SETKeyboard.GUI
 
             OutputButton outputKey = (OutputButton)sender;
 
+            if (outputKey.Background != selectColor)
+                outputKey.Background = hoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
@@ -93,6 +98,9 @@ namespace SETKeyboard.GUI
             outputKey.MouseLeave += (s, e2) =>
             {
                 timer.Stop();
+
+                if (outputKey.Background == hoverColor)
+                    outputKey.Background = backColor;
             };
 
             timer.Start();
@@ -104,6 +112,10 @@ namespace SETKeyboard.GUI
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
 
             OutputButton outputKey = (OutputButton)sender;
+
+            if (outputKey.Background != selectColor)
+                outputKey.Background = hoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
@@ -142,6 +154,9 @@ namespace SETKeyboard.GUI
             outputKey.MouseLeave += (s, e2) =>
             {
                 timer.Stop();
+
+                if (outputKey.Background == hoverColor)
+                    outputKey.Background = backColor;
             };
 
             timer.Start();
@@ -153,6 +168,9 @@ namespace SETKeyboard.GUI
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
 
             OutputButton outputKey = (OutputButton)sender;
+
+            if (outputKey.Background != selectColor)
+                outputKey.Background = hoverColor;
 
             timer.Tick += (sender2, eventArgs) =>
             {
@@ -173,6 +191,9 @@ namespace SETKeyboard.GUI
             outputKey.MouseLeave += (s, e2) =>
             {
                 timer.Stop();
+
+                if (outputKey.Background == hoverColor)
+                    outputKey.Background = backColor;
             };
 
             timer.Start();
@@ -194,7 +215,7 @@ namespace SETKeyboard.GUI
         private void TTS_BWorker_Complete(object sender, RunWorkerCompletedEventArgs e)
         {
             outputKeys[0].IsEnabled = true;
-            outputKeys[0].Background = Brushes.LightGray;
+            outputKeys[0].Background = backColor;
             outputKeys[0].Content = "Speak";
         }
 
@@ -219,13 +240,13 @@ namespace SETKeyboard.GUI
         private void TTF_BWorker_Complete(object sender, RunWorkerCompletedEventArgs e)
         {
             outputKeys[1].IsEnabled = true;
-            outputKeys[1].Background = Brushes.LightGray;
+            outputKeys[1].Background = backColor;
             outputKeys[1].Content = "Print Console to Text File";
         }
         private void TTC_BWorker_Complete(object sender, RunWorkerCompletedEventArgs e)
         {
             outputKeys[2].IsEnabled = true;
-            outputKeys[2].Background = Brushes.LightGray;
+            outputKeys[2].Background = backColor;
             outputKeys[2].Content = "Copy Console to Clipboard";
         }
 
@@ -249,7 +270,7 @@ namespace SETKeyboard.GUI
         /*
         private void Speech_Completed(object sender, EventArgs e)
         {
-            outputKeys[0].Background = Brushes.LightGray;
+            outputKeys[0].Background = backColor;
             outputKeys[0].Content = "Speak";
             //outputKeys[0].IsEnabled = true;
         }

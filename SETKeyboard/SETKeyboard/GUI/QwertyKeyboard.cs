@@ -24,11 +24,13 @@ namespace SETKeyboard.GUI
         private int dwellTime;
         private SolidColorBrush selectColor;
         private SolidColorBrush hoverColor;
+        private SolidColorBrush backColor;
 
         public QwertyKeyboard(MainWindow window, double height, double width)
         {
             this.window = window;
             dwellTime = window.getDwellTime();
+            backColor = window.getBackColor();
             selectColor = window.getSelectColor();
             hoverColor = window.getHoverColor();
 
@@ -91,24 +93,24 @@ namespace SETKeyboard.GUI
                     KeyButton b;
                     if (row != 2)
                     {
-                        b = new KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * col, row * button_height, 0, 0);
+                        b = new KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * col, row * button_height, 0, 0, backColor);
                         b.MouseEnter += new MouseEventHandler(KeyHit_Click);
                     }
                     else
                     {
                         if (lower == "shift")
                         {
-                            b = new KeyButton(upper, lower, (button_width / 2) * 3, button_height, 0, row * button_height, 0, 0);
+                            b = new KeyButton(upper, lower, (button_width / 2) * 3, button_height, 0, row * button_height, 0, 0, backColor);
                             b.MouseEnter += new MouseEventHandler(Shift_Click);
                         }
                         else if (lower == "back")
                         {
-                            b = new KeyButton(upper, lower, (button_width / 2) * 3, button_height, margins_l[row] + margin_inc * (col - 1), row * button_height, 0, 0);
+                            b = new KeyButton(upper, lower, (button_width / 2) * 3, button_height, margins_l[row] + margin_inc * (col - 1), row * button_height, 0, 0, backColor);
                             b.MouseEnter += new MouseEventHandler(Backspace_Click);
                         }
                         else
                         {
-                            b = new KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * (col - 1), row * button_height, 0, 0);
+                            b = new KeyButton(upper, lower, button_width, button_height, margins_l[row] + margin_inc * (col - 1), row * button_height, 0, 0, backColor);
                             b.MouseEnter += new MouseEventHandler(KeyHit_Click);
                         }
                     }
@@ -123,30 +125,30 @@ namespace SETKeyboard.GUI
             }
 
             //add lock button
-            KeyButton lockButton = new KeyButton("LOCK", "lock", (3 * button_width) / 2, button_height, 0, button_height * 3, 0, 0);
+            KeyButton lockButton = new KeyButton("LOCK", "lock", (3 * button_width) / 2, button_height, 0, button_height * 3, 0, 0, backColor);
             window.qwerty_grid.Children.Add(lockButton);
             lockButton.MouseEnter += new MouseEventHandler(lockButtons_Click);
 
             //add comma
-            KeyButton comma = new KeyButton(keyStrings[28], keyStrings[28], button_width, button_height, (button_width / 2) * 3, button_height * 3, 0, 0);
+            KeyButton comma = new KeyButton(keyStrings[28], keyStrings[28], button_width, button_height, (button_width / 2) * 3, button_height * 3, 0, 0, backColor);
             keys.Add(comma);
             window.qwerty_grid.Children.Add(comma);
             comma.MouseEnter += new MouseEventHandler(KeyHit_Click);
 
             //add spacebar
-            KeyButton spacebar = new KeyButton(keyStrings[29].ToUpper(), keyStrings[29], 5 * button_width, button_height, (button_width / 2) * 5, button_height * 3, 0, 0);
+            KeyButton spacebar = new KeyButton(keyStrings[29].ToUpper(), keyStrings[29], 5 * button_width, button_height, (button_width / 2) * 5, button_height * 3, 0, 0, backColor);
             keys.Add(spacebar);
             window.qwerty_grid.Children.Add(spacebar);
             spacebar.MouseEnter += new MouseEventHandler(Space_Click);
 
             //add period
-            KeyButton period = new KeyButton(keyStrings[30], keyStrings[30], button_width, button_height, (button_width / 2) * 15, button_height * 3, 0, 0);
+            KeyButton period = new KeyButton(keyStrings[30], keyStrings[30], button_width, button_height, (button_width / 2) * 15, button_height * 3, 0, 0, backColor);
             keys.Add(period);
             window.qwerty_grid.Children.Add(period);
             period.MouseEnter += new MouseEventHandler(KeyHit_Click);
 
             //add clear button
-            KeyButton clear = new KeyButton(keyStrings[31].ToUpper(), keyStrings[31], (button_width / 2) * 3, button_height, (button_width / 2) * 17, button_height * 3, 0, 0);
+            KeyButton clear = new KeyButton(keyStrings[31].ToUpper(), keyStrings[31], (button_width / 2) * 3, button_height, (button_width / 2) * 17, button_height * 3, 0, 0, backColor);
             keys.Add(clear);
             window.qwerty_grid.Children.Add(clear);
             clear.MouseEnter += new MouseEventHandler(Clear_Click);
@@ -230,7 +232,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (lockButton.Background == hoverColor)
-                    lockButton.Background = Brushes.LightGray;
+                    lockButton.Background = backColor;
             };
 
             timer.Start();
@@ -280,7 +282,7 @@ namespace SETKeyboard.GUI
 
             keyButton.MouseLeave += (s, eA) =>
             {
-                keyButton.Background = Brushes.LightGray;
+                keyButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -319,7 +321,7 @@ namespace SETKeyboard.GUI
 
             shiftButton.MouseLeave += (s, eA) =>
             {
-                shiftButton.Background = Brushes.LightGray;
+                shiftButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -360,7 +362,7 @@ namespace SETKeyboard.GUI
 
             backButton.MouseLeave += (s, eA) =>
             {
-                backButton.Background = Brushes.LightGray;
+                backButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -392,7 +394,7 @@ namespace SETKeyboard.GUI
 
             spaceButton.MouseLeave += (s, eA) =>
             {
-                spaceButton.Background = Brushes.LightGray;
+                spaceButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -421,7 +423,7 @@ namespace SETKeyboard.GUI
 
             clearButton.MouseLeave += (s, eA) =>
             {
-                clearButton.Background = Brushes.LightGray;
+                clearButton.Background = backColor;
                 timer.Stop();
             };
 

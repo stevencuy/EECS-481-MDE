@@ -2,9 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:tnine="clr-namespace:SETKeyboard.GUI"
-        Title="SET Keyboard" Width="1030" Height="600" MinWidth="1030" MinHeight="600">
+        Title="SET Keyboard" Width="1030" Height="600" MinWidth="1030" MinHeight="600"
+        WindowStyle="ToolWindow">
 
     <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Options" Click="OptionsMenu"/>
+        </Menu>
+        
         <RichTextBox x:Name="SETConsole" FontSize="40" FontFamily="Calibri" 
                      DockPanel.Dock="Top" MaxHeight="150"
                      BorderThickness="5" Cursor="No" Block.LineHeight="6" Background="#FFFFFEF5" AutoWordSelection="False" Height="60" />

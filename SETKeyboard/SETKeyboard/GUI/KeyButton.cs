@@ -20,7 +20,7 @@ namespace SETKeyboard.GUI
         private string lower;
         private string upper;
 
-        public KeyButton(string upper_, string lower_, int width_, int height_, int margin_l, int margin_t, int margin_r, int margin_b)
+        public KeyButton(string upper_, string lower_, int width_, int height_, int margin_l, int margin_t, int margin_r, int margin_b, SolidColorBrush back)
             : base()
         {
             lower = lower_;
@@ -31,6 +31,7 @@ namespace SETKeyboard.GUI
             HorizontalAlignment = HorizontalAlignment.Left;
             Width = width_;
             Height = height_;
+            Background = back;
         }
 
         public void toggle()

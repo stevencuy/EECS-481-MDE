@@ -27,6 +27,7 @@ namespace SETKeyboard.GUI
         private DispatcherTimer timer;
         private DispatcherTimer confirmTimer;
         private int dwellTime;
+        private SolidColorBrush backColor;
         private SolidColorBrush selectColor;
         private SolidColorBrush hoverColor;
 
@@ -34,6 +35,7 @@ namespace SETKeyboard.GUI
         {
             this.window = window;
             dwellTime = window.getDwellTime();
+            backColor = window.getBackColor();
             selectColor = window.getSelectColor();
             hoverColor = window.getHoverColor();
 
@@ -78,6 +80,23 @@ namespace SETKeyboard.GUI
             window.CommaButton.MouseEnter += new MouseEventHandler(commaClick);
 
             lastButtonPressed = new T9LetterButton();
+
+            window.abcButton.Background = backColor;
+            window.defButton.Background = backColor;
+            window.ghiButton.Background = backColor;
+            window.jklButton.Background = backColor;
+            window.mnoButton.Background = backColor;
+            window.pqrsButton.Background = backColor;
+            window.tuvButton.Background = backColor;
+            window.wxyzButton.Background = backColor;
+            window.NextLetterButton.Background = backColor;
+            window.ShiftButton.Background = backColor;
+            window.BackButton.Background = backColor;
+            window.SpaceButton.Background = backColor;
+            window.LockButtonLeft.Background = backColor;
+            window.LockButtonRight.Background = backColor;
+            window.PeriodButton.Background = backColor;
+            window.CommaButton.Background = backColor;
         }
 
         private void highlight(ButtonBase button)
@@ -125,7 +144,7 @@ namespace SETKeyboard.GUI
 
             shiftButton.MouseLeave += (s, eA) =>
             {
-                shiftButton.Background = Brushes.LightGray;
+                shiftButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -224,7 +243,7 @@ namespace SETKeyboard.GUI
 
             buttonPressed.MouseLeave += (s, eA) =>
             {
-                buttonPressed.Background = Brushes.LightGray;
+                buttonPressed.Background = backColor;
                 timer.Stop();
             };
 
@@ -267,7 +286,7 @@ namespace SETKeyboard.GUI
 
             nextButton.MouseLeave += (s, eA) =>
             {
-                nextButton.Background = Brushes.LightGray;
+                nextButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -300,7 +319,7 @@ namespace SETKeyboard.GUI
 
             backButton.MouseLeave += (s, eA) =>
             {
-                backButton.Background = Brushes.LightGray;
+                backButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -331,7 +350,7 @@ namespace SETKeyboard.GUI
 
             spaceButton.MouseLeave += (s, eA) =>
             {
-                spaceButton.Background = Brushes.LightGray;
+                spaceButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -398,8 +417,8 @@ namespace SETKeyboard.GUI
 
                 if (lockButton.Background == hoverColor)
                 {
-                    window.LockButtonLeft.Background = Brushes.LightGray;
-                    window.LockButtonRight.Background = Brushes.LightGray;
+                    window.LockButtonLeft.Background = backColor;
+                    window.LockButtonRight.Background = backColor;
                 }
             };
 
@@ -435,7 +454,7 @@ namespace SETKeyboard.GUI
 
             periodButton.MouseLeave += (s, eA) =>
             {
-                periodButton.Background = Brushes.LightGray;
+                periodButton.Background = backColor;
                 timer.Stop();
             };
 
@@ -466,7 +485,7 @@ namespace SETKeyboard.GUI
 
             commaButton.MouseLeave += (s, eA) =>
             {
-                commaButton.Background = Brushes.LightGray;
+                commaButton.Background = backColor;
                 timer.Stop();
             };
 

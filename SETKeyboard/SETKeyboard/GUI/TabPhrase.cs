@@ -19,7 +19,7 @@ namespace SETKeyboard.GUI
     {
         private string data;
 
-        public TabPhrase(string data_, int width_, int height_, int margin_l, int margin_t, int margin_r, int margin_b)
+        public TabPhrase(string data_, int width_, int height_, int margin_l, int margin_t, int margin_r, int margin_b, SolidColorBrush backColor)
             : base()
         {
             data = data_;
@@ -29,6 +29,7 @@ namespace SETKeyboard.GUI
             HorizontalAlignment = HorizontalAlignment.Left;
             Width = width_;
             Height = height_;
+            Background = backColor;
         }
     }
 }

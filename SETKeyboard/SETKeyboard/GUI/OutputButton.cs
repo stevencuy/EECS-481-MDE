@@ -17,7 +17,7 @@ namespace SETKeyboard.GUI
 {
     public class OutputButton : Button
     {
-        public OutputButton(string name_, int width_, int height_, int margin_l, int margin_t, int margin_r, int margin_b)
+        public OutputButton(string name_, int width_, int height_, int margin_l, int margin_t, int margin_r, int margin_b, SolidColorBrush backColor)
             : base()
         {
             Content = name_;
@@ -26,6 +26,7 @@ namespace SETKeyboard.GUI
             //HorizontalAlignment = HorizontalAlignment.Left;
             Width = width_;
             Height = height_;
+            Background = backColor;
         }
     }
 }

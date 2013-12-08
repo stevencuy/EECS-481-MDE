@@ -41,11 +41,13 @@ namespace SETKeyboard
         private int dwellTime;
         private SolidColorBrush hoverColor;
         private SolidColorBrush selectColor;
+        private SolidColorBrush backColor;
         private DispatcherTimer timer;
 
         public MainWindow()
         {
             dwellTime = 2;
+            backColor = Brushes.LightGray;
             hoverColor = Brushes.Gray;
             selectColor = Brushes.MediumSpringGreen;
 
@@ -76,6 +78,11 @@ namespace SETKeyboard
         ~MainWindow()
         {
             TRW.Write();
+        }
+
+        private void OptionsMenu(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void sizeChanged(object sender, RoutedEventArgs e)
@@ -293,8 +300,11 @@ namespace SETKeyboard
                 else
                     suggestionButton.Content = " " + bro[i] + " ";
 
-                suggestionButton.MouseEnter += new MouseEventHandler(suggestionBar_Click);
-                buttons[i] = suggestionButton;
+                if (bro[i] != null)
+                {
+                    suggestionButton.MouseEnter += new MouseEventHandler(suggestionBar_Click);
+                    buttons[i] = suggestionButton;
+                }
             }
             suggestionBar.ItemsSource = buttons;
        
@@ -370,7 +380,7 @@ namespace SETKeyboard
 
             button.MouseLeave += (s, eA) =>
             {
-                button.Background = Brushes.White;
+                button.Background = null;
                 timer.Stop();
             };
 
@@ -380,6 +390,11 @@ namespace SETKeyboard
         public int getDwellTime()
         {
             return dwellTime;
+        }
+
+        public SolidColorBrush getBackColor()
+        {
+            return backColor;
         }
 
         public SolidColorBrush getHoverColor()

@@ -25,6 +25,7 @@ namespace SETKeyboard.GUI
         private DispatcherTimer timer;
         private DispatcherTimer confirmTimer;
         private int dwellTime;
+        private SolidColorBrush backColor;
         private SolidColorBrush selectColor;
         private SolidColorBrush hoverColor;
 
@@ -32,6 +33,7 @@ namespace SETKeyboard.GUI
         {
             this.window = window;
             dwellTime = window.getDwellTime();
+            backColor = window.getBackColor();
             selectColor = window.getSelectColor();
             hoverColor = window.getHoverColor();
 
@@ -79,7 +81,7 @@ namespace SETKeyboard.GUI
                 }
 
                 width_so_far = margin_left;
-                tb = new TabPhrase(ctab_names[i], button_width, button_height, margin_left, button_height_margin + row * button_height_margin, 0, 0);
+                tb = new TabPhrase(ctab_names[i], button_width, button_height, margin_left, button_height_margin + row * button_height_margin, 0, 0, backColor);
                 assignEventHandler(type, tb);
                 window.ctab_controller_grid.Children.Add(tb);
             }
@@ -100,9 +102,9 @@ namespace SETKeyboard.GUI
             int button_width = (width - 20) / 3;
             var converter = new System.Windows.Media.BrushConverter();
 
-            create = new TabPhrase("(+) Tab", button_width, button_height, 0, 0, 0, 0);
-            remove = new TabPhrase("(-) Tab", button_width, button_height, button_width + 10, 0, 0, 0);
-            normal = new TabPhrase("Use Tabs", button_width, button_height, 2 * (button_width + 10), 0, 0, 0);
+            create = new TabPhrase("(+) Tab", button_width, button_height, 0, 0, 0, 0, backColor);
+            remove = new TabPhrase("(-) Tab", button_width, button_height, button_width + 10, 0, 0, 0, backColor);
+            normal = new TabPhrase("Use Tabs", button_width, button_height, 2 * (button_width + 10), 0, 0, 0, backColor);
 
             if (type == 1)
                 create.Background = selectColor;
@@ -157,7 +159,7 @@ namespace SETKeyboard.GUI
 
             chosenTab.MouseLeave += (s, eA) =>
             {
-                chosenTab.Background = Brushes.LightGray;
+                chosenTab.Background = backColor;
                 timer.Stop();
             };
 
@@ -197,7 +199,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (button.Background != selectColor)
-                    button.Background = Brushes.LightGray;
+                    button.Background = backColor;
             };
 
             timer.Start();  
@@ -228,7 +230,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (button.Background != selectColor)
-                    button.Background = Brushes.LightGray;
+                    button.Background = backColor;
             };
 
             timer.Start();  
@@ -259,7 +261,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (button.Background != selectColor)
-                    button.Background = Brushes.LightGray;
+                    button.Background = backColor;
             };
 
             timer.Start();  
@@ -308,7 +310,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (deletePhrase.Background != selectColor)
-                    deletePhrase.Background = Brushes.LightGray;
+                    deletePhrase.Background = backColor;
             };
 
             timer.Start();  

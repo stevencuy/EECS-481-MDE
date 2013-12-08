@@ -26,6 +26,7 @@ namespace SETKeyboard.GUI
         private DispatcherTimer timer;
         private DispatcherTimer confirmTimer;
         private int dwellTime;
+        private SolidColorBrush backColor;
         private SolidColorBrush selectColor;
         private SolidColorBrush hoverColor;
        
@@ -34,6 +35,7 @@ namespace SETKeyboard.GUI
         {
             this.window = window;
             dwellTime = window.getDwellTime();
+            backColor = window.getBackColor();
             selectColor = window.getSelectColor();
             hoverColor = window.getHoverColor();
 
@@ -94,7 +96,7 @@ namespace SETKeyboard.GUI
                 }
 
                 width_so_far = margin_left;
-                tb = new TabPhrase(phraseStrings[i], button_width, button_height, margin_left, button_height_margin + row * button_height_margin, 0, 0);
+                tb = new TabPhrase(phraseStrings[i], button_width, button_height, margin_left, button_height_margin + row * button_height_margin, 0, 0, backColor);
                 assignEventHandler(type, tb);
                 phrases.Add(phraseStrings[i], tb);
                 window.ctab_grids[name].Children.Add(tb);
@@ -116,11 +118,11 @@ namespace SETKeyboard.GUI
             int button_width = (width - 30) / 4;
             var converter = new System.Windows.Media.BrushConverter();
 
-            create = new TabPhrase("(+) Phrase", button_width, button_height, 0, 0, 0, 0);
-            remove = new TabPhrase("(-) Phrases", button_width, button_height, button_width + 10, 0, 0, 0);
-            normal = new TabPhrase("Use Phrases", button_width, button_height, 2 * (button_width + 10), 0, 0, 0);
-            clear = new TabPhrase("Clear Console", button_width, button_height, 3 * (button_width + 10), 0, 0, 0);
-            backspace = new TabPhrase("Backspace", button_width, button_height, 4 * (button_width + 10), 0, 0, 0);
+            create = new TabPhrase("(+) Phrase", button_width, button_height, 0, 0, 0, 0, backColor);
+            remove = new TabPhrase("(-) Phrases", button_width, button_height, button_width + 10, 0, 0, 0, backColor);
+            normal = new TabPhrase("Use Phrases", button_width, button_height, 2 * (button_width + 10), 0, 0, 0, backColor);
+            clear = new TabPhrase("Clear Console", button_width, button_height, 3 * (button_width + 10), 0, 0, 0, backColor);
+            backspace = new TabPhrase("Backspace", button_width, button_height, 4 * (button_width + 10), 0, 0, 0, backColor);
 
             if (type == 1)
                 create.Background = selectColor;
@@ -182,7 +184,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (button.Background != selectColor)
-                    button.Background = Brushes.LightGray;
+                    button.Background = backColor;
             };
 
             timer.Start();  
@@ -210,7 +212,7 @@ namespace SETKeyboard.GUI
 
             button.MouseLeave += (s, eA) =>
             {
-                button.Background = Brushes.LightGray;
+                button.Background = backColor;
                 timer.Stop();
             };
 
@@ -245,7 +247,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (button.Background != selectColor)
-                    button.Background = Brushes.LightGray;
+                    button.Background = backColor;
             };
 
             timer.Start();  
@@ -276,7 +278,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (button.Background != selectColor)
-                    button.Background = Brushes.LightGray;
+                    button.Background = backColor;
             };
 
             timer.Start();  
@@ -311,7 +313,7 @@ namespace SETKeyboard.GUI
             button.MouseLeave += (s, eA) =>
             {
                 timer.Stop();
-                button.Background = Brushes.LightGray;
+                button.Background = backColor;
             };
 
             timer.Start();  
@@ -353,7 +355,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (button.Background != selectColor)
-                    button.Background = Brushes.LightGray;
+                    button.Background = backColor;
             };
 
             timer.Start();  
@@ -393,7 +395,7 @@ namespace SETKeyboard.GUI
 
             button.MouseLeave += (s, eA) =>
             {
-                button.Background = Brushes.LightGray;
+                button.Background = backColor;
                 timer.Stop();
             };
 
