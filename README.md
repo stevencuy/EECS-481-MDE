@@ -74,6 +74,8 @@ Eyetracking:
 
  	If any issues please contact Steven Uy at stevenuy@umich.edu
 
+Bug Report
+https://docs.google.com/a/umich.edu/document/d/1k1pvHtocLwMiVMthVXYbPCYa0DvfDzIZSqlNXdG0Xx0/edit?usp=sharing
 
 
 ----------------
