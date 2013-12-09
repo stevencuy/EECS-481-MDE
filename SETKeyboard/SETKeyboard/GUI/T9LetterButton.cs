@@ -17,6 +17,7 @@ namespace SETKeyboard.GUI
 {
     class T9LetterButton : Button
     {
+        private string originalContent;
         private char[] lowerCase;
         private char[] upperCase;
 
@@ -31,6 +32,8 @@ namespace SETKeyboard.GUI
 
         public void setLetters(char[] letterSet)
         {
+
+            this.originalContent = this.Content.ToString();
             numLetters = letterSet.Length;
             lowerCase = new char[letterSet.Length];
             upperCase = new char[letterSet.Length];
@@ -39,6 +42,7 @@ namespace SETKeyboard.GUI
                 char c = letterSet[i];
                 lowerCase[i] = char.ToLower(c);
                 upperCase[i] = char.ToUpper(c);
+
             }
         }
 
@@ -69,6 +73,11 @@ namespace SETKeyboard.GUI
         public void endSelection()
         {
             index = 0;
+        }
+
+        public string getOriginalContent()
+        {
+            return this.originalContent;
         }
     }
 }

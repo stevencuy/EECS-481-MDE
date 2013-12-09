@@ -218,6 +218,8 @@ namespace SETKeyboard.GUI
 
                 char letter = buttonPressed.getCurrent(isLowerCase);
 
+                buttonPressed.Content = letter;
+
                 if (lastButtonPressed.Equals(buttonPressed))
                 {
                     if (consoleText == "")
@@ -244,9 +246,10 @@ namespace SETKeyboard.GUI
             buttonPressed.MouseLeave += (s, eA) =>
             {
                 buttonPressed.Background = backColor;
+                buttonPressed.Content = buttonPressed.getOriginalContent();
                 timer.Stop();
             };
-
+ 
             timer.Start();            
         }
 
