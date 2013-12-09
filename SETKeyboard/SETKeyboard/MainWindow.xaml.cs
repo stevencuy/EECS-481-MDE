@@ -311,7 +311,8 @@ namespace SETKeyboard
             /*
              * Takes care of the event of an autocompletion followed by a period. A completion will add a space
              * after the selected suggested word in the console. Clicking the period will remove this extra space. 
-             */ 
+             */
+            consoleText = consoleText.Replace(" i ", " I ");
             consoleText = consoleText.Replace(" .", ". ");
             consoleText = consoleText.Replace("  ", " ");
 
