@@ -12,12 +12,8 @@ class Head
 public:
 	Head();
 	void detectAndDisplay(cv::Mat frame);
-
 	Eyes * eyes;
-
-private:
 	std::vector<cv::Rect> faces;
-	//cv::Rect faces;
 };
 
 #endif /* defined(__EyeTracker__GazeEstimatoea__) */

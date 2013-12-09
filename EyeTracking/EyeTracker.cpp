@@ -72,7 +72,8 @@ int main(int argc, char **argv)
 			if (screen_tl.x != -1 && screen_tl.y != -1 && screen_br.x != -1 && screen_br.y != -1) {
 				cv::Point_<double> coor = gaze.calculateGazePosition(head, screen_tl, screen_br, previous_average, previous_deque);
 				previous_average = coor;
-				cursor.setPosition(coor);
+				if (head->faces.size() > 0)
+					cursor.setPosition(coor);
 			}
 			Sleep(50);
 		}
