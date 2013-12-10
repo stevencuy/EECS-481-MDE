@@ -100,7 +100,12 @@ namespace SETKeyboard
 
             if (options.DialogResult == true)
             {
-                if (Convert.ToInt32(options.getOptionSettings().DwellTime) <= 1)
+                int value;
+                if (!int.TryParse(options.getOptionSettings().DwellTime, out value))
+                {
+                    MessageBox.Show("Dwell Time must be an integer.");
+                }
+                else if (Convert.ToInt32(options.getOptionSettings().DwellTime) <= 1)
                 {
                     MessageBox.Show("Dwell Time must be greater than 1.");
                 }

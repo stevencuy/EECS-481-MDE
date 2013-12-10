@@ -62,7 +62,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="OUTPUT" Width="120" Height="100" MouseEnter="Output_Click">
+                <TabItem Header="Output" Width="120" Height="100" MouseEnter="Output_Click">
                     <Grid x:Name="OUTPUTGrid" Background="#FFEDF5FF">
                     </Grid>
                 </TabItem>
