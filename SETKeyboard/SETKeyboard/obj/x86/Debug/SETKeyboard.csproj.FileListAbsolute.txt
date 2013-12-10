@@ -44,3 +44,5 @@ C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debug\
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debug\SETKeyboard.exe.manifest
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debug\SETKeyboard.application
 C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debug\SETKeyboard.exe
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debug\Options.baml
+C:\Users\BK\Documents\GitHub\EECS-481-MDE\SETKeyboard\SETKeyboard\obj\x86\Debug\Options.g.cs

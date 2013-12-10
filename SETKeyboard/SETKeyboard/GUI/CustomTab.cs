@@ -103,6 +103,14 @@ namespace SETKeyboard.GUI
             }
         }
 
+        public void updateEvents()
+        {
+            dwellTime = window.getDwellTime();
+            backColor = window.getBackColor();
+            selectColor = window.getSelectColor();
+            hoverColor = window.getHoverColor();
+        }
+
         private void assignEventHandler(int type, TabPhrase tb)
         {
             if (type < 2)

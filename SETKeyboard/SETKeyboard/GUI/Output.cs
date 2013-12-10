@@ -73,6 +73,14 @@ namespace SETKeyboard.GUI
             TTC_BWorker_Init();
         }
 
+        public void updateEvents()
+        {
+            dwellTime = window.getDwellTime();
+            backColor = window.getBackColor();
+            selectColor = window.getSelectColor();
+            hoverColor = window.getHoverColor();
+        }
+
         private void Speak_Hover(object sender, RoutedEventArgs e)
         {
             timer = new DispatcherTimer();

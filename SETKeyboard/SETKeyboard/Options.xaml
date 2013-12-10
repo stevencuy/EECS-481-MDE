@@ -1,0 +1,33 @@
+﻿<Window x:Class="SETKeyboard.Options"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:SETKeyboard"
+        Title="Options" Height="300" Width="300"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="ToolWindow">
+
+    <Window.Resources>
+        <src:OptionSettings x:Key="optionSource"/>
+    </Window.Resources>
+
+    <Grid>
+
+        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,20,0,0" Text="Dwell Time in Seconds:"/>
+        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,68,0,0" Text="Button Background Color:"/>
+        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,118,0,0" Text="Button Hover Color:"/>
+        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,168,0,0" Text="Button Selection Color:"/>
+        
+        <TextBox x:Name="DwellTimeBox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Margin="150,17,0,0" Width="120" HorizontalContentAlignment="Right"/>
+        <ComboBox x:Name="backBox" HorizontalAlignment="Left" Margin="155,68,0,0" VerticalAlignment="Top" Width="115"/>
+        <ComboBox x:Name="hoverBox" HorizontalAlignment="Left" Margin="155,118,0,0" VerticalAlignment="Top" Width="115"/>
+        <ComboBox x:Name="selectBox" HorizontalAlignment="Left" Margin="155,168,0,0" VerticalAlignment="Top" Width="115"/>
+
+        <Button x:Name="saveButton" Click="saveButton_Click" IsDefault="True" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="100" Height="35" FontSize="15" Margin="-45,215,0,0"/>
+        <Button x:Name="cancelButton" IsCancel="True" Content="Cancel" HorizontalAlignment="Stretch" Width="100" Height="35" FontSize="15" Margin="165,215,0,0"/>
+
+
+    </Grid>
+
+</Window>

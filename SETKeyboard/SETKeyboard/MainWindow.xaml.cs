@@ -1,6 +1,7 @@
 ﻿using SETKeyboard.GUI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace SETKeyboard
     public partial class MainWindow : Window
     {
         public MainWindow window;
+        public Options options;
         private QwertyKeyboard qwerty;
         private T9Keyboard T9;
         private Output output;
@@ -39,9 +41,10 @@ namespace SETKeyboard
         private Query query;
 
         private int dwellTime;
+        private SolidColorBrush backColor;
         private SolidColorBrush hoverColor;
         private SolidColorBrush selectColor;
-        private SolidColorBrush backColor;
+        private tabColor tab;
         private DispatcherTimer timer;
 
         public MainWindow()
@@ -55,24 +58,28 @@ namespace SETKeyboard
             this.query = new Query();
 
             InitializeComponent();
+            tab = new tabColor(hoverColor);
+//            tab = this.FindResource("colorSource") as tabColor;
+            tab.HoverColor = Brushes.BlueViolet;
             this.consoleText = "";
             window = this;
-            
+
             //T9 keyboard resizes from within MainWindow xaml file
             T9 = new T9Keyboard(window);
-  
+
             //Qwerty keyboard and output interface resize through this delegate
             Loaded += delegate
             {
                 qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
                 output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+                window.qwerty_tab.Background = hoverColor;
             };
 
             //read ctab files from disk
             TRW = new TabReadWrite(window);
             TRW.Read();
             generateTabController();
-            loadCustomTabs();          
+            loadCustomTabs();
         }
 
         ~MainWindow()
@@ -82,7 +89,33 @@ namespace SETKeyboard
 
         private void OptionsMenu(object sender, RoutedEventArgs e)
         {
+            options = new Options(dwellTime.ToString(), backColor.ToString(), hoverColor.ToString(), selectColor.ToString());
+            options.Owner = this;
+            options.ShowDialog();
 
+            if (options.DialogResult == true)
+            {
+                if (Convert.ToInt32(options.getOptionSettings().DwellTime) <= 1)
+                {
+                    MessageBox.Show("Dwell Time must be greater than 1.");
+                }
+                else
+                    dwellTime = Convert.ToInt32(options.getOptionSettings().DwellTime);
+
+                backColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().BackColor);
+                hoverColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().HoverColor);
+                selectColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().SelectColor);
+
+                //delete updateEvents() if not used
+                //qwerty.updateEvents();
+                //T9.updateEvents();
+                //output.updateEvents();
+                //ctab_controller.updateEvents();
+
+                T9 = new T9Keyboard(window);
+                qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+                output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+            }
         }
 
         private void sizeChanged(object sender, RoutedEventArgs e)
@@ -99,8 +132,6 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem QwertyButton = (TabItem)sender;
 
-            QwertyButton.Background = hoverColor;
-
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
@@ -110,11 +141,10 @@ namespace SETKeyboard
 
             QwertyButton.MouseLeave += (s, eA) =>
             {
-                QwertyButton.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
-            timer.Start();      
+            timer.Start();
         }
 
         private void T9_Click(object sender, RoutedEventArgs e)
@@ -122,8 +152,6 @@ namespace SETKeyboard
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem T9Button = (TabItem)sender;
-
-            T9Button.Background = hoverColor;
 
             timer.Tick += (sender2, eventArgs) =>
             {
@@ -134,7 +162,6 @@ namespace SETKeyboard
 
             T9Button.MouseLeave += (s, eA) =>
             {
-                T9Button.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
@@ -147,8 +174,6 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem OutputButton = (TabItem)sender;
 
-            OutputButton.Background = hoverColor;
-
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
@@ -158,7 +183,6 @@ namespace SETKeyboard
 
             OutputButton.MouseLeave += (s, eA) =>
             {
-                OutputButton.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
@@ -171,8 +195,6 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem CTABButton = (TabItem)sender;
 
-            CTABButton.Background = hoverColor;
-
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
@@ -182,7 +204,6 @@ namespace SETKeyboard
 
             CTABButton.MouseLeave += (s, eA) =>
             {
-                CTABButton.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
@@ -195,8 +216,6 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem TabButton = (TabItem)sender;
 
-            TabButton.Background = hoverColor;
-
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
@@ -206,7 +225,6 @@ namespace SETKeyboard
 
             TabButton.MouseLeave += (s, eA) =>
             {
-                TabButton.Background = Brushes.LightGray;
                 timer.Stop();
             };
 
@@ -307,7 +325,7 @@ namespace SETKeyboard
                 }
             }
             suggestionBar.ItemsSource = buttons;
-       
+
             /*
              * Takes care of the event of an autocompletion followed by a period. A completion will add a space
              * after the selected suggested word in the console. Clicking the period will remove this extra space. 
@@ -385,7 +403,7 @@ namespace SETKeyboard
                 timer.Stop();
             };
 
-            timer.Start();        
+            timer.Start();
         }
 
         public int getDwellTime()
@@ -419,6 +437,34 @@ namespace SETKeyboard
             caretPos = caretPos.DocumentEnd;
             SETConsole.CaretPosition = caretPos;
             SETConsole.Focus();
+        }
+    }
+
+    public class tabColor
+    {
+        private SolidColorBrush backColor = new SolidColorBrush();
+        private SolidColorBrush hoverColor = new SolidColorBrush();
+
+        public tabColor()
+        {
+        }
+
+        public tabColor(SolidColorBrush hoverColor_)
+        {
+            backColor = Brushes.Blue;
+            hoverColor = Brushes.Red;
+        }
+
+        public SolidColorBrush HoverColor
+        {
+            get { return hoverColor; }
+            set { hoverColor = value; }
+        }
+
+        public SolidColorBrush BackColor
+        {
+            get { return backColor; }
+            set { backColor = value; }
         }
     }
 }
