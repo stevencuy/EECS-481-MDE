@@ -165,7 +165,7 @@ namespace SETKeyboard.GUI
             confirmTimer.Tick += (se, eAr) =>
             {
                 confirmTimer.Stop();
-
+                
                 if (button.Background == selectColor)
                     button.Background = hoverColor;
             };

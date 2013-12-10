@@ -6,7 +6,6 @@
              StartupUri="MainWindow.xaml">
     
     <Application.Resources>
-        <src:tabColor x:Key="colorSource"/>
         
         <Style TargetType="{x:Type local:KeyButton}">
             <Setter Property="FontSize" Value="30"/>

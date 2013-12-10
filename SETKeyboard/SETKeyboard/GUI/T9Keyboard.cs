@@ -199,9 +199,6 @@ namespace SETKeyboard.GUI
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             T9LetterButton buttonPressed = (T9LetterButton)sender;
 
-            consoleText = window.getConsoleText();
-            int consoleTextSize = consoleText.Length;
-
             if (buttonPressed.Background != selectColor)
                 buttonPressed.Background = hoverColor;
 
@@ -210,6 +207,9 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 highlight(buttonPressed);
+
+                consoleText = window.getConsoleText();
+                int consoleTextSize = consoleText.Length;
 
                 if (!lastButtonPressed.Equals(buttonPressed))
                 {
@@ -225,7 +225,6 @@ namespace SETKeyboard.GUI
                 }
 
                 char letter = buttonPressed.getCurrent(isLowerCase);
-
                 buttonPressed.Content = letter;
 
                 if (lastButtonPressed.Equals(buttonPressed))

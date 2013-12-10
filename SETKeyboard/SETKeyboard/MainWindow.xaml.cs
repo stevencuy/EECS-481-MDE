@@ -44,7 +44,6 @@ namespace SETKeyboard
         private SolidColorBrush backColor;
         private SolidColorBrush hoverColor;
         private SolidColorBrush selectColor;
-        private tabColor tab;
         private DispatcherTimer timer;
 
         public MainWindow()
@@ -58,9 +57,6 @@ namespace SETKeyboard
             this.query = new Query();
 
             InitializeComponent();
-            tab = new tabColor(hoverColor);
-//            tab = this.FindResource("colorSource") as tabColor;
-            tab.HoverColor = Brushes.BlueViolet;
             this.consoleText = "";
             window = this;
 
@@ -437,34 +433,6 @@ namespace SETKeyboard
             caretPos = caretPos.DocumentEnd;
             SETConsole.CaretPosition = caretPos;
             SETConsole.Focus();
-        }
-    }
-
-    public class tabColor
-    {
-        private SolidColorBrush backColor = new SolidColorBrush();
-        private SolidColorBrush hoverColor = new SolidColorBrush();
-
-        public tabColor()
-        {
-        }
-
-        public tabColor(SolidColorBrush hoverColor_)
-        {
-            backColor = Brushes.Blue;
-            hoverColor = Brushes.Red;
-        }
-
-        public SolidColorBrush HoverColor
-        {
-            get { return hoverColor; }
-            set { hoverColor = value; }
-        }
-
-        public SolidColorBrush BackColor
-        {
-            get { return backColor; }
-            set { backColor = value; }
         }
     }
 }

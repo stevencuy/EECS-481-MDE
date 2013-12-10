@@ -6,10 +6,6 @@
         Title="SET Keyboard" Width="1030" Height="600" MinWidth="1030" MinHeight="600"
         WindowStyle="ToolWindow">
     
-    <Window.Resources>
-        <src:tabColor x:Key="colorSource"/>
-    </Window.Resources>
-
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Options" Click="OptionsMenu"/>
