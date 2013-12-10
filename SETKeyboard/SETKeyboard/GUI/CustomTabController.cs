@@ -21,7 +21,7 @@ namespace SETKeyboard.GUI
         public String consoleText;
         public int width;
         public int height;
-
+        private int type = 0;
         private DispatcherTimer timer;
         private DispatcherTimer confirmTimer;
         private int dwellTime;
@@ -93,6 +93,7 @@ namespace SETKeyboard.GUI
             backColor = window.getBackColor();
             selectColor = window.getSelectColor();
             hoverColor = window.getHoverColor();
+            renderAll(type);
         }
 
         private void assignEventHandler(int type, TabPhrase tb)
@@ -196,7 +197,7 @@ namespace SETKeyboard.GUI
                 }
 
                 window.setConsoleText("");
-
+                type = 1;
                 renderAll(1);
 
                 UseInsertClick(sender, e);
@@ -227,7 +228,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 highlight(button);
-
+                type = 0;
                 renderAll(0);
 
                 UseNormalClick(sender, e);
@@ -258,7 +259,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 highlight(button);
-
+                type = 2;
                 renderAll(2);
 
                 UseRemoveClick(sender, e);

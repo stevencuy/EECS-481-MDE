@@ -43,5 +43,10 @@ namespace SETKeyboard.GUI
         {
             return lower;
         }
+
+        public string getUpper()
+        {
+            return upper;
+        }
     }
 }

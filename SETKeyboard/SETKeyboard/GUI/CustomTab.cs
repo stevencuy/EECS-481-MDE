@@ -22,6 +22,7 @@ namespace SETKeyboard.GUI
         private String name;
         public int width;
         public int height;
+        private int type = 0;
 
         private DispatcherTimer timer;
         private DispatcherTimer confirmTimer;
@@ -44,7 +45,7 @@ namespace SETKeyboard.GUI
             this.width = (int)width;
             this.height = (int)height;
             phrases = new Dictionary<String, TabPhrase>();
-
+            type = 0;
             renderTab(0);
         }
 
@@ -109,6 +110,7 @@ namespace SETKeyboard.GUI
             backColor = window.getBackColor();
             selectColor = window.getSelectColor();
             hoverColor = window.getHoverColor();
+            renderTab(type);
         }
 
         private void assignEventHandler(int type, TabPhrase tb)
@@ -181,7 +183,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 highlight(button);
-
+                type = 0;
                 renderTab(0);
 
                 UseNormalClick(sender, e);
@@ -245,6 +247,7 @@ namespace SETKeyboard.GUI
                 consoleText = window.getConsoleText();
                 if (consoleText.Length != 0 && !window.tabPhrases[name].Contains(consoleText))
                     window.tabPhrases[name].Add(consoleText);
+                type = 1;
                 renderTab(1);
 
                 UseInsertClick(sender, e);
@@ -275,7 +278,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 highlight(button);
-
+                type = 2;
                 renderTab(2);
 
                 UseRemoveClick(sender, e);
@@ -353,6 +356,7 @@ namespace SETKeyboard.GUI
                 */
 
                 window.tabPhrases[name].Remove(phrase);
+                type = 2;
                 renderTab(2);
 
                 RemoveClick(sender, e);

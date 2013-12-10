@@ -24,10 +24,11 @@ namespace SETKeyboard
         public Options options;
         private QwertyKeyboard qwerty;
         private T9Keyboard T9;
+        private ExtraKeyboard extra;
         private Output output;
         private CustomTabController ctab_controller;
 
-        public TabReadWrite TRW;
+        public ReadWrite RW;
         private String consoleText;
         public Grid ctab_controller_grid = new Grid();
         private TabItem ctab_controller_item;
@@ -40,18 +41,20 @@ namespace SETKeyboard
         private PredictionHandler predictionHandler;
         private Query query;
 
-        private int dwellTime;
-        private SolidColorBrush backColor;
-        private SolidColorBrush hoverColor;
-        private SolidColorBrush selectColor;
-        private DispatcherTimer timer;
+        public int dwellTime;
+        public SolidColorBrush backColor;
+        public SolidColorBrush hoverColor;
+        public SolidColorBrush selectColor;
+        public DispatcherTimer timer;
 
         public MainWindow()
         {
+           
             dwellTime = 2;
             backColor = Brushes.LightGray;
             hoverColor = Brushes.Gray;
             selectColor = Brushes.MediumSpringGreen;
+          
 
             this.predictionHandler = new PredictionHandler();
             this.query = new Query();
@@ -59,6 +62,9 @@ namespace SETKeyboard
             InitializeComponent();
             this.consoleText = "";
             window = this;
+            RW = new ReadWrite(window);
+            //load existing settings if settings file exists
+            RW.LoadSettings();
 
             //T9 keyboard resizes from within MainWindow xaml file
             T9 = new T9Keyboard(window);
@@ -67,20 +73,23 @@ namespace SETKeyboard
             Loaded += delegate
             {
                 qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+                extra = new ExtraKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
                 output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
                 window.qwerty_tab.Background = hoverColor;
+                window.extra_tab.Background = hoverColor;
+                window.extra_tab.Background = hoverColor;
             };
 
             //read ctab files from disk
-            TRW = new TabReadWrite(window);
-            TRW.Read();
+            
+            RW.ReadTabs();
             generateTabController();
             loadCustomTabs();
         }
 
         ~MainWindow()
         {
-            TRW.Write();
+            RW.Write();
         }
 
         private void OptionsMenu(object sender, RoutedEventArgs e)
@@ -106,20 +115,45 @@ namespace SETKeyboard
                 //qwerty.updateEvents();
                 //T9.updateEvents();
                 //output.updateEvents();
-                //ctab_controller.updateEvents();
-
+                ctab_controller.updateEvents();
+                updateCustomTabs();
                 T9 = new T9Keyboard(window);
                 qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+                extra = new ExtraKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
                 output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+                RW.SyncSettings(window);
             }
         }
 
         private void sizeChanged(object sender, RoutedEventArgs e)
         {
             qwerty_grid.Children.Clear();
+            extra_grid.Children.Clear();
             OUTPUTGrid.Children.Clear();
             qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+            extra = new ExtraKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
             output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
+        }
+
+        private void Extra_Click(object sender, RoutedEventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(dwellTime);
+            TabItem ExtraButton = (TabItem)sender;
+
+            timer.Tick += (sender2, eventArgs) =>
+            {
+                timer.Stop();
+
+                window.TabPanel.SelectedIndex = 0;
+            };
+
+            ExtraButton.MouseLeave += (s, eA) =>
+            {
+                timer.Stop();
+            };
+
+            timer.Start();
         }
 
         private void QWERTY_Click(object sender, RoutedEventArgs e)
@@ -132,7 +166,7 @@ namespace SETKeyboard
             {
                 timer.Stop();
 
-                window.TabPanel.SelectedIndex = 0;
+                window.TabPanel.SelectedIndex = 1;
             };
 
             QwertyButton.MouseLeave += (s, eA) =>
@@ -153,7 +187,7 @@ namespace SETKeyboard
             {
                 timer.Stop();
 
-                window.TabPanel.SelectedIndex = 1;
+                window.TabPanel.SelectedIndex = 2;
             };
 
             T9Button.MouseLeave += (s, eA) =>
@@ -174,7 +208,7 @@ namespace SETKeyboard
             {
                 timer.Stop();
 
-                window.TabPanel.SelectedIndex = 2;
+                window.TabPanel.SelectedIndex = 3;
             };
 
             OutputButton.MouseLeave += (s, eA) =>
@@ -195,7 +229,7 @@ namespace SETKeyboard
             {
                 timer.Stop();
 
-                window.TabPanel.SelectedIndex = 3;
+                window.TabPanel.SelectedIndex = 4;
             };
 
             CTABButton.MouseLeave += (s, eA) =>
@@ -233,6 +267,19 @@ namespace SETKeyboard
             {
                 loadCustomTab(pair.Key);
             }
+        }
+
+        public void updateCustomTabs()
+        {
+            foreach (var pair in tabPhrases)
+            {
+                updateCustomTab(pair.Key);
+            }
+        }
+
+        public void updateCustomTab(String name)
+        {
+            ctabs[name].updateEvents();
         }
 
         public void loadCustomTab(String name)
@@ -277,8 +324,8 @@ namespace SETKeyboard
             ctab_controller = new CustomTabController(window, 500, 800);
             ctab_controller_item = new TabItem();
             ctab_controller_item.MouseEnter += CTAB_Click;
-            ctab_controller_item.Header = "Tab Controller";
-            ctab_controller_item.Width = 15 + "Tab Controller".Length * 15;
+            ctab_controller_item.Header = "Edit Tabs";
+            ctab_controller_item.Width = 15 + "Edit Tabs".Length * 15;
             ctab_controller_item.Height = 100;
             var converter = new System.Windows.Media.BrushConverter();
 

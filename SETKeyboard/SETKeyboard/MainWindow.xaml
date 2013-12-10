@@ -19,7 +19,9 @@
             <ToolBar x:Name="suggestionBar" Margin="0,0,0,5" Height="100" DockPanel.Dock="Top" VerticalAlignment="Top"/>
 
             <TabControl x:Name="TabPanel" SizeChanged="sizeChanged" DockPanel.Dock="Bottom">
-
+                <TabItem x:Name="extra_tab" Header="Extras" Width="120" Height="100" MouseEnter="Extra_Click">
+                    <Grid x:Name="extra_grid" Background="#FFEDF5FF"/>
+                </TabItem>
                 <TabItem x:Name="qwerty_tab" Header="QWERTY" Width="120" Height="100" MouseEnter="QWERTY_Click">
                     <Grid x:Name="qwerty_grid" Background="#FFEDF5FF"/>
                 </TabItem>

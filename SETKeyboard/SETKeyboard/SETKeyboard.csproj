@@ -122,8 +122,9 @@
     <Compile Include="GUI\Query.cs" />
     <Compile Include="GUI\PredictionHandler.cs" />
     <Compile Include="GUI\DatabaseInteractor.cs" />
+    <Compile Include="GUI\ExtraKeyboard.cs" />
     <Compile Include="GUI\QwertyKeyboard.cs" />
-    <Compile Include="GUI\TabReadWrite.cs" />
+    <Compile Include="GUI\ReadWrite.cs" />
     <Compile Include="GUI\CustomTab.cs" />
     <Compile Include="GUI\TabPhrase.cs" />
     <Compile Include="GUI\Output.cs" />
