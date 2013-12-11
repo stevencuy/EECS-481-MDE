@@ -153,7 +153,7 @@ namespace SETKeyboard.GUI
                     writer.WriteLine(tr.Text);
                 }
 
-                outputKeys[1].Content = "File successfully written!";
+                outputKeys[1].Content = "Written!";
                 outputKeys[1].Background = selectColor;
                 TTF_bworker.RunWorkerAsync();
                 TTF_Hover(sender, e);
@@ -249,13 +249,13 @@ namespace SETKeyboard.GUI
         {
             outputKeys[1].IsEnabled = true;
             outputKeys[1].Background = backColor;
-            outputKeys[1].Content = "Print Console to Text File";
+            outputKeys[1].Content = "Print to File";
         }
         private void TTC_BWorker_Complete(object sender, RunWorkerCompletedEventArgs e)
         {
             outputKeys[2].IsEnabled = true;
             outputKeys[2].Background = backColor;
-            outputKeys[2].Content = "Copy Console to Clipboard";
+            outputKeys[2].Content = "Copy to Clipboard";
         }
 
         /* Uses the Microsoft Sam GUI-friendly, garbage-sounding TTS voice
