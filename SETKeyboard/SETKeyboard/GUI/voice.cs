@@ -47,13 +47,11 @@ namespace Voice
 
         public static string voice_synth(string consoleText)
         {
-            //string module = "Voice Synthesis (Nuance*)";
             uint language = 0; // US English
             PXCMSession session;
             PXCMSession.CreateInstance(out session);
 
             PXCMSession.ImplDesc desc = new PXCMSession.ImplDesc();
-            //desc.friendlyName.set(module);
             desc.cuids[0] = PXCMVoiceSynthesis.CUID;
             PXCMVoiceSynthesis vsynth;
             session.CreateImpl<PXCMVoiceSynthesis>(ref desc, PXCMVoiceSynthesis.CUID, out vsynth);

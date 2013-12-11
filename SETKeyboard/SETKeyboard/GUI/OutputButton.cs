@@ -22,7 +22,7 @@ namespace SETKeyboard.GUI
         {
             Content = name_;
             Margin = new Thickness(margin_l, margin_t, margin_r, margin_b);
-            VerticalAlignment = VerticalAlignment.Top;
+            VerticalAlignment = VerticalAlignment.Center;
             HorizontalAlignment = HorizontalAlignment.Left;
             Width = width_;
             Height = height_;

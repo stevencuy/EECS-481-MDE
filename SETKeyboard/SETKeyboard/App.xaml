@@ -8,7 +8,7 @@
     <Application.Resources>
         
         <Style TargetType="{x:Type local:KeyButton}">
-            <Setter Property="FontSize" Value="65"/>
+            <Setter Property="FontSize" Value="55"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:KeyButton}">
