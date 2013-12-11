@@ -40,9 +40,18 @@ int main(int argc, char **argv)
 			if (GetAsyncKeyState(VK_ESCAPE)) {
 				return 0;
 			}
+			//Capture
 			frame = cvQueryFrame(capture);
 			cv::flip(frame, frame, 1);
 			frame.copyTo(debugImage);
+			//Check Draw Text for Calibration Prompts
+			if (screen_tl.x == -1) {
+				putText(debugImage, "Look at the TOP LEFT corner of your screen and press UP ARROW KEY", cvPoint(10,460),1, 0.9, cvScalar(0, 255, 255), 1, 8, false);
+			} else if (screen_br.x == -1) {
+				putText(debugImage, "Look at the BOTTOM RIGHT corner of your screen and press DOWN ARROW KEY", cvPoint(10,460),1, 0.9, cvScalar(0, 255, 255), 1, 8, false);
+			} else {
+				putText(debugImage, "Press ESC to exit", cvPoint(10,460),1, 0.9, cvScalar(0, 255, 255), 1, 8, false);
+			}
 			
 			if (!frame.empty())
 			{
