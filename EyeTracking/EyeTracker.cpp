@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 		{
 			//Kill with ESC
 			if (GetAsyncKeyState(VK_ESCAPE)) {
-				return 0;
+				break;
 			}
 			//Capture
 			frame = cvQueryFrame(capture);
@@ -91,6 +91,9 @@ int main(int argc, char **argv)
 	{
 		printf("--(!) Did not detect a camera");
 	}
+
+	cvReleaseCapture(&capture);
+	DestroyWindow(console);
 
 	return 0;
 }
