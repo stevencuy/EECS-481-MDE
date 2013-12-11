@@ -111,8 +111,8 @@ namespace SETKeyboard.GUI
             int button_width = (width - 20) / 3;
             var converter = new System.Windows.Media.BrushConverter();
 
-            create = new TabPhrase("(+) Tab", button_width, button_height, 0, 0, 0, 0, backColor);
-            remove = new TabPhrase("(-) Tab", button_width, button_height, button_width + 10, 0, 0, 0, backColor);
+            create = new TabPhrase("Add Tab", button_width, button_height, 0, 0, 0, 0, backColor);
+            remove = new TabPhrase("Erase Tab", button_width, button_height, button_width + 10, 0, 0, 0, backColor);
             normal = new TabPhrase("Use Tabs", button_width, button_height, 2 * (button_width + 10), 0, 0, 0, backColor);
 
             if (type == 1)

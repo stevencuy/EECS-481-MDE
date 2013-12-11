@@ -75,8 +75,11 @@ namespace SETKeyboard.GUI
             index = 0;
         }
 
-        public string getOriginalContent()
+        public string getOriginalContent(bool isLowerCase)
         {
+            if (isLowerCase)
+                return this.originalContent.ToUpper();
+
             return this.originalContent;
         }
     }

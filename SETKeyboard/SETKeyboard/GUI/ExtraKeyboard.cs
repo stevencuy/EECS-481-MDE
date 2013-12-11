@@ -61,7 +61,7 @@ namespace SETKeyboard.GUI
             keyStrings[19] = "/?";
 
             //ROW 2
-            keyStrings[20] = "+ options";
+            keyStrings[20] = "more";
             keyStrings[21] = "space";
             keyStrings[22] = "back";
             keyStrings[23] = "clear";

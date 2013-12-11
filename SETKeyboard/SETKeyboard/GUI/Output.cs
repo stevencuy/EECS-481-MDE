@@ -44,29 +44,29 @@ namespace SETKeyboard.GUI
             speech = new SpeechSynthesizer();
             string[] outputStrings = new string[3];
             outputStrings[0] = "Speak";
-            outputStrings[1] = "Print Console to Text File";
-            outputStrings[2] = "Copy Console to Clipboard";
+            outputStrings[1] = "Print to File";
+            outputStrings[2] = "Copy to Clipboard";
 
-            int button_width = (int)(width / 3) * 2;
             int margin = (int)height / 20;
-            int button_height = (int)(height / 4) - 25; 
+            int button_width = (int)(width - margin * 4) / 3;
+            int button_height = button_width;
+            int offset = 20;
 
-            OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, 0, margin, 0, 0, backColor);
-            //OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, margin, margin, 0, 0);
+            OutputButton speak = new OutputButton(outputStrings[0], button_width, button_height, margin, margin + offset, 0, 0, backColor);
             outputKeys.Add(speak);
             window.OUTPUTGrid.Children.Add(speak);
             speak.MouseEnter += new MouseEventHandler(Speak_Hover);
 
-            OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, 0, button_height + margin * 2, 0, 0, backColor);
-            //OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, button_width + margin * 2, margin, 0, 0);
+            OutputButton ttf = new OutputButton(outputStrings[1], button_width, button_height, button_width + margin * 2, margin + offset, 0, 0, backColor);
             outputKeys.Add(ttf);
             window.OUTPUTGrid.Children.Add(ttf);
             ttf.MouseEnter += new MouseEventHandler(TTF_Hover);
 
-            OutputButton ttc = new OutputButton(outputStrings[2], button_width, button_height, 0, button_height * 2 + margin * 3, 0, 0, backColor);
+            OutputButton ttc = new OutputButton(outputStrings[2], button_width, button_height, button_width * 2 + margin * 3, margin + offset, 0, 0, backColor);
             outputKeys.Add(ttc);
             window.OUTPUTGrid.Children.Add(ttc);
             ttc.MouseEnter += new MouseEventHandler(TTC_Hover);
+
 
             TTS_BWorker_Init();
             TTF_BWorker_Init();

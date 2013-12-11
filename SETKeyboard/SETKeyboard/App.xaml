@@ -8,7 +8,7 @@
     <Application.Resources>
         
         <Style TargetType="{x:Type local:KeyButton}">
-            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontSize" Value="65"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:KeyButton}">
@@ -21,7 +21,7 @@
         </Style>
         
         <Style TargetType="{x:Type local:T9LetterButton}">
-            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontSize" Value="30"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:T9LetterButton}">
@@ -34,7 +34,7 @@
         </Style>
         
         <Style TargetType="{x:Type local:OutputButton}">
-            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontSize" Value="50"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:OutputButton}">
@@ -47,7 +47,7 @@
         </Style>
         
         <Style TargetType="{x:Type Button}">
-            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontSize" Value="30"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -60,7 +60,7 @@
         </Style>
         
         <Style TargetType="{x:Type ToggleButton}">
-            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontSize" Value="30"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -73,30 +73,21 @@
         </Style>
 
         <Style TargetType="TabItem">
-            <Setter Property="Background" Value="LightGray"/>
             <Setter Property="FontFamily" Value="Segoe UI Light"/>
-            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontSize" Value="30"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabItem}">
                         <Border x:Name="bg" Margin="1" Background="{TemplateBinding Background}">
                             <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="8,6,8,6" ContentSource="Header"/>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="bg" Property="Background" Value="Gray"/>
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="bg" Property="Background" Value="Gray"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
         <Style TargetType="{x:Type local:TabPhrase}">
-            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontSize" Value="30"/>
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type local:TabPhrase}">

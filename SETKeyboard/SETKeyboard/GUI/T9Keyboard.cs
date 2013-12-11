@@ -75,7 +75,6 @@ namespace SETKeyboard.GUI
             window.BackButton.MouseEnter += new MouseEventHandler(backSpaceClick);
             window.SpaceButton.MouseEnter += new MouseEventHandler(spaceClick);
             window.LockButtonLeft.MouseEnter += new MouseEventHandler(lockClick);
-            window.LockButtonRight.MouseEnter += new MouseEventHandler(lockClick);
             window.PeriodButton.MouseEnter += new MouseEventHandler(periodClick);
             window.CommaButton.MouseEnter += new MouseEventHandler(commaClick);
 
@@ -94,7 +93,6 @@ namespace SETKeyboard.GUI
             window.BackButton.Background = backColor;
             window.SpaceButton.Background = backColor;
             window.LockButtonLeft.Background = backColor;
-            window.LockButtonRight.Background = backColor;
             window.PeriodButton.Background = backColor;
             window.CommaButton.Background = backColor;
         }
@@ -112,14 +110,6 @@ namespace SETKeyboard.GUI
                 if (button.Background == selectColor)
                     button.Background = hoverColor;
             };
-        }
-
-        public void updateEvents()
-        {
-            dwellTime = window.getDwellTime();
-            backColor = window.getBackColor();
-            selectColor = window.getSelectColor();
-            hoverColor = window.getHoverColor();
         }
 
         private void toUpperClick(object sender, RoutedEventArgs e)
@@ -173,7 +163,6 @@ namespace SETKeyboard.GUI
             window.SpaceButton.Content = "SPACE";
             window.ShiftButton.Content = "SHIFT";
             window.LockButtonLeft.Content = "LOCK";
-            window.LockButtonLeft.Content = "LOCK";
         }
 
         private void toLowerCase()
@@ -190,7 +179,6 @@ namespace SETKeyboard.GUI
             window.SpaceButton.Content = "space";
             window.ShiftButton.Content = "shift";
             window.LockButtonLeft.Content = "lock";
-            window.LockButtonRight.Content = "lock";
         }
 
         private void T9LetterClickEvent(object sender, RoutedEventArgs e)
@@ -253,7 +241,7 @@ namespace SETKeyboard.GUI
             buttonPressed.MouseLeave += (s, eA) =>
             {
                 buttonPressed.Background = backColor;
-                buttonPressed.Content = buttonPressed.getOriginalContent();
+                buttonPressed.Content = buttonPressed.getOriginalContent(!isLowerCase);
                 timer.Stop();
             };
  
@@ -384,7 +372,6 @@ namespace SETKeyboard.GUI
                 if (!locked)
                 {
                     window.LockButtonLeft.Background = selectColor;
-                    window.LockButtonRight.Background = selectColor;
 
                     locked = true;
                     for (int i = 0; i < 8; i++)
@@ -402,7 +389,6 @@ namespace SETKeyboard.GUI
                 else
                 {
                     window.LockButtonLeft.Background = hoverColor;
-                    window.LockButtonRight.Background = hoverColor;
 
                     locked = false;
                     for (int i = 0; i < 8; i++)
@@ -426,10 +412,7 @@ namespace SETKeyboard.GUI
                 timer.Stop();
 
                 if (lockButton.Background == hoverColor)
-                {
                     window.LockButtonLeft.Background = backColor;
-                    window.LockButtonRight.Background = backColor;
-                }
             };
 
             timer.Start();            

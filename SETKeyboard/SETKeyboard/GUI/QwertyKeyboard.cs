@@ -177,17 +177,6 @@ namespace SETKeyboard.GUI
                 keys[i].toggle();
         }
 
-        public void updateEvents()
-        {
-            dwellTime = window.getDwellTime();
-            backColor = window.getBackColor();
-            selectColor = window.getSelectColor();
-            hoverColor = window.getHoverColor();
-
-            for (int i = 0; i < keys.Count() - 1; ++i)
-                keys[i].Background = backColor;
-        }
-
         private void lockButtons_Click(object sender, RoutedEventArgs e)
         {
             timer = new DispatcherTimer();

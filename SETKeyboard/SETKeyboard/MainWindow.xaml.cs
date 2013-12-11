@@ -38,6 +38,7 @@ namespace SETKeyboard
         public Dictionary<String, Grid> ctab_grids = new Dictionary<String, Grid>();
         public Dictionary<String, TabItem> ctab_items = new Dictionary<String, TabItem>();
 
+        System.Windows.Controls.Button[] buttons;
         private PredictionHandler predictionHandler;
         private Query query;
 
@@ -45,16 +46,27 @@ namespace SETKeyboard
         public SolidColorBrush backColor;
         public SolidColorBrush hoverColor;
         public SolidColorBrush selectColor;
+        public SolidColorBrush tabColor;
+        public SolidColorBrush tabHoverColor;
+        public SolidColorBrush tabSelectColor;
+        public SolidColorBrush consoleColor;
+        public SolidColorBrush wordColor;
+        public SolidColorBrush fontColor;
         public DispatcherTimer timer;
 
         public MainWindow()
         {
-           
+
             dwellTime = 2;
-            backColor = Brushes.LightGray;
-            hoverColor = Brushes.Gray;
-            selectColor = Brushes.MediumSpringGreen;
-          
+            backColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+            hoverColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#EFFAFC"));
+            selectColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FAAF49"));
+            tabColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#3C4246"));
+            tabHoverColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#454C51"));
+            tabSelectColor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FAB049"));
+            consoleColor = (SolidColorBrush)new BrushConverter().ConvertFromString("#00AFF0");
+            wordColor = (SolidColorBrush)new BrushConverter().ConvertFromString("#C0DC6E");
+            fontColor = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFFFF");
 
             this.predictionHandler = new PredictionHandler();
             this.query = new Query();
@@ -75,9 +87,11 @@ namespace SETKeyboard
                 qwerty = new QwertyKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
                 extra = new ExtraKeyboard(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
                 output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
-                window.qwerty_tab.Background = hoverColor;
-                window.extra_tab.Background = hoverColor;
-                window.extra_tab.Background = hoverColor;
+                buttons = new System.Windows.Controls.Button[0];
+                window.SETConsole.Background = consoleColor;
+                window.suggestionBar.Background = wordColor;
+
+                refreshTabs();
             };
 
             //read ctab files from disk
@@ -94,7 +108,7 @@ namespace SETKeyboard
 
         private void OptionsMenu(object sender, RoutedEventArgs e)
         {
-            options = new Options(dwellTime.ToString(), backColor.ToString(), hoverColor.ToString(), selectColor.ToString());
+            options = new Options(dwellTime.ToString(), backColor.ToString(), hoverColor.ToString(), selectColor.ToString(), tabColor.ToString(), tabHoverColor.ToString(), tabSelectColor.ToString(), consoleColor.ToString(), wordColor.ToString(), fontColor.ToString());
             options.Owner = this;
             options.ShowDialog();
 
@@ -115,11 +129,19 @@ namespace SETKeyboard
                 backColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().BackColor);
                 hoverColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().HoverColor);
                 selectColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().SelectColor);
+                tabColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().TabColor);
+                tabHoverColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().TabHoverColor);
+                tabSelectColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().TabSelectColor);
+                consoleColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().ConsoleColor);
+                wordColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().WordColor);
+                fontColor = (SolidColorBrush)new BrushConverter().ConvertFromString(options.getOptionSettings().FontColor);
 
-                //delete updateEvents() if not used
-                //qwerty.updateEvents();
-                //T9.updateEvents();
-                //output.updateEvents();
+                refreshTabs();
+                window.SETConsole.Background = consoleColor;
+                window.SETConsole.Foreground = fontColor;
+                window.suggestionBar.Background = wordColor;
+                window.suggestionBar.Foreground = fontColor;
+                updateSuggestionBar();
                 ctab_controller.updateEvents();
                 updateCustomTabs();
                 T9 = new T9Keyboard(window);
@@ -140,22 +162,45 @@ namespace SETKeyboard
             output = new Output(window, TabPanel.ActualHeight, TabPanel.ActualWidth);
         }
 
+        private void refreshTabs()
+        {
+            TabItem tab;
+
+            for (int i = 0; i < window.TabPanel.Items.Count; i++)
+            {
+                tab = (TabItem)window.TabPanel.Items.GetItemAt(i);
+                tab.Foreground = fontColor;
+
+                if (tab == (TabItem)window.TabPanel.SelectedItem)
+                    tab.Background = tabSelectColor;
+                else if (tab.IsMouseOver)
+                    tab.Background = tabHoverColor;
+                else
+                    tab.Background = tabColor;
+            }
+        }
+
         private void Extra_Click(object sender, RoutedEventArgs e)
         {
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem ExtraButton = (TabItem)sender;
 
+            if(ExtraButton.Background != tabSelectColor)
+                ExtraButton.Background = tabHoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
 
-                window.TabPanel.SelectedIndex = 0;
+                window.TabPanel.SelectedIndex = 2;
+                refreshTabs();
             };
 
             ExtraButton.MouseLeave += (s, eA) =>
             {
                 timer.Stop();
+                refreshTabs();
             };
 
             timer.Start();
@@ -167,16 +212,21 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem QwertyButton = (TabItem)sender;
 
+            if (QwertyButton.Background != tabSelectColor)
+                QwertyButton.Background = tabHoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
 
-                window.TabPanel.SelectedIndex = 1;
+                window.TabPanel.SelectedIndex = 0;
+                refreshTabs();
             };
 
             QwertyButton.MouseLeave += (s, eA) =>
             {
                 timer.Stop();
+                refreshTabs();
             };
 
             timer.Start();
@@ -188,16 +238,21 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem T9Button = (TabItem)sender;
 
+            if(T9Button.Background != tabSelectColor)
+                T9Button.Background = tabHoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
 
-                window.TabPanel.SelectedIndex = 2;
+                window.TabPanel.SelectedIndex = 1;
+                refreshTabs();
             };
 
             T9Button.MouseLeave += (s, eA) =>
             {
                 timer.Stop();
+                refreshTabs();
             };
 
             timer.Start();
@@ -209,16 +264,21 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem OutputButton = (TabItem)sender;
 
+            if (OutputButton.Background != tabSelectColor)
+                OutputButton.Background = tabHoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
 
                 window.TabPanel.SelectedIndex = 3;
+                refreshTabs();
             };
 
             OutputButton.MouseLeave += (s, eA) =>
             {
                 timer.Stop();
+                refreshTabs();
             };
 
             timer.Start();
@@ -230,16 +290,21 @@ namespace SETKeyboard
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem CTABButton = (TabItem)sender;
 
+            if(CTABButton.Background != tabSelectColor)
+                CTABButton.Background = tabHoverColor;
+
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
 
                 window.TabPanel.SelectedIndex = 4;
+                refreshTabs();
             };
 
             CTABButton.MouseLeave += (s, eA) =>
             {
                 timer.Stop();
+                refreshTabs();
             };
 
             timer.Start();
@@ -250,17 +315,22 @@ namespace SETKeyboard
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(dwellTime);
             TabItem TabButton = (TabItem)sender;
+            
+            if(TabButton.Background != tabSelectColor)
+                TabButton.Background = tabHoverColor;
 
             timer.Tick += (sender2, eventArgs) =>
             {
                 timer.Stop();
 
                 window.TabPanel.SelectedIndex = window.TabPanel.Items.IndexOf(TabButton);
+                refreshTabs();
             };
 
             TabButton.MouseLeave += (s, eA) =>
             {
                 timer.Stop();
+                refreshTabs();
             };
 
             timer.Start();
@@ -292,12 +362,14 @@ namespace SETKeyboard
             ctabs.Add(name, new CustomTab(window, name, 500, 800));
             TabItem tab = new TabItem();
             tab.Header = name;
+            tab.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
             tab.Width = 30 + name.Length * 15;
             tab.Height = 100;
             tab.Content = ctab_grids[name];
             tab.MouseEnter += Tab_Click;
             ctab_items.Add(name, tab);
             TabPanel.Items.Add(tab);
+            refreshTabs();
         }
 
         public void createCustomTab(String name)
@@ -306,12 +378,14 @@ namespace SETKeyboard
             tabPhrases[name] = new HashSet<String>();
             TabItem tab = new TabItem();
             tab.Header = name;
+            tab.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
             tab.Width = 30 + name.Length * 15;
             tab.Height = 100;
             tab.Content = ctab_grids[name];
             tab.MouseEnter += Tab_Click;
             ctab_items.Add(name, tab);
             TabPanel.Items.Add(tab);
+            refreshTabs();
         }
 
         public void removeCustomTab(String name)
@@ -322,6 +396,7 @@ namespace SETKeyboard
             ctab_items.Remove(name);
             ctabs.Remove(name);
             window.TabPanel.SelectedIndex = window.TabPanel.Items.IndexOf(ctab_controller_item);
+            refreshTabs();
         }
 
         private void generateTabController()
@@ -329,12 +404,12 @@ namespace SETKeyboard
             ctab_controller = new CustomTabController(window, 500, 800);
             ctab_controller_item = new TabItem();
             ctab_controller_item.MouseEnter += CTAB_Click;
+            ctab_controller_item.Foreground = fontColor;
             ctab_controller_item.Header = "Edit Tabs";
             ctab_controller_item.Width = 15 + "Edit Tabs".Length * 15;
             ctab_controller_item.Height = 100;
-            var converter = new System.Windows.Media.BrushConverter();
 
-            ctab_controller_grid.Background = (Brush)converter.ConvertFromString("#FFEDF5FF");
+            ctab_controller_grid.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#EEEEEE"));
             ctab_controller_item.Content = ctab_controller_grid;
             TabPanel.Items.Add(ctab_controller_item);
         }
@@ -342,8 +417,7 @@ namespace SETKeyboard
         public void assignGrid(String tab_name)
         {
             Grid g = new Grid();
-            var converter = new System.Windows.Media.BrushConverter();
-            g.Background = (Brush)converter.ConvertFromString("#FFEDF5FF");
+            g.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#EEEEEE"));
             ctab_grids.Add(tab_name, g);
         }
 
@@ -352,17 +426,20 @@ namespace SETKeyboard
             query.setQuery(consoleText);
             string[] bro = predictionHandler.getPredictions(query);
 
-            System.Windows.Controls.Button[] buttons = new System.Windows.Controls.Button[bro.Length];
+            buttons = new System.Windows.Controls.Button[bro.Length];
 
             for (int i = 0; i < bro.Length; i++)
             {
                 System.Windows.Controls.Button suggestionButton = new System.Windows.Controls.Button();
                 suggestionButton.FontSize = 65;
+                suggestionButton.Foreground = fontColor;
 
                 if (bro[i] == "t")
                     suggestionButton.Content = " 't ";
                 else if (bro[i] == "s")
                     suggestionButton.Content = " 's ";
+                else if (bro[i] == "i")
+                    suggestionButton.Content = " I ";
                 else
                     suggestionButton.Content = " " + bro[i] + " ";
 
@@ -387,6 +464,15 @@ namespace SETKeyboard
             window.SETConsole.Document.Blocks.Clear();
             window.SETConsole.Document.Blocks.Add(new Paragraph(new Run(consoleText)));
             window.FocusCaret();
+        }
+
+        public void updateSuggestionBar()
+        {
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if(buttons[i] != null)
+                    buttons[i].Foreground = fontColor;
+            }
         }
 
         private void suggestionBar_Click(object sender, EventArgs e)

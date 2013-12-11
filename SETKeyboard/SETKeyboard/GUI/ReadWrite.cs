@@ -29,10 +29,17 @@ namespace SETKeyboard.GUI
         private String backColor;
         private String hoverColor;
         private String selectColor;
+        private String tabColor;
+        private String tabHoverColor;
+        private String tabSelectColor;
+        private String consoleColor;
+        private String wordColor;
+        private string fontColor;
 
         public ReadWrite(MainWindow window)
         {
             this.window = window;
+            SyncSettings(window);
             tabs_directory = Directory.GetCurrentDirectory() + "\\ctab_files";
             settings_directory = Directory.GetCurrentDirectory() + "\\settings";
         }
@@ -49,6 +56,13 @@ namespace SETKeyboard.GUI
             backColor = window.backColor.ToString();
             hoverColor = window.hoverColor.ToString();
             selectColor = window.selectColor.ToString();
+            tabColor = window.tabColor.ToString();
+            tabHoverColor = window.tabColor.ToString();
+            tabSelectColor = window.tabSelectColor.ToString();
+            consoleColor = window.consoleColor.ToString();
+            wordColor = window.wordColor.ToString();
+            fontColor = window.fontColor.ToString();
+
             this.window = window;
         }
 
@@ -73,10 +87,22 @@ namespace SETKeyboard.GUI
                 backColor = r.ReadLine();
                 hoverColor = r.ReadLine();
                 selectColor = r.ReadLine();
+                tabColor = r.ReadLine();
+                tabHoverColor = r.ReadLine();
+                tabSelectColor = r.ReadLine();
+                consoleColor = r.ReadLine();
+                wordColor = r.ReadLine();
+                fontColor = r.ReadLine();
                 window.dwellTime = Convert.ToInt32(dwellTime);
                 window.backColor = (SolidColorBrush)new BrushConverter().ConvertFromString(backColor);
                 window.hoverColor = (SolidColorBrush)new BrushConverter().ConvertFromString(hoverColor);
                 window.selectColor = (SolidColorBrush)new BrushConverter().ConvertFromString(selectColor);
+                window.tabColor = (SolidColorBrush)new BrushConverter().ConvertFromString(tabColor);
+                window.tabColor = (SolidColorBrush)new BrushConverter().ConvertFromString(tabHoverColor);
+                window.tabSelectColor = (SolidColorBrush)new BrushConverter().ConvertFromString(tabSelectColor);
+                window.consoleColor = (SolidColorBrush)new BrushConverter().ConvertFromString(consoleColor);
+                window.wordColor = (SolidColorBrush)new BrushConverter().ConvertFromString(wordColor);
+                window.fontColor = (SolidColorBrush)new BrushConverter().ConvertFromString(fontColor);
             }
         }
         public void WriteSettings()
@@ -90,8 +116,6 @@ namespace SETKeyboard.GUI
                 File.Delete(file_name);
             }
             WriteSettingsFile("SETKeyboard");
-
-
         }
 
         public void WriteSettingsFile(String name)
@@ -103,8 +127,13 @@ namespace SETKeyboard.GUI
                 writer.WriteLine(backColor);
                 writer.WriteLine(hoverColor);
                 writer.WriteLine(selectColor);
+                writer.WriteLine(tabColor);
+                writer.WriteLine(tabHoverColor);
+                writer.WriteLine(tabSelectColor);
+                writer.WriteLine(consoleColor);
+                writer.WriteLine(wordColor);
+                writer.WriteLine(fontColor);
             }
-
         }
 
         public void ReadTabs()

@@ -128,10 +128,10 @@ namespace SETKeyboard.GUI
             int button_width = (width - 30) / 4;
             var converter = new System.Windows.Media.BrushConverter();
 
-            create = new TabPhrase("(+) Phrase", button_width, button_height, 0, 0, 0, 0, backColor);
-            remove = new TabPhrase("(-) Phrases", button_width, button_height, button_width + 10, 0, 0, 0, backColor);
+            create = new TabPhrase("Add Phrase", button_width, button_height, 0, 0, 0, 0, backColor);
+            remove = new TabPhrase("Erase Phrase", button_width, button_height, button_width + 10, 0, 0, 0, backColor);
             normal = new TabPhrase("Use Phrases", button_width, button_height, 2 * (button_width + 10), 0, 0, 0, backColor);
-            clear = new TabPhrase("Clear Console", button_width, button_height, 3 * (button_width + 10), 0, 0, 0, backColor);
+            clear = new TabPhrase("Clear", button_width, button_height, 3 * (button_width + 10), 0, 0, 0, backColor);
             backspace = new TabPhrase("Backspace", button_width, button_height, 4 * (button_width + 10), 0, 0, 0, backColor);
 
             if (type == 1)
