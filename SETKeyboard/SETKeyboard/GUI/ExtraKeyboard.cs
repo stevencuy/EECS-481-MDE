@@ -238,7 +238,7 @@ namespace SETKeyboard.GUI
                             keys[i].MouseEnter += Space_Click;
                         else if (keys[i].getLower() == "clear")
                             keys[i].MouseEnter += Clear_Click;
-                        else if (keys[i].getLower() == "+ options")
+                        else if (keys[i].getLower() == "more")
                             keys[i].MouseEnter += Options_Click;
                         else
                             keys[i].MouseEnter += KeyHit_Click;
