@@ -88,11 +88,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\libpxcclr.dll</HintPath>
     </Reference>
+    <Reference Include="presage.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\presage\bin\presage.net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>bin\x86\Debug\System.Data.SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System.Speech" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -120,8 +121,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GUI\Query.cs" />
-    <Compile Include="GUI\PredictionHandler.cs" />
-    <Compile Include="GUI\DatabaseInteractor.cs" />
     <Compile Include="GUI\ExtraKeyboard.cs" />
     <Compile Include="GUI\QwertyKeyboard.cs" />
     <Compile Include="GUI\ReadWrite.cs" />
@@ -164,9 +163,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="database_en.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

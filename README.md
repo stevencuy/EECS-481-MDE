@@ -34,11 +34,20 @@ SETKeyboard:
  3. Install with default settings (Takes a couple of minutes)
  4. Restart computer
 
+**Install presage, the predictive text entry system:**
+
+ 1. Navigate to: http://presage.sourceforge.net
+ 2. Download presage version 0.9~beta or later
+ 3. Install with default settings
+
 **Build Source:**
  1. Clone master branch to pc
  2. Navigate to EECS-481-MDE/SETKeyboard/
  3. Open SETKeyboard.sln
- 4. Select run "Start" button (green play button)
+ 4. Ensure that the selected solution platform is x86
+    (i.e. Debug|x86 or Release|x86 - do not use AnyCPU or x64)
+    The selected platform must match the installed presage build platform.
+ 5. Select run "Start" button (green play button)
  
 **Using**
  * Every button within the application can be fired after being hovered over for a constant amount of time called the "dwell time."
