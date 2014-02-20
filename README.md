@@ -37,7 +37,8 @@ SETKeyboard:
 **Install presage, the predictive text entry system:**
 
  1. Navigate to: http://presage.sourceforge.net
- 2. Download presage version 0.9~beta or later
+ 2. Download presage version 0.9~beta (or later)
+    ( https://sourceforge.net/projects/presage/files/presage/0.9~beta/win32/presage-0.9~beta20140216-setup.exe/download )
  3. Install with default settings
 
 **Build Source:**
