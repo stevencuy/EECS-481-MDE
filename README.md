@@ -77,6 +77,9 @@ Eyetracking:
 Bug Report
 https://docs.google.com/a/umich.edu/document/d/1k1pvHtocLwMiVMthVXYbPCYa0DvfDzIZSqlNXdG0Xx0/edit?usp=sharing
 
+Demonstration:
+-------------
+https://www.youtube.com/watch?v=-v05vlaSVIk
 
 ----------------
 **Team Set: Anthony Chiang, Deng Ke Teo, Bryant Ku, Steven Louie, Mark Mevorah, Jason Terranova, Steven Uy**
