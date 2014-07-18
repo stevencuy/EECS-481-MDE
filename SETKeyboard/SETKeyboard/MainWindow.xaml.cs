@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+using presage;
+
 namespace SETKeyboard
 {
     public partial class MainWindow : Window
@@ -39,8 +41,7 @@ namespace SETKeyboard
         public Dictionary<String, TabItem> ctab_items = new Dictionary<String, TabItem>();
 
         System.Windows.Controls.Button[] buttons;
-        private PredictionHandler predictionHandler;
-        private Query query;
+        private Presage prsg;
 
         public int dwellTime;
         public SolidColorBrush backColor;
@@ -53,6 +54,9 @@ namespace SETKeyboard
         public SolidColorBrush wordColor;
         public SolidColorBrush fontColor;
         public DispatcherTimer timer;
+
+        public string presage_get_past_stream() { return consoleText; }
+        public string presage_get_future_stream() { return ""; }
 
         public MainWindow()
         {
@@ -67,9 +71,6 @@ namespace SETKeyboard
             consoleColor = (SolidColorBrush)new BrushConverter().ConvertFromString("#00AFF0");
             wordColor = (SolidColorBrush)new BrushConverter().ConvertFromString("#C0DC6E");
             fontColor = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFFFFF");
-
-            this.predictionHandler = new PredictionHandler();
-            this.query = new Query();
 
             InitializeComponent();
             this.consoleText = "";
@@ -93,6 +94,9 @@ namespace SETKeyboard
 
                 refreshTabs();
             };
+
+            // presage predictive text entry system
+            this.prsg = new Presage(presage_get_past_stream, presage_get_future_stream);
 
             //read ctab files from disk
             
@@ -421,10 +425,18 @@ namespace SETKeyboard
             ctab_grids.Add(tab_name, g);
         }
 
+        private void replaceSubstringFromConsoleTextEnd(string pattern, string replacement)
+        {
+            if (this.consoleText.EndsWith(pattern))
+            {
+                this.consoleText = this.consoleText.Substring(0, this.consoleText.Length - pattern.Length) + replacement;
+            }
+        }
+
         public void setConsoleText(String consoleText)
         {
-            query.setQuery(consoleText);
-            string[] bro = predictionHandler.getPredictions(query);
+            this.consoleText = consoleText;
+            string[] bro = prsg.predict();
 
             buttons = new System.Windows.Controls.Button[bro.Length];
 
@@ -455,14 +467,13 @@ namespace SETKeyboard
              * Takes care of the event of an autocompletion followed by a period. A completion will add a space
              * after the selected suggested word in the console. Clicking the period will remove this extra space. 
              */
-            consoleText = consoleText.Replace(" i ", " I ");
-            consoleText = consoleText.Replace(" .", ". ");
-            consoleText = consoleText.Replace("  ", " ");
+            replaceSubstringFromConsoleTextEnd(" i ", " I ");
+            replaceSubstringFromConsoleTextEnd(" . ", ". ");
+            replaceSubstringFromConsoleTextEnd("  ", " ");
 
             //Puts text onto the console
-            this.consoleText = consoleText;
             window.SETConsole.Document.Blocks.Clear();
-            window.SETConsole.Document.Blocks.Add(new Paragraph(new Run(consoleText)));
+            window.SETConsole.Document.Blocks.Add(new Paragraph(new Run(this.consoleText)));
             window.FocusCaret();
         }
 
@@ -489,36 +500,8 @@ namespace SETKeyboard
             {
                 timer.Stop();
 
-                int replaceIndex = 0;
-                for (int i = this.consoleText.Length - 1; i >= 0; i--)
-                {
-                    if (consoleText[i].Equals(' ') || (i == 0))
-                    {
-                        replaceIndex = i;
-                        break;
-                    }
-                }
-                /*
-                 * Preserves the case of a word being replaced by a selected suggestion
-                 */
-                int replacementOffset = 0;
-                if (replaceIndex != 0)
-                {
-                    replacementOffset = 1;
-                }
-
-                if (!consoleText[consoleText.Length - 1].Equals(' '))
-                {
-                    replacement = consoleText[replaceIndex + replacementOffset] + replacement.Substring(1, replacement.Length - 1);
-                }
-
-                consoleText = consoleText.Substring(0, replaceIndex);
-
-                if (replaceIndex != 0)
-                {
-                    consoleText += " ";
-                }
-
+                replacement = prsg.completion(replacement);
+                
                 if (replacement == "'t" && consoleText.Length > 1)
                     consoleText = consoleText.Substring(0, consoleText.Length - 1) + "'t ";
                 else if (replacement == "'s" && consoleText.Length > 1)
